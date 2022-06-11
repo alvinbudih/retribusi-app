@@ -38,5 +38,15 @@ class DatabaseSeeder extends Seeder
                 "role_id" => $i + 1
             ]);
         }
+
+        UserRole::create([
+            "user_id" => 2,
+            "role_id" => 3
+        ]);
+
+        UserRole::create([
+            "user_id" => 3,
+            "role_id" => 2
+        ]);
     }
 }
