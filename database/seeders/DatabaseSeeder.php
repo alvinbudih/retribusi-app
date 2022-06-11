@@ -37,16 +37,18 @@ class DatabaseSeeder extends Seeder
                 "user_id" => $i + 1,
                 "role_id" => $i + 1
             ]);
+
+            UserRole::create([
+                "user_id" => 4,
+                "role_id" => $i + 1
+            ]);
         }
 
-        UserRole::create([
-            "user_id" => 2,
-            "role_id" => 3
-        ]);
-
-        UserRole::create([
-            "user_id" => 3,
-            "role_id" => 2
+        User::create([
+            "name" => "Multirole",
+            "username" => "multirole",
+            "email" => "multirole@gmail.com",
+            "password" => Hash::make("password")
         ]);
     }
 }
