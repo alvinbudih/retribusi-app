@@ -1,14 +1,18 @@
-<!doctype html>
+<!DOCTYPE html>
 <html class="fixed">
 	<head>
 
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
+    <title>Halaman {{ $title }}</title>
 		<meta name="keywords" content="HTML5 Admin Template" />
 		<meta name="description" content="Porto Admin - Responsive HTML5 Template">
 		<meta name="author" content="okler.net">
 
+    {{-- My CSS --}}
+    <link rel="stylesheet" href="{{ asset('css/my-style.css') }}">
+    
 		<!-- Mobile Metas -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
@@ -47,24 +51,33 @@
 						<h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> Sign In</h2>
 					</div>
 					<div class="panel-body">
-						<form action="" method="post">
+            @if(session()->has("loginError"))
+            <div class="well danger text-center">
+              {{ session("loginError") }}
+            </div>
+            @endif
+						<form action="{{ route('auth.login') }}" method="post">
               @csrf
-							<div class="form-group mb-lg">
-								<label>Username</label>
+							<div class="form-group mb-lg @error('username') has-error @enderror">
+								<label for="username">Username</label>
 								<div class="input-group input-group-icon">
-									<input name="username" type="text" class="form-control input-lg" id="inputError" />
+									<input name="username" type="text" class="form-control input-lg" id="username" />
 									<span class="input-group-addon">
 										<span class="icon icon-lg">
 											<i class="fa fa-user"></i>
 										</span>
 									</span>
 								</div>
+                @error('username')
+                <small class="text-danger">
+                  {{ $message }}
+                </small>
+                @enderror
 							</div>
 
-							<div class="form-group mb-lg">
+							<div class="form-group mb-lg @error('password') has-error @enderror">
 								<div class="clearfix">
 									<label class="pull-left">Password</label>
-									<a href="pages-recover-password.html" class="pull-right">Lost Password?</a>
 								</div>
 								<div class="input-group input-group-icon">
 									<input name="password" type="password" class="form-control input-lg" id="password"/>
@@ -74,31 +87,18 @@
 										</span>
 									</span>
 								</div>
+                @error('password')
+                <small class="text-danger">
+                  {{ $message }}
+                </small>
+                @enderror
 							</div>
 
-							<div class="row">
-								<div class="col-sm-8">
-									<div class="checkbox-custom checkbox-default">
-										<input id="RememberMe" name="rememberme" type="checkbox"/>
-										<label for="RememberMe">Remember Me</label>
-									</div>
-								</div>
-								<div class="col-sm-4 text-right">
-									<button type="submit" class="btn btn-primary hidden-xs">Sign In</button>
-									<button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Sign In</button>
-								</div>
+							<div class="row text-center">
+                <button type="submit" class="btn btn-primary hidden-xs">Sign In</button>
+                <button type="reset" class="btn btn-primary hidden-xs">Reset</button>
+                <button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Sign In</button>
 							</div>
-
-							<span class="mt-lg mb-lg line-thru text-center text-uppercase">
-								<span>or</span>
-							</span>
-
-							<div class="mb-xs text-center">
-								<a class="btn btn-facebook mb-md ml-xs mr-xs">Connect with <i class="fa fa-facebook"></i></a>
-								<a class="btn btn-twitter mb-md ml-xs mr-xs">Connect with <i class="fa fa-twitter"></i></a>
-							</div>
-
-							<p class="text-center">Don't have an account yet? <a href="pages-signup.html">Sign Up!</a>
 
 						</form>
 					</div>
