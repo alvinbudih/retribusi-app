@@ -19,6 +19,7 @@
     </div>
   </header>
 
+  <!-- start: page -->
   @can('admin')
   <div class="row">
     <div class="col-md-12">
@@ -37,7 +38,9 @@
       </section>
     </div>
   </div>
-  @elsecan('kasir')
+  @endcan
+
+  @can('kasir')
   <div class="row">
     <div class="col-md-12">
       <section class="panel">
@@ -55,7 +58,9 @@
       </section>
     </div>
   </div>
-  @elsecan('pelayanan')
+  @endcan
+
+  @can('pelayanan')
   <div class="row">
     <div class="col-md-12">
       <section class="panel">
@@ -74,8 +79,7 @@
     </div>
   </div>
   @endcan
-
-  <!-- start: page -->
   <!-- end: page -->
+  
 </section>
 @endsection

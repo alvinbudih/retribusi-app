@@ -61,7 +61,7 @@
 							<div class="form-group mb-lg @error('username') has-error @enderror">
 								<label for="username">Username</label>
 								<div class="input-group input-group-icon">
-									<input name="username" type="text" class="form-control input-lg" id="username" />
+									<input name="username" type="text" class="form-control input-lg" id="username" autofocus/>
 									<span class="input-group-addon">
 										<span class="icon icon-lg">
 											<i class="fa fa-user"></i>

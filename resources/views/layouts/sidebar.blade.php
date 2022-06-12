@@ -13,7 +13,7 @@
     <div class="nano-content">
       <nav id="menu" class="nav-main" role="navigation">
         <ul class="nav nav-main">
-          <li>
+          <li class="{{ Request::is('dashboard') ? 'nav-active' : '' }}">
             <a href="index.html">
               <i class="fa fa-home" aria-hidden="true"></i>
               <span>Dashboard</span>
@@ -26,7 +26,7 @@
               <span>Mailbox</span>
             </a>
           </li>
-          <li class="nav-parent nav-expanded nav-active">
+          <li class="nav-parent {{-- nav-expanded nav-active --}}">
             <a>
               <i class="fa fa-copy" aria-hidden="true"></i>
               <span>Pages</span>
@@ -221,172 +221,6 @@
                 </a>
               </li>
             </ul>
-          </li>
-          <li class="nav-parent">
-            <a>
-              <i class="fa fa-list-alt" aria-hidden="true"></i>
-              <span>Forms</span>
-            </a>
-            <ul class="nav nav-children">
-              <li>
-                <a href="forms-basic.html">
-                   Basic
-                </a>
-              </li>
-              <li>
-                <a href="forms-advanced.html">
-                   Advanced
-                </a>
-              </li>
-              <li>
-                <a href="forms-validation.html">
-                   Validation
-                </a>
-              </li>
-              <li>
-                <a href="forms-layouts.html">
-                   Layouts
-                </a>
-              </li>
-              <li>
-                <a href="forms-wizard.html">
-                   Wizard
-                </a>
-              </li>
-              <li>
-                <a href="forms-code-editor.html">
-                   Code Editor
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-parent">
-            <a>
-              <i class="fa fa-table" aria-hidden="true"></i>
-              <span>Tables</span>
-            </a>
-            <ul class="nav nav-children">
-              <li>
-                <a href="tables-basic.html">
-                   Basic
-                </a>
-              </li>
-              <li>
-                <a href="tables-advanced.html">
-                   Advanced
-                </a>
-              </li>
-              <li>
-                <a href="tables-responsive.html">
-                   Responsive
-                </a>
-              </li>
-              <li>
-                <a href="tables-editable.html">
-                   Editable
-                </a>
-              </li>
-              <li>
-                <a href="tables-ajax.html">
-                   Ajax
-                </a>
-              </li>
-              <li>
-                <a href="tables-pricing.html">
-                   Pricing
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-parent">
-            <a>
-              <i class="fa fa-map-marker" aria-hidden="true"></i>
-              <span>Maps</span>
-            </a>
-            <ul class="nav nav-children">
-              <li>
-                <a href="maps-google-maps.html">
-                   Basic
-                </a>
-              </li>
-              <li>
-                <a href="maps-google-maps-builder.html">
-                   Map Builder
-                </a>
-              </li>
-              <li>
-                <a href="maps-vector.html">
-                   Vector
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-parent">
-            <a>
-              <i class="fa fa-columns" aria-hidden="true"></i>
-              <span>Layouts</span>
-            </a>
-            <ul class="nav nav-children">
-              <li>
-                <a href="layouts-default.html">
-                   Default
-                </a>
-              </li>
-              <li>
-                <a href="layouts-boxed.html">
-                   Boxed
-                </a>
-              </li>
-              <li>
-                <a href="layouts-menu-collapsed.html">
-                   Menu Collapsed
-                </a>
-              </li>
-              <li>
-                <a href="layouts-scroll.html">
-                   Scroll
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-parent">
-            <a>
-              <i class="fa fa-align-left" aria-hidden="true"></i>
-              <span>Menu Levels</span>
-            </a>
-            <ul class="nav nav-children">
-              <li>
-                <a>First Level</a>
-              </li>
-              <li class="nav-parent">
-                <a>Second Level</a>
-                <ul class="nav nav-children">
-                  <li class="nav-parent">
-                    <a>Third Level</a>
-                    <ul class="nav nav-children">
-                      <li>
-                        <a>Third Level Link #1</a>
-                      </li>
-                      <li>
-                        <a>Third Level Link #2</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <a>Second Level Link #1</a>
-                  </li>
-                  <li>
-                    <a>Second Level Link #2</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href="http://themeforest.net/item/porto-responsive-html5-template/4106987?ref=Okler" target="_blank">
-              <i class="fa fa-external-link" aria-hidden="true"></i>
-              <span>Front-End <em class="not-included">(Not Included)</em></span>
-            </a>
           </li>
         </ul>
       </nav>
