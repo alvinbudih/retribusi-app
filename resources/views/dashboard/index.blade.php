@@ -33,7 +33,7 @@
           <h2 class="panel-title">Judul Admin</h2>
         </header>
         <div class="panel-body">
-          ini adalah content untuk admin
+          ini adalah content untuk Admin
         </div>
       </section>
     </div>

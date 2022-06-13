@@ -25,7 +25,7 @@ Route::middleware("guest")->group(function () {
         return view("auth.login", [
             "title" => "Login"
         ]);
-    });
+    })->name("login");
 
     Route::post("/login", [LoginController::class, "authenticate"])->name("auth.login");
 });
@@ -35,8 +35,21 @@ Route::middleware("auth")->group(function () {
     Route::get("/logout", [LoginController::class, "logout"])->name("auth.logout");
 
     Route::get("/dashboard", function () {
+        // dd(auth()->user()->roles);
         return view("dashboard.index", [
             "title" => "Dashboard"
         ]);
     });
+
+    Route::get("/admin", function () {
+        return "this is admin page";
+    })->middleware("admin");
+
+    Route::get("/pelayanan", function () {
+        return "this is pelayanan page";
+    })->middleware("pelayanan");
+
+    Route::get("/kasir", function () {
+        return "this is kasir page";
+    })->middleware("kasir");
 });

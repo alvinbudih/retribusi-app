@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::define("admin", function (User $user) {
             foreach ($user->roles()->get() as $role) {
                 if ($role->role_name === "Admin") {
-                    return $role->role_name;
+                    return $role->role_name === "Admin";
                 }
             }
         });
@@ -37,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::define("kasir", function (User $user) {
             foreach ($user->roles()->get() as $role) {
                 if ($role->role_name === "Kasir") {
-                    return $role->role_name;
+                    return $role->role_name === "Kasir";
                 }
             }
         });
@@ -45,7 +45,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::define("pelayanan", function (User $user) {
             foreach ($user->roles()->get() as $role) {
                 if ($role->role_name === "Pelayanan") {
-                    return $role->role_name;
+                    return $role->role_name === "Pelayanan";
                 }
             }
         });
