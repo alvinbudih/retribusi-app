@@ -14,6 +14,8 @@ class LoginController extends Controller
             "password" => "required"
         ]);
 
+        $credentials["username"] = strtolower($credentials["username"]);
+
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
@@ -31,6 +33,6 @@ class LoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect()->route("auth.login");
+        return redirect()->route("login.auth");
     }
 }

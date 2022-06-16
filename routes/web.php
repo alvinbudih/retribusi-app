@@ -27,19 +27,19 @@ Route::middleware("guest")->group(function () {
         ]);
     })->name("login");
 
-    Route::post("/login", [LoginController::class, "authenticate"])->name("auth.login");
+    Route::post("/login", [LoginController::class, "authenticate"])->name("login.auth");
 });
 
 
 Route::middleware("auth")->group(function () {
-    Route::get("/logout", [LoginController::class, "logout"])->name("auth.logout");
+    Route::get("/logout", [LoginController::class, "logout"])->name("logout");
 
     Route::get("/dashboard", function () {
         // dd(auth()->user()->roles);
         return view("dashboard.index", [
             "title" => "Dashboard"
         ]);
-    });
+    })->name("dashboard");
 
     Route::get("/admin", function () {
         return "this is admin page";

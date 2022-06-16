@@ -1,145 +1,85 @@
-<!doctype html>
-<html class="fixed">
-	<head>
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html lang="en">
 
-		<!-- Basic -->
-		<meta charset="UTF-8">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-		<title>Halaman {{ $title }}</title>
-		<meta name="keywords" content="HTML5 Admin Template" />
-		<meta name="description" content="Porto Admin - Responsive HTML5 Template">
-		<meta name="author" content="okler.net">
+  <title>Halaman {{ $title }} </title>
 
-    {{-- My CSS --}}
-    <link rel="stylesheet" href="{{ asset('css/my-style.css') }}">
-    
-		<!-- Mobile Metas -->
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="{{ asset('backend/plugins/fontawesome-free/css/all.min.css') }}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ asset('backend/dist/css/adminlte.min.css') }}">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <!-- Iconic Icons CSS -->
+  <link href="{{ asset('icons/font/css/open-iconic-bootstrap.css') }}" rel="stylesheet">
+</head>
 
-		<!-- Web Fonts  -->
-		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-footer-fixed">
+  <div class="wrapper">
 
-		<!-- Vendor CSS -->
-		<link rel="stylesheet" href="{{ asset('backend/vendor/bootstrap/css/bootstrap.css') }}" />
-		<link rel="stylesheet" href="{{ asset('backend/vendor/font-awesome/css/font-awesome.css') }}" />
-		<link rel="stylesheet" href="{{ asset('backend/vendor/magnific-popup/magnific-popup.css') }}" />
-		<link rel="stylesheet" href="{{ asset('backend/vendor/bootstrap-datepicker/css/datepicker3.css') }}" />
+    <!-- Navbar -->
+    @include("layouts.navbar")
+    <!-- /.navbar -->
 
-		<!-- Theme CSS -->
-		<link rel="stylesheet" href="{{ asset('backend/stylesheets/theme.css') }}" />
+    <!-- Main Sidebar Container -->
+    @include("layouts.sidebar")
 
-		<!-- Skin CSS -->
-		<link rel="stylesheet" href="{{ asset('backend/stylesheets/skins/default.css') }}" />
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0 text-dark">{{ $title }}</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active">{{ $title }}</li>
+              </ol>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content-header -->
 
-		<!-- Theme Custom CSS -->
-		<link rel="stylesheet" href="{{ asset('backend/stylesheets/theme-custom.css') }}">
+      <!-- Main content -->
+      @yield("content")
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
 
-		<!-- Head Libs -->
-		<script src="{{ asset('backend/vendor/modernizr/modernizr.js') }}"></script>
+    @include("layouts.control-sidebar")
 
-	</head>
-	<body>
-		<section class="body">
+    <!-- Main Footer -->
+    <footer class="main-footer">
+      <!-- To the right -->
+      <div class="float-right d-none d-sm-inline">
+        Anything you want
+      </div>
+      <!-- Default to the left -->
+      <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+    </footer>
+  </div>
+  <!-- ./wrapper -->
 
-			<!-- start: header -->
-			@include('layouts.header')
-			<!-- end: header -->
+  <!-- REQUIRED SCRIPTS -->
 
-			<div class="inner-wrapper">
-				<!-- start: sidebar -->
-				@include('layouts.sidebar')
-				<!-- end: sidebar -->
+  <!-- jQuery -->
+  <script src="{{ asset('backend/plugins/jquery/jquery.min.js') }}"></script>
+  <!-- Bootstrap 4 -->
+  <script src="{{ asset('backend/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <!-- AdminLTE App -->
+  <script src="{{ asset('backend/dist/js/adminlte.min.js') }}"></script>
+</body>
 
-        @yield('content')
-				
-			</div>
-
-			<aside id="sidebar-right" class="sidebar-right">
-				<div class="nano">
-					<div class="nano-content">
-						<a href="#" class="mobile-close visible-xs">
-							Collapse <i class="fa fa-chevron-right"></i>
-						</a>
-			
-						<div class="sidebar-right-wrapper">
-			
-							<div class="sidebar-widget widget-calendar">
-								<h6>Upcoming Tasks</h6>
-								<div data-plugin-datepicker data-plugin-skin="dark" ></div>
-			
-								<ul>
-									<li>
-										<time datetime="2014-04-19T00:00+00:00">04/19/2014</time>
-										<span>Company Meeting</span>
-									</li>
-								</ul>
-							</div>
-			
-							<div class="sidebar-widget widget-friends">
-								<h6>Friends</h6>
-								<ul>
-									<li class="status-online">
-										<figure class="profile-picture">
-											<img src="{{ asset('backend/images/!sample-user.jpg') }}" alt="Joseph Doe" class="img-circle">
-										</figure>
-										<div class="profile-info">
-											<span class="name">Joseph Doe Junior</span>
-											<span class="title">Hey, how are you?</span>
-										</div>
-									</li>
-									<li class="status-online">
-										<figure class="profile-picture">
-											<img src="{{ asset('backend/images/!sample-user.jpg') }}" alt="Joseph Doe" class="img-circle">
-										</figure>
-										<div class="profile-info">
-											<span class="name">Joseph Doe Junior</span>
-											<span class="title">Hey, how are you?</span>
-										</div>
-									</li>
-									<li class="status-offline">
-										<figure class="profile-picture">
-											<img src="{{ asset('backend/images/!sample-user.jpg') }}" alt="Joseph Doe" class="img-circle">
-										</figure>
-										<div class="profile-info">
-											<span class="name">Joseph Doe Junior</span>
-											<span class="title">Hey, how are you?</span>
-										</div>
-									</li>
-									<li class="status-offline">
-										<figure class="profile-picture">
-											<img src="{{ asset('backend/images/!sample-user.jpg') }}" alt="Joseph Doe" class="img-circle">
-										</figure>
-										<div class="profile-info">
-											<span class="name">Joseph Doe Junior</span>
-											<span class="title">Hey, how are you?</span>
-										</div>
-									</li>
-								</ul>
-							</div>
-			
-						</div>
-					</div>
-				</div>
-			</aside>
-		</section>
-
-		<!-- Vendor -->
-		<script src="{{ asset('backend/vendor/jquery/jquery.js') }}"></script>
-		<script src="{{ asset('backend/vendor/jquery-browser-mobile/jquery.browser.mobile.js') }}"></script>
-		<script src="{{ asset('backend/vendor/bootstrap/js/bootstrap.js') }}"></script>
-		<script src="{{ asset('backend/vendor/nanoscroller/nanoscroller.js') }}"></script>
-		<script src="{{ asset('backend/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
-		<script src="{{ asset('backend/vendor/magnific-popup/magnific-popup.js') }}"></script>
-		<script src="{{ asset('backend/vendor/jquery-placeholder/jquery.placeholder.js') }}"></script>
-		
-		<!-- Theme Base, Components and Settings -->
-		<script src="{{ asset("backend/javascripts/theme.js") }}"></script>
-		
-		<!-- Theme Custom -->
-		<script src="{{ asset('backend/javascripts/theme.custom.js') }}"></script>
-		
-		<!-- Theme Initialization Files -->
-		<script src="{{ asset('backend/javascripts/theme.init.js') }}"></script>
-
-	</body>
 </html>

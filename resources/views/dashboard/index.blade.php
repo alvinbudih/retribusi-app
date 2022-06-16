@@ -1,85 +1,33 @@
 @extends('layouts.main')
 @section('content')
-<section role="main" class="content-body">
-  <header class="page-header">
-    <h2>Blank Page</h2>
-  
-    <div class="right-wrapper pull-right">
-      <ol class="breadcrumbs">
-        <li>
-          <a href="index.html">
-            <i class="fa fa-home"></i>
-          </a>
-        </li>
-        <li><span>Pages</span></li>
-        <li><span>Blank Page</span></li>
-      </ol>
-  
-      <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
-    </div>
-  </header>
+<section class="content">
 
-  <!-- start: page -->
-  @can('admin')
-  <div class="row">
-    <div class="col-md-12">
-      <section class="panel">
-        <header class="panel-heading">
-          <div class="panel-actions">
-            <a href="#" class="fa fa-caret-down"></a>
-            <a href="#" class="fa fa-times"></a>
+    <div class="row">
+      <div class="col">
+        <!-- Default box -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Title</h3>
+      
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                <i class="fas fa-minus"></i></button>
+              <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                <i class="fas fa-times"></i></button>
+            </div>
           </div>
-
-          <h2 class="panel-title">Judul Admin</h2>
-        </header>
-        <div class="panel-body">
-          ini adalah content untuk Admin
-        </div>
-      </section>
-    </div>
-  </div>
-  @endcan
-
-  @can('kasir')
-  <div class="row">
-    <div class="col-md-12">
-      <section class="panel">
-        <header class="panel-heading">
-          <div class="panel-actions">
-            <a href="#" class="fa fa-caret-down"></a>
-            <a href="#" class="fa fa-times"></a>
+          <div class="card-body">
+            Start creating your amazing application!
           </div>
-
-          <h2 class="panel-title">Judul Kasir</h2>
-        </header>
-        <div class="panel-body">
-          ini adalah content untuk Kasir
-        </div>
-      </section>
-    </div>
-  </div>
-  @endcan
-
-  @can('pelayanan')
-  <div class="row">
-    <div class="col-md-12">
-      <section class="panel">
-        <header class="panel-heading">
-          <div class="panel-actions">
-            <a href="#" class="fa fa-caret-down"></a>
-            <a href="#" class="fa fa-times"></a>
+          <!-- /.card-body -->
+          <div class="card-footer">
+            Footer
           </div>
-
-          <h2 class="panel-title">Judul Pelayanan</h2>
-        </header>
-        <div class="panel-body">
-          ini adalah content untuk pelayanan
+          <!-- /.card-footer-->
         </div>
-      </section>
+        <!-- /.card -->
+      </div>
     </div>
-  </div>
-  @endcan
-  <!-- end: page -->
-  
+
 </section>
 @endsection
