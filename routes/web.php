@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,15 +42,19 @@ Route::middleware("auth")->group(function () {
         ]);
     })->name("dashboard");
 
-    Route::get("/admin", function () {
-        return "this is admin page";
-    })->middleware("admin");
+    Route::middleware("admin")->group(function () {
+        Route::resource("/dashboard/user", UserController::class);
+    });
 
-    Route::get("/pelayanan", function () {
-        return "this is pelayanan page";
-    })->middleware("pelayanan");
+    // Route::get("/admin", function () {
+    //     return "this is admin page";
+    // })->middleware("admin");
 
-    Route::get("/kasir", function () {
-        return "this is kasir page";
-    })->middleware("kasir");
+    // Route::get("/pelayanan", function () {
+    //     return "this is pelayanan page";
+    // })->middleware("pelayanan");
+
+    // Route::get("/kasir", function () {
+    //     return "this is kasir page";
+    // })->middleware("kasir");
 });

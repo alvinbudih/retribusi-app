@@ -31,7 +31,7 @@
         @can("admin")
         <li class="nav-header">Menu Master</li>
         <li class="nav-item">
-          <a href="" class="nav-link {{ Request::is('dashboard/users*') ? 'active' : '' }}">
+          <a href="{{ route("user.index") }}" class="nav-link {{ Request::is('dashboard/user*') ? 'active' : '' }}">
             <i class="nav-icon oi oi-person"></i>
             <p>User</p>
           </a>
@@ -72,14 +72,6 @@
             <i class="nav-icon oi oi-book"></i>
             <p>
               Buku Besar
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ route('logout') }}" class="nav-link">
-            <i class="nav-icon oi oi-account-logout"></i>
-            <p>
-              Logout
             </p>
           </a>
         </li>
