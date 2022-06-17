@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pemilik extends Model
+class TipeKendaraan extends Model
 {
     use HasFactory;
 
-    protected $table = "pemilik";
+    protected $table = "tipe_kendaraan";
     protected $guarded = ["id"];
 
-    public function kendaraan()
+    public function merk_kendaraan()
     {
-        return $this->hasMany(Kendaraan::class);
+        return $this->hasMany(MerkKendaraan::class);
     }
 }

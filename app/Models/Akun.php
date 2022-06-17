@@ -5,20 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Biaya extends Model
+class Akun extends Model
 {
     use HasFactory;
 
-    protected $table = "biaya";
+    protected $table = "akun";
     protected $guarded = ["id"];
 
-    public function kendaraan()
+    public function pembayaran()
     {
-        return $this->hasMany(Kendaraan::class);
+        return $this->hasMany(Pembayaran::class);
     }
 
     public function detail_pembayaran()
     {
         return $this->hasMany(DetailPembayaran::class);
+    }
+
+    public function jurnal()
+    {
+        return $this->hasMany(Jurnal::class);
     }
 }
