@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AkunController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -43,7 +44,8 @@ Route::middleware("auth")->group(function () {
     })->name("dashboard");
 
     Route::middleware("admin")->group(function () {
-        Route::resource("/dashboard/user", UserController::class);
+        Route::resource("/dashboard/user", UserController::class)->except("show");
+        Route::resource("/dashboard/akun", AkunController::class)->except("show");
     });
 
     // Route::get("/admin", function () {
