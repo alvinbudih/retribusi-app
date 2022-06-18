@@ -19,10 +19,6 @@
           <i class="fas fa-plus"></i>
           Tambah Data
         </button>
-        {{-- <a href="{{ route('user.create') }}" class="btn btn-primary">
-          <i class="fas fa-plus"></i>
-          Tambah Data
-        </a> --}}
       </div>
     </div>
     <div class="card-body">
@@ -30,30 +26,24 @@
         <thead>
           <tr>
             <th>#</th>
-            <th>Nama</th>
-            <th>Username</th>
-            <th>Email</th>
+            <th>Kode Akun</th>
+            <th>Nama Akun</th>
             <th>Aksi</th>
           </tr>
         </thead>
         <tbody>
-          @foreach($users as $user)
+          @foreach($accounts as $account)
           <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ $user->name }}</td>
-            <td>{{ $user->username }}</td>
-            <td>{{ $user->email }}</td>
+            <td>{{ $account->kode_akun }}</td>
+            <td>{{ $account->nama_akun }}</td>
             <td>
-              {{-- <button type="submit" class="btn btn-success btn-sm tombol-ubah" data-toggle="modal" data-target="#modal-default" data-id="{{ $user->id }}">
-                <i class="fas fa-pencil-alt"></i>
-                Edit
-              </button> --}}
-              <a class="btn btn-success btn-sm" href="{{ route('user.edit', [$user->id]) }}">
+              <a class="btn btn-success btn-sm" href="{{ route('akun.edit', [$account->id]) }}">
                 <i class="fas fa-pencil-alt">
                 </i>
                 Edit
               </a>
-              <form action="{{ route("user.destroy", [$user->id]) }}" method="post" class="d-inline">
+              <form action="{{ route("akun.destroy", [$account->id]) }}" method="post" class="d-inline">
                 @method("delete")
                 @csrf
                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin dihapus?')">
@@ -77,56 +67,29 @@
       @csrf
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" id="modal-judul">Tambah User</h4>
+          <h4 class="modal-title" id="modal-judul">Tambah Akun</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <div class="form-group">
-            <label for="name">Nama Lengkap</label>
-            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Nama Lengkap" name="name" value="{{ old('name') }}">
-            @error("name")
+            <label for="kode_akun">Kode Akun</label>
+            <input type="number" class="form-control @error('kode_akun') is-invalid @enderror" id="kode_akun" placeholder="Kode Akun" name="kode_akun" value="{{ old('kode_akun') }}">
+            @error("kode_akun")
             <div class="invalid-feedback">
               {{ $message }}
             </div>
             @enderror
           </div>
           <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" placeholder="Username" name="username" value="{{ old('username') }}">
-            @error("username")
+            <label for="nama_akun">Nama Akun</label>
+            <input type="text" class="form-control @error('nama_akun') is-invalid @enderror" id="nama_akun" placeholder="Nama Akun" name="nama_akun" value="{{ old('nama_akun') }}">
+            @error("nama_akun")
             <div class="invalid-feedback">
               {{ $message }}
             </div>
             @enderror
-          </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="yourname@example.com" name="email" value="{{ old('email') }}">
-            @error("email")
-            <div class="invalid-feedback">
-              {{ $message }}
-            </div>
-            @enderror
-          </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="Password" name="password">
-            @error("password")
-            <div class="invalid-feedback">
-              {{ $message }}
-            </div>
-            @enderror
-          </div>
-          <div class="form-group">
-            <label for="roles">Role</label>
-            @foreach($roles as $role)
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="roles{{ $role->id }}" id="roles{{ $role->id }}" value="{{ $role->id }}">
-                <label class="form-check-label">{{ $role->role_name }}</label>
-              </div>
-            @endforeach
           </div>
         </div>
         <div class="modal-footer justify-content-between">

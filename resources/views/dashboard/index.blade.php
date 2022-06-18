@@ -1,7 +1,7 @@
 @extends('layouts.main')
+
 @section('content')
 <section class="content">
-
     <div class="row">
       <div class="col">
         <!-- Default box -->
@@ -28,6 +28,5 @@
         <!-- /.card -->
       </div>
     </div>
-
 </section>
 @endsection

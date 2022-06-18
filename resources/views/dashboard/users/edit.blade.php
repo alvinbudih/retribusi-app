@@ -42,7 +42,7 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="email">Email</label>
-                  <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Email" name="email" value="{{ old('email', $user->email) }}">
+                  <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Email" name="email" value="{{ old('email', $user->email) }}">
                   @error("email")
                   <div class="invalid-feedback">
                     {{ $message }}

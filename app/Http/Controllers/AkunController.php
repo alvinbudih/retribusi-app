@@ -38,7 +38,14 @@ class AkunController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            "kode_akun" => "required|max:3|unique:akun",
+            "nama_akun" => "required"
+        ]);
+
+        Akun::create($validated);
+
+        return back()->with("success", "Data Berhasil Ditambah");
     }
 
     /**
@@ -60,7 +67,10 @@ class AkunController extends Controller
      */
     public function edit(Akun $akun)
     {
-        //
+        return view("dashboard.akun.edit", [
+            "title" => "Ubah Akun",
+            "akun" => $akun
+        ]);
     }
 
     /**
@@ -72,7 +82,17 @@ class AkunController extends Controller
      */
     public function update(Request $request, Akun $akun)
     {
-        //
+        $rules = ["nama_akun" => "required|max:255"];
+
+        if ($request->kode_akun != $akun->kode_akun) {
+            $rules["kode_akun"] = "required|max:3|unique:akun";
+        }
+
+        $validated = $request->validate($rules);
+
+        Akun::where("id", $akun->id)->update($validated);
+
+        return redirect()->route("akun.index")->with("success", "Data Berhasil Diubah");
     }
 
     /**
@@ -83,6 +103,8 @@ class AkunController extends Controller
      */
     public function destroy(Akun $akun)
     {
-        //
+        $akun->delete();
+
+        return back()->with("success", "Data Berhasil Dihapus");
     }
 }
