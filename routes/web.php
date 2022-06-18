@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AkunController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PemilikController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,6 +47,7 @@ Route::middleware("auth")->group(function () {
     Route::middleware("admin")->group(function () {
         Route::resource("/dashboard/user", UserController::class)->except("show");
         Route::resource("/dashboard/akun", AkunController::class)->except("show");
+        Route::resource("/dashboard/pemilik", PemilikController::class);
     });
 
     // Route::get("/admin", function () {
