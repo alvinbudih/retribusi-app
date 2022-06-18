@@ -16,6 +16,7 @@ class CreateTipeKendaraansTable extends Migration
         Schema::create('tipe_kendaraan', function (Blueprint $table) {
             $table->id();
             $table->string("nama_tipe");
+            $table->foreignId("merk_kendaraan_id");
             $table->timestamps();
         });
     }

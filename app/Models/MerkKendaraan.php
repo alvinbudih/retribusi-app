@@ -19,6 +19,6 @@ class MerkKendaraan extends Model
 
     public function tipe_kendaraan()
     {
-        return $this->belongsTo(TipeKendaraan::class);
+        return $this->hasMany(TipeKendaraan::class);
     }
 }
