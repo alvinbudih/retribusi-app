@@ -42,6 +42,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
+
         $validated = $request->validate([
             "name" => "required|max:255",
             "username" => "required|max:255|min:3|unique:users",
@@ -88,6 +90,19 @@ class UserController extends Controller
     public function edit(User $user)
     {
         // echo json_encode($user);
+
+        $userRole = [];
+
+        foreach ($user->roles as $r) {
+            $userRole[] = $r->role_name;
+        }
+
+        return view("dashboard.users.edit", [
+            "title" => "Edit User",
+            "user" => $user,
+            "roles" => Role::all(),
+            "userRole" => $userRole
+        ]);
     }
 
     /**
@@ -99,7 +114,43 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $rules = ["name" => "required|max:255"];
+
+        if ($request->username != $user->username) {
+            $rules["username"] = "required|max:255|unique:users";
+        }
+
+        if ($request->email != $user->email) {
+            $rules["email"] = "required|max:255|unique:users|email:dns";
+        }
+
+        if ($request->password != null) {
+            $rules["password"] = "min:5";
+        }
+
+        $validated = $request->validate($rules);
+        if (isset($validated["password"])) {
+            $validated["password"] = Hash::make($validated["password"]);
+        }
+
+        User::where("id", $user->id)->update($validated);
+
+        $roleUser = DB::table("role_user")->where("user_id", $user->id);
+        $roleUser->delete();
+
+        foreach (Role::all() as $role) {
+            $thatWas = $roleUser->where("role_id", $request->get("roles$role->id"));
+
+            if ($thatWas->doesntExist() and $request->get("roles$role->id") != null) {
+                // echo "it doesn't exist ";
+                DB::table("role_user")->insert([
+                    "user_id" => $user->id,
+                    "role_id" => $request->get("roles$role->id")
+                ]);
+            }
+        }
+
+        return redirect()->route("user.index")->with("success", "Data Berhasil Diubah");
     }
 
     /**
@@ -110,6 +161,9 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        DB::table("role_user")->where("user_id", $user->id)->delete();
+        $user->delete();
+
+        return back()->with("success", "Data Berhasil Dihapus");
     }
 }

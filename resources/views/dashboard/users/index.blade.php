@@ -18,6 +18,10 @@
           <i class="fas fa-plus"></i>
           Tambah Data
         </button>
+        {{-- <a href="{{ route('user.create') }}" class="btn btn-primary">
+          <i class="fas fa-plus"></i>
+          Tambah Data
+        </a> --}}
       </div>
     </div>
     <div class="card-body">
@@ -39,11 +43,16 @@
             <td>{{ $user->username }}</td>
             <td>{{ $user->email }}</td>
             <td>
-              <button type="submit" class="btn btn-success btn-sm tombol-ubah" data-toggle="modal" data-target="#modal-default" data-id="{{ $user->id }}">
+              {{-- <button type="submit" class="btn btn-success btn-sm tombol-ubah" data-toggle="modal" data-target="#modal-default" data-id="{{ $user->id }}">
                 <i class="fas fa-pencil-alt"></i>
                 Edit
-              </button>
-              <form action="" method="post" class="d-inline">
+              </button> --}}
+              <a class="btn btn-success btn-sm" href="{{ route('user.edit', [$user->id]) }}">
+                <i class="fas fa-pencil-alt">
+                </i>
+                Edit
+              </a>
+              <form action="{{ route("user.destroy", [$user->id]) }}" method="post" class="d-inline">
                 @method("delete")
                 @csrf
                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin dihapus?')">
@@ -67,7 +76,7 @@
       @csrf
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" id="modal-judul">Default Modal</h4>
+          <h4 class="modal-title" id="modal-judul">Tambah User</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -91,7 +100,7 @@
             </div>
             @enderror
           </div>
-          <div class=" form-group">
+          <div class="form-group">
             <label for="email">Email</label>
             <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="yourname@example.com" name="email" value="{{ old('email') }}">
             @error("email")
@@ -100,7 +109,7 @@
             </div>
             @enderror
           </div>
-          <div class=" form-group">
+          <div class="form-group">
             <label for="password">Password</label>
             <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="Password" name="password">
             @error("password")
@@ -113,15 +122,15 @@
             <label for="roles">Role</label>
             @foreach($roles as $role)
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="roles{{ $role->id }}}}" id="roles{{ $role->id }}" value="{{ $role->id }}">
+                <input class="form-check-input" type="checkbox" name="roles{{ $role->id }}" id="roles{{ $role->id }}" value="{{ $role->id }}">
                 <label class="form-check-label">{{ $role->role_name }}</label>
               </div>
             @endforeach
           </div>
         </div>
         <div class="modal-footer justify-content-between">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+          <button type="submit" class="btn btn-primary">Simpan</button>
         </div>
       </div>
     </form>

@@ -28,21 +28,21 @@
             </p>
           </a>
         </li>
-        @can("admin")
         <li class="nav-header">Menu Master</li>
+        @can("admin")
         <li class="nav-item">
           <a href="{{ route("user.index") }}" class="nav-link {{ Request::is('dashboard/user*') ? 'active' : '' }}">
             <i class="nav-icon oi oi-person"></i>
             <p>User</p>
           </a>
         </li>
-        @endcan
         <li class="nav-item">
           <a href="" class="nav-link {{ Request::is('dashboard/akun*') ? 'active' : '' }}">
             <i class="nav-icon oi oi-clipboard"></i>
             <p>Akun</p>
           </a>
         </li>
+        @endcan
         <li class="nav-header">Menu Transaksi</li>
         <li class="nav-item has-treeview {{ Request::is('dashboard/kaskeluar*') || Request::is('dashboard/kasmasuk*') ? 'menu-open' : '' }}">
           <a href="#" class="nav-link {{ Request::is('dashboard/kaskeluar*') || Request::is('dashboard/kasmasuk*') ? 'active' : '' }}">
