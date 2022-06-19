@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AkunController;
+use App\Http\Controllers\BiayaController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PemilikController;
 use App\Http\Controllers\UserController;
@@ -47,7 +48,8 @@ Route::middleware("auth")->group(function () {
     Route::middleware("admin")->group(function () {
         Route::resource("/dashboard/user", UserController::class)->except("show");
         Route::resource("/dashboard/akun", AkunController::class)->except("show");
-        Route::resource("/dashboard/pemilik", PemilikController::class);
+        Route::resource("/dashboard/pemilik", PemilikController::class)->except("show");
+        Route::resource("/dashboard/biaya", BiayaController::class)->except(["show", "destroy"]);
     });
 
     // Route::get("/admin", function () {

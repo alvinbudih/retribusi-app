@@ -65,11 +65,11 @@
             <div class="row">
               <div class="col-sm-4">
                 <div class="form-group">
-                  <label for="roles">Role</label>
+                  <label>Role</label>
                   @foreach($roles as $role)
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox" name="roles{{ $role->id }}" value="{{ $role->id }}" {{ in_array($role->role_name, $userRole) ? 'checked' : '' }}>
-                      <label class="form-check-label">{{ $role->role_name }}</label>
+                      <input class="form-check-input" type="checkbox" id="roles{{ $role->id }}" name="roles{{ $role->id }}" value="{{ $role->id }}" {{ in_array($role->role_name, $userRole) ? 'checked' : '' }}>
+                      <label class="form-check-label" for="roles{{ $role->id }}">{{ $role->role_name }}</label>
                     </div>
                   @endforeach
                 </div>

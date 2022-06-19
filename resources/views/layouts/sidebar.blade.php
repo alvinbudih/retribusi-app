@@ -32,7 +32,7 @@
         @can("admin")
         <li class="nav-item">
           <a href="{{ route("user.index") }}" class="nav-link {{ Request::is('dashboard/user*') ? 'active' : '' }}">
-            <i class="nav-icon oi oi-person"></i>
+            <i class="nav-icon oi oi-people"></i>
             <p>User</p>
           </a>
         </li>
@@ -44,11 +44,17 @@
         </li>
         <li class="nav-item">
           <a href="{{ route("pemilik.index") }}" class="nav-link {{ Request::is('dashboard/pemilik*') ? 'active' : '' }}">
-            <i class="nav-icon oi oi-people"></i>
+            <i class="nav-icon oi oi-list"></i>
             <p>Pemilik</p>
           </a>
         </li>
         @endcan
+        <li class="nav-item">
+          <a href="{{ route("biaya.index") }}" class="nav-link {{ Request::is('dashboard/biaya*') ? 'active' : '' }}">
+            <i class="nav-icon oi oi-dollar"></i>
+            <p>Biaya</p>
+          </a>
+        </li>
         <li class="nav-header">Menu Transaksi</li>
         <li class="nav-item has-treeview {{ Request::is('dashboard/kaskeluar*') || Request::is('dashboard/kasmasuk*') ? 'menu-open' : '' }}">
           <a href="#" class="nav-link {{ Request::is('dashboard/kaskeluar*') || Request::is('dashboard/kasmasuk*') ? 'active' : '' }}">
