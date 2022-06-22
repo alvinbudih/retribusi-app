@@ -25,7 +25,7 @@
         </a> --}}
       </div>
     </div>
-    <div class="card-body">
+    <div class="card-body p-0">
       <table class="table table-sm table-hover text-nowrap projects">
         <thead>
           <tr>

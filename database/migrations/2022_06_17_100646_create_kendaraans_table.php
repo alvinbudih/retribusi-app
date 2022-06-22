@@ -21,6 +21,8 @@ class CreateKendaraansTable extends Migration
             $table->string("no_rangka")->unique();
             $table->string("srut")->unique();
             $table->date("awal_daftar");
+            $table->date("jatuh_tempo");
+            $table->integer("jbb");
             $table->unsignedInteger("tahun_buat");
             $table->string("jenis_rumah");
             $table->string("sifat");

@@ -73,6 +73,12 @@
           </a>
         </li>
         <li class="nav-item">
+          <a href="{{ route("kendaraan.index") }}" class="nav-link {{ Request::is('dashboard/kendaraan*') ? 'active' : '' }}">
+            <i class="nav-icon oi oi-paperclip"></i>
+            <p>Kendaraan</p>
+          </a>
+        </li>
+        <li class="nav-item">
           <a href="{{ route("status.index") }}" class="nav-link {{ Request::is('dashboard/status*') ? 'active' : '' }}">
             <i class="nav-icon oi oi-paperclip"></i>
             <p>Status Uji</p>
