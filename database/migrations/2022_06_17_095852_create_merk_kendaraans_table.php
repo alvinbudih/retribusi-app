@@ -15,7 +15,7 @@ class CreateMerkKendaraansTable extends Migration
     {
         Schema::create('merk_kendaraan', function (Blueprint $table) {
             $table->id();
-            $table->string("nama_merk");
+            $table->string("nama_merk")->unique();
             $table->timestamps();
         });
     }

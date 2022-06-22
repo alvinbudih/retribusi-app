@@ -11,6 +11,7 @@ class TipeKendaraan extends Model
 
     protected $table = "tipe_kendaraan";
     protected $guarded = ["id"];
+    protected $with = ["merk_kendaraan"];
 
     public function merk_kendaraan()
     {

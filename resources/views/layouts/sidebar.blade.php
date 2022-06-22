@@ -60,6 +60,12 @@
             <p>Merk Kendaraan</p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="{{ route("tipe.index") }}" class="nav-link {{ Request::is('dashboard/tipe*') ? 'active' : '' }}">
+            <i class="nav-icon oi oi-paperclip"></i>
+            <p>Tipe Kendaraan</p>
+          </a>
+        </li>
         @endcan
         <li class="nav-header">Menu Transaksi</li>
         <li class="nav-item has-treeview {{ Request::is('dashboard/kaskeluar*') || Request::is('dashboard/kasmasuk*') ? 'menu-open' : '' }}">

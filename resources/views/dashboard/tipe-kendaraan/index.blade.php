@@ -26,17 +26,19 @@
         <thead>
           <tr>
             <th>#</th>
-            <th>Nama Merk</th>
+            <th>Tipe Kendaraan</th>
+            <th>Dari Merk</th>
             <th>Aksi</th>
           </tr>
         </thead>
         <tbody>
-          @foreach($merk as $m)
+          @foreach($types as $type)
           <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ $m->nama_merk }}</td>
+            <td>{{ $type->nama_tipe }}</td>
+            <td>{{ $type->merk_kendaraan->nama_merk }}</td>
             <td>
-              <a class="btn btn-success btn-sm" href="{{ route('merk.edit', [$m->id]) }}">
+              <a class="btn btn-success btn-sm" href="{{ route('tipe.edit', [$type->id]) }}">
                 <i class="fas fa-pencil-alt">
                 </i>
                 Edit
@@ -57,16 +59,30 @@
       @csrf
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" id="modal-judul">Tambah Merk</h4>
+          <h4 class="modal-title" id="modal-judul">Tambah Tipe</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <div class="form-group">
-            <label for="nama_merk">Nama Merk</label>
-            <input type="text" class="form-control @error('nama_merk') is-invalid @enderror" id="nama_merk" placeholder="Nama Merk" name="nama_merk" value="{{ old('nama_merk') }}">
-            @error("nama_merk")
+            <label for="nama_tipe">Nama Tipe</label>
+            <input type="text" class="form-control @error('nama_tipe') is-invalid @enderror" id="nama_tipe" placeholder="Nama Merk" name="nama_tipe" value="{{ old('nama_tipe') }}">
+            @error("nama_tipe")
+            <div class="invalid-feedback">
+              {{ $message }}
+            </div>
+            @enderror
+          </div>
+          <div class="form-group">
+            <label for="merk_kendaraan_id">Dari Merk</label>
+            <select class="form-control @error('merk_kendaraan_id') is-invalid @enderror" id="merk_kendaraan_id" name="merk_kendaraan_id">
+              <option value=""> --Pilih Merk--</option>
+              @foreach($merk as $m)
+                <option value="{{ $m->id }}" {{ old('merk_kendaraan_id') ? 'selected' : '' }}>{{ $m->nama_merk }}</option>
+              @endforeach
+            </select>
+            @error("nama_tipe")
             <div class="invalid-feedback">
               {{ $message }}
             </div>
