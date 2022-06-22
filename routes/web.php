@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AkunController;
 use App\Http\Controllers\BiayaController;
+use App\Http\Controllers\JenisKendaraanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MerkKendaraanController;
 use App\Http\Controllers\PemilikController;
@@ -54,6 +55,7 @@ Route::middleware("auth")->group(function () {
         Route::resource("/dashboard/biaya", BiayaController::class)->except(["show", "destroy"]);
         Route::resource("/dashboard/merk", MerkKendaraanController::class)->except(["show", "destroy"]);
         Route::resource("/dashboard/tipe", TipeKendaraanController::class)->except(["show", "destroy"]);
+        Route::resource("/dashboard/jenis", JenisKendaraanController::class)->except(["show", "destroy"]);
     });
 
     // Route::get("/admin", function () {
