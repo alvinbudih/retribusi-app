@@ -48,13 +48,19 @@
             <p>Pemilik</p>
           </a>
         </li>
-        @endcan
         <li class="nav-item">
           <a href="{{ route("biaya.index") }}" class="nav-link {{ Request::is('dashboard/biaya*') ? 'active' : '' }}">
             <i class="nav-icon oi oi-dollar"></i>
             <p>Biaya</p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="{{ route("merk.index") }}" class="nav-link {{ Request::is('dashboard/merk*') ? 'active' : '' }}">
+            <i class="nav-icon oi oi-tags"></i>
+            <p>Merk Kendaraan</p>
+          </a>
+        </li>
+        @endcan
         <li class="nav-header">Menu Transaksi</li>
         <li class="nav-item has-treeview {{ Request::is('dashboard/kaskeluar*') || Request::is('dashboard/kasmasuk*') ? 'menu-open' : '' }}">
           <a href="#" class="nav-link {{ Request::is('dashboard/kaskeluar*') || Request::is('dashboard/kasmasuk*') ? 'active' : '' }}">
