@@ -78,7 +78,7 @@ class KendaraanController extends Controller
         $validated["no_rangka"] = strtoupper($validated["no_rangka"]);
         $validated["srut"] = strtoupper($validated["srut"]);
         $validated["awal_daftar"] = date("Y-m-d");
-        $validated["jatuh_tempo"] = date("Y-m-d", strtotime("+6 days", strtotime($validated["awal_daftar"])));
+        $validated["jatuh_tempo"] = date("Y-m-d", strtotime("+6 month", strtotime($validated["awal_daftar"])));
 
         Kendaraan::create($validated);
 

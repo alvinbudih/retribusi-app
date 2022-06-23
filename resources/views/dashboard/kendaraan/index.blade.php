@@ -26,13 +26,12 @@
         <thead>
           <tr>
             <th>#</th>
-            <th>Pemilik</th>
-            <th>Tanggal Daftar</th>
+            <th>Tgl Daftar</th>
             <th>No. Uji</th>
+            <th>Pemilik</th>
             <th>No. Kendaraan</th>
+            <th>Alamat</th>
             <th>Jatuh Tempo</th>
-            <th>Jenis Kendaraan</th>
-            <th>Merk</th>
             <th>Aksi</th>
           </tr>
         </thead>
@@ -45,13 +44,12 @@
             @foreach($kendaraan as $kend)
               <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $kend->pemilik->nama }}</td>
                 <td>{{ $kend->awal_daftar }}</td>
                 <td>{{ $kend->no_uji }}</td>
+                <td>{{ $kend->pemilik->nama }}</td>
                 <td>{{ $kend->no_kendaraan }}</td>
+                <td>{{ $kend->pemilik->alamat }}</td>
                 <td>{{ $kend->jatuh_tempo }}</td>
-                <td>{{ $kend->jenis_kendaraan->nama_jenis }}</td>
-                <td>{{ $kend->merk_kendaraan->nama_merk }}</td>
                 <td>
                   <a class="btn btn-success btn-sm" href="{{ route('kendaraan.edit', [$kend->id]) }}">
                     <i class="fas fa-pencil-alt">
