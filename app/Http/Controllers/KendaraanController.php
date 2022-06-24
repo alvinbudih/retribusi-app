@@ -43,7 +43,15 @@ class KendaraanController extends Controller
      */
     public function create()
     {
-        //
+        return view("dashboard.kendaraan.create", [
+            "title" => "Tambah Data",
+            "pemilik" => Pemilik::all(),
+            "jenis" => JenisKendaraan::all(),
+            "merk" => MerkKendaraan::all(),
+            "jenisRumah" => $this->jenisRumah,
+            "sifat" => $this->sifat,
+            "bahanBakar" => $this->bahanBakar
+        ]);
     }
 
     /**
@@ -54,7 +62,7 @@ class KendaraanController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $rules = [
             "no_uji" => "required|max:15|unique:kendaraan",
             "no_kendaraan" => "required|max:9|unique:kendaraan",
             "no_mesin" => "required|max:255|unique:kendaraan",
@@ -67,22 +75,40 @@ class KendaraanController extends Controller
             "bahan_bakar" => "required",
             "bahan_karoseri" => "required|max:255",
             "cc" => "required|numeric",
-            "pemilik_id" => "required",
             "jenis_kendaraan_id" => "required",
             "merk_kendaraan_id" => "required"
-        ]);
+        ];
 
-        $validated["no_uji"] = strtoupper($validated["no_uji"]);
-        $validated["no_kendaraan"] = strtoupper($validated["no_kendaraan"]);
-        $validated["no_mesin"] = strtoupper($validated["no_mesin"]);
-        $validated["no_rangka"] = strtoupper($validated["no_rangka"]);
-        $validated["srut"] = strtoupper($validated["srut"]);
-        $validated["awal_daftar"] = date("Y-m-d");
-        $validated["jatuh_tempo"] = date("Y-m-d", strtotime("+6 month", strtotime($validated["awal_daftar"])));
+        if (isset($request->pemilikBaru)) {
+            $validatedPemilik = $request->validate([
+                "nama" => "required|max:255",
+                "alamat" => "required",
+            ]);
 
-        Kendaraan::create($validated);
+            $validatedPemilik["no_telp"] = $request->no_telp;
 
-        return back()->with("success", "Data Berhasil Ditambahkan");
+            Pemilik::create($validatedPemilik);
+        } else {
+            $rules["pemilik_id"] = "required";
+        }
+
+        $validatedKend = $request->validate($rules);
+
+        $validatedKend["no_uji"] = strtoupper($validatedKend["no_uji"]);
+        $validatedKend["no_kendaraan"] = strtoupper($validatedKend["no_kendaraan"]);
+        $validatedKend["no_mesin"] = strtoupper($validatedKend["no_mesin"]);
+        $validatedKend["no_rangka"] = strtoupper($validatedKend["no_rangka"]);
+        $validatedKend["srut"] = strtoupper($validatedKend["srut"]);
+        $validatedKend["awal_daftar"] = date("Y-m-d");
+        $validatedKend["jatuh_tempo"] = date("Y-m-d", strtotime("+6 month", strtotime($validatedKend["awal_daftar"])));
+
+        if (isset($request->pemilikBaru)) {
+            $validatedKend["pemilik_id"] = Pemilik::max("id");
+        }
+
+        Kendaraan::create($validatedKend);
+
+        return redirect()->route("kendaraan.index")->with("success", "Data Berhasil Ditambahkan");
     }
 
     /**

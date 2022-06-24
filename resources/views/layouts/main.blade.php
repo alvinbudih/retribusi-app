@@ -22,7 +22,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link href="{{ asset('icons/font/css/open-iconic-bootstrap.css') }}" rel="stylesheet">
 </head>
 
-<body class="hold-transition sidebar-mini layout-navbar-fixed layout-footer-fixed">
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-footer-fixed text-sm">
   <div class="wrapper">
 
     <!-- Navbar -->

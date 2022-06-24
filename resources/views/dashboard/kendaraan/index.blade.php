@@ -15,10 +15,14 @@
       <h3 class="card-title">{{ $title }}</h3>
 
       <div class="card-tools">
-        <button type="button" class="btn btn-primary tombol-tambah" data-toggle="modal" data-target="#modal-default">
+        {{-- <button type="button" class="btn btn-primary tombol-tambah" data-toggle="modal" data-target="#modal-default">
           <i class="fas fa-plus"></i>
           Tambah Data
-        </button>
+        </button> --}}
+        <a href="{{ route('kendaraan.create') }}" class="btn btn-primary">
+          <i class="fas fa-plus"></i>
+          Tambah Data
+        </a>
       </div>
     </div>
     <div class="card-body p-0">

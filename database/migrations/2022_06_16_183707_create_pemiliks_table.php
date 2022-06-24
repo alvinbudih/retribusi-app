@@ -17,7 +17,7 @@ class CreatePemiliksTable extends Migration
             $table->id();
             $table->string("nama");
             $table->text("alamat");
-            $table->char("no_telp", 15);
+            $table->char("no_telp", 15)->nullable();
             $table->timestamps();
         });
     }

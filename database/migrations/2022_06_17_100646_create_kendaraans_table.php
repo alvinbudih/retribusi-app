@@ -30,6 +30,7 @@ class CreateKendaraansTable extends Migration
             $table->string("bahan_karoseri");
             $table->integer("cc");
             $table->foreignId("pemilik_id");
+            $table->foreignId("tipe_kendaraan_id");
             $table->foreignId("jenis_kendaraan_id");
             $table->foreignId("merk_kendaraan_id");
             $table->timestamps();

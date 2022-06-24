@@ -22,3 +22,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::prefix("user")->group(function () {
 //     Route::get("/{id}", [UserApiController::class, "get"]);
 // });
+Route::get("/tipe/{id}", function ($id) {
+    $statusCode = 200;
+    $message = "success";
+
+    return response()->json([
+        "statusCode" => $statusCode,
+        "message" => $message,
+        "data" => App\Models\TipeKendaraan::where("merk_kendaraan_id", $id)->get()
+    ], $statusCode);
+});

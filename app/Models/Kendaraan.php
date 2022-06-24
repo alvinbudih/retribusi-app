@@ -27,6 +27,11 @@ class Kendaraan extends Model
         return $this->belongsTo(JenisKendaraan::class);
     }
 
+    public function tipe_kendaraan()
+    {
+        return $this->belongsTo(TipeKendaraan::class);
+    }
+
     public function pendaftaran()
     {
         return $this->hasMany(Pendaftaran::class);

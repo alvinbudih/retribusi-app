@@ -17,4 +17,9 @@ class TipeKendaraan extends Model
     {
         return $this->belongsTo(MerkKendaraan::class);
     }
+
+    public function kendaraan()
+    {
+        return $this->hasMany(Kendaraan::class);
+    }
 }
