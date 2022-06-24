@@ -9,13 +9,27 @@
           <div class="card-header">
             <h3 class="card-title">Form Tambah Pemilik</h3>
           </div>
-          <div class="card-body">
+          <div class="card-body" id="tambah-pemilik">
             <div class="form-group">
               <label for="pemilikBaru">Tambah Pemilik Baru</label>
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" name="pemilikBaru" id="pemilikBaru" value="1" {{ (old('pemilikBaru') == 1) ? 'checked' : '' }}>
                 <label class="form-check-label">Pemilik Baru</label>
               </div>
+            </div>
+            <div class="form-group">
+              <label for="pemilik_id">Pemilik</label>
+              <select class="form-control form-control-sm @error('pemilik_id') is-invalid @enderror" id="pemilik_id" name="pemilik_id">
+                <option value=""> --Pilih Pemilik--</option>
+                @foreach($pemilik as $pm)
+                  <option value="{{ $pm->id }}" {{ (old('pemilik_id') == $pm->id) ? 'selected' : '' }}>{{ $pm->nama }}</option>
+                @endforeach
+              </select>
+              @error("pemilik_id")
+              <div class="invalid-feedback">
+                {{ $message }}
+              </div>
+              @enderror
             </div>
             <div class="form-group">
               <label for="nama">Nama Lengkap</label>
@@ -204,24 +218,6 @@
               </div>
               <div class="col-sm-6">
                 <div class="form-group">
-                  <label for="pemilik_id">Pemilik</label>
-                  <select class="form-control form-control-sm @error('pemilik_id') is-invalid @enderror" id="pemilik_id" name="pemilik_id">
-                    <option value=""> --Pilih Pemilik--</option>
-                    @foreach($pemilik as $pm)
-                      <option value="{{ $pm->id }}" {{ (old('pemilik_id') == $pm->id) ? 'selected' : '' }}>{{ $pm->nama }}</option>
-                    @endforeach
-                  </select>
-                  @error("pemilik_id")
-                  <div class="invalid-feedback">
-                    {{ $message }}
-                  </div>
-                  @enderror
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-6">
-                <div class="form-group">
                   <label for="merk_kendaraan_id">Merk Kendaraan</label>
                   <select class="form-control form-control-sm @error('merk_kendaraan_id') is-invalid @enderror" id="merk_kendaraan_id" name="merk_kendaraan_id">
                     <option value=""> --Pilih Merk Kendaraan--</option>
@@ -236,6 +232,8 @@
                   @enderror
                 </div>
               </div>
+            </div>
+            <div class="row">
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="tipe_kendaraan_id">Tipe Kendaraan</label>
@@ -249,8 +247,6 @@
                   @enderror
                 </div>
               </div>
-            </div>
-            <div class="row">
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="jenis_kendaraan_id">Jenis Kendaraan</label>
@@ -267,6 +263,8 @@
                   @enderror
                 </div>
               </div>
+            </div>
+            <div class="row">
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="no_rangka">No. Rangka</label>
@@ -295,28 +293,58 @@
 </section>
 <script>
 
-
-
   const merkId = document.querySelector("#merk_kendaraan_id")
+  
   merkId.addEventListener("change", function () {
+
     fetch("http://retribusi-app.test/api/tipe/" + merkId.value)
       .then(response => response.json())
       .then(result => {
-        const tipe = result.data
+        const tipeKendaraan = result.data
 
-        tipeId = document.getElementById("tipe_kendaraan_id")
-        tipeId.createElement("option").value = "asd"
-        console.log(tipeId)
-        // tipe.forEach(m => {
-        //   tipeId.createElement("option")
-        //   document
-          
-        //   tipeId.appendChild(id)
-        // })
+        tipeKendaraanId = document.getElementById("tipe_kendaraan_id")
+        let option = `<option value=""> --Pilih Tipe Kendaraan-- </option>`
+        
+        if (tipeKendaraan.length <= 0) {
+          tipeKendaraanId.innerHTML = option
+        } else {
+          tipeKendaraan.forEach(tipe => {
+            option += `<option value="${tipe.id}">${tipe.nama_tipe}</option>`
+          })
+          tipeKendaraanId.innerHTML = option
+        }
       })
+      
   })
 
+  // bikin form tambah pemilik baru aktif apabila checkbox-nya ceklis
+  const pemilikBaru = document.getElementById("pemilikBaru")
+  const pemilikId = document.getElementById("pemilik_id")
+  const nama = document.getElementById("nama")
+  const alamat = document.getElementById("alamat")
+  const noTelp = document.getElementById("no_telp")
 
+  nama.removeAttribute("disabled")
+  alamat.removeAttribute("disabled")
+  noTelp.removeAttribute("disabled")
+
+  pemilikId.setAttribute("disabled", "")
+  
+  pemilikBaru.addEventListener("change", function () {
+    if (pemilikBaru.checked) {
+      nama.setAttribute("disabled", "")
+      alamat.setAttribute("disabled", "")
+      noTelp.setAttribute("disabled", "")
+
+      pemilikId.removeAttribute("disabled")
+    } else {
+      nama.removeAttribute("disabled")
+      alamat.removeAttribute("disabled")
+      noTelp.removeAttribute("disabled")
+
+      pemilikId.setAttribute("disabled", "")
+    }
+  })
 
 </script>
 @endsection

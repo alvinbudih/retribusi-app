@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TipeKendaraanApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserApiController;
@@ -22,13 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::prefix("user")->group(function () {
 //     Route::get("/{id}", [UserApiController::class, "get"]);
 // });
-Route::get("/tipe/{id}", function ($id) {
-    $statusCode = 200;
-    $message = "success";
-
-    return response()->json([
-        "statusCode" => $statusCode,
-        "message" => $message,
-        "data" => App\Models\TipeKendaraan::where("merk_kendaraan_id", $id)->get()
-    ], $statusCode);
-});
+Route::get("/tipe/{id}", [TipeKendaraanApiController::class, "get"]);
+Route::get("/tipe", [TipeKendaraanApiController::class, "get"]);
