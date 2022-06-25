@@ -102,6 +102,23 @@
         {{-- End: Menu Kendaraan --}}
         @endcan
         <li class="nav-header">Menu Transaksi</li>
+        <li class="nav-item has-treeview {{ Request::is('dashboard/pendaftaran*') ? 'menu-open' : '' }}">
+          <a href="#" class="nav-link {{ Request::is('dashboard/pendaftaran*') ? 'active' : '' }}">
+            <i class="nav-icon oi oi-credit-card"></i>
+            <p>
+              Menu Pendaftaran
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ route('rekap.pendaftaran') }}" class="nav-link {{ Request::is('dashboard/pendaftaran*') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Rekapan Pendaftaran</p>
+              </a>
+            </li>
+          </ul>
+        </li>
         <li class="nav-item">
           <a href="" class="nav-link">
             <i class="nav-icon oi oi-book"></i>

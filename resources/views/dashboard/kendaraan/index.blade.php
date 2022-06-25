@@ -71,7 +71,7 @@
   </div>
   <!-- /.card -->
 </section>
-<div class="modal fade" id="modal-default">
+{{-- <div class="modal fade" id="modal-default">
   <div class="modal-dialog modal-lg">
     <form action="" method="post">
       @csrf
@@ -304,5 +304,5 @@
     <!-- /.modal-content -->
   </div>
   <!-- /.modal-dialog -->
-</div>
+</div> --}}
 @endsection

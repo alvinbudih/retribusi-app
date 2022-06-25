@@ -7,6 +7,7 @@ use App\Http\Controllers\KendaraanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MerkKendaraanController;
 use App\Http\Controllers\PemilikController;
+use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\StatusUjiController;
 use App\Http\Controllers\TipeKendaraanController;
 use App\Http\Controllers\UserController;
@@ -62,6 +63,12 @@ Route::middleware("auth")->group(function () {
             Route::resource("/tipe", TipeKendaraanController::class)->except(["show", "destroy"]);
             Route::resource("/jenis", JenisKendaraanController::class)->except(["show", "destroy"]);
             Route::resource("/kendaraan", KendaraanController::class);
+        });
+    });
+
+    Route::middleware("pelayanan")->group(function () {
+        Route::prefix("/dashboard/pendaftaran")->group(function () {
+            Route::get("/rekapan-pendaftaran", [PendaftaranController::class, "rekapanPendaftaran"])->name("rekap.pendaftaran");
         });
     });
 
