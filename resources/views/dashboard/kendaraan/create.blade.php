@@ -276,6 +276,17 @@
                   @enderror
                 </div>
               </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="jatuh_tempo">Jatuh Tempo</label>
+                  <input type="date" class="form-control form-control-sm @error('jatuh_tempo') is-invalid @enderror" id="jatuh_tempo" placeholder="Jatuh Tempo" name="jatuh_tempo" value="{{ $dateNow }}">
+                  @error("jatuh_tempo")
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                  @enderror
+                </div>
+              </div>
             </div>
           </div>
           <!-- /.card-body -->
@@ -324,25 +335,25 @@
   const alamat = document.getElementById("alamat")
   const noTelp = document.getElementById("no_telp")
 
-  nama.removeAttribute("disabled")
-  alamat.removeAttribute("disabled")
-  noTelp.removeAttribute("disabled")
+  nama.setAttribute("disabled", "")
+  alamat.setAttribute("disabled", "")
+  noTelp.setAttribute("disabled", "")
 
-  pemilikId.setAttribute("disabled", "")
+  pemilikId.removeAttribute("disabled")
   
   pemilikBaru.addEventListener("change", function () {
     if (pemilikBaru.checked) {
+      nama.removeAttribute("disabled")
+      alamat.removeAttribute("disabled")
+      noTelp.removeAttribute("disabled")
+      
+      pemilikId.setAttribute("disabled", "")
+    } else {
       nama.setAttribute("disabled", "")
       alamat.setAttribute("disabled", "")
       noTelp.setAttribute("disabled", "")
 
       pemilikId.removeAttribute("disabled")
-    } else {
-      nama.removeAttribute("disabled")
-      alamat.removeAttribute("disabled")
-      noTelp.removeAttribute("disabled")
-
-      pemilikId.setAttribute("disabled", "")
     }
   })
 

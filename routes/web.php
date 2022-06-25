@@ -53,13 +53,16 @@ Route::middleware("auth")->group(function () {
     Route::middleware("admin")->group(function () {
         Route::resource("/dashboard/user", UserController::class)->except("show");
         Route::resource("/dashboard/akun", AkunController::class)->except("show");
-        Route::resource("/dashboard/pemilik", PemilikController::class)->except("show");
-        Route::resource("/dashboard/biaya", BiayaController::class)->except(["show", "destroy"]);
-        Route::resource("/dashboard/merk", MerkKendaraanController::class)->except(["show", "destroy"]);
-        Route::resource("/dashboard/tipe", TipeKendaraanController::class)->except(["show", "destroy"]);
-        Route::resource("/dashboard/jenis", JenisKendaraanController::class)->except(["show", "destroy"]);
         Route::resource("/dashboard/status", StatusUjiController::class)->except(["show", "destroy"]);
-        Route::resource("/dashobard/kendaraan", KendaraanController::class);
+        Route::resource("/dashboard/biaya", BiayaController::class)->except(["show", "destroy"]);
+
+        Route::prefix("/dashboard/menu-kendaraan")->group(function () {
+            Route::resource("/pemilik", PemilikController::class)->except("show");
+            Route::resource("/merk", MerkKendaraanController::class)->except(["show", "destroy"]);
+            Route::resource("/tipe", TipeKendaraanController::class)->except(["show", "destroy"]);
+            Route::resource("/jenis", JenisKendaraanController::class)->except(["show", "destroy"]);
+            Route::resource("/kendaraan", KendaraanController::class);
+        });
     });
 
     // Route::get("/admin", function () {

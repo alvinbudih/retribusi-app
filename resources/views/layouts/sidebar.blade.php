@@ -16,10 +16,12 @@
         <a href="#" class="d-block">{{ auth()->user()->name }}</a>
       </div>
     </div>
+    {{-- sidbar user panel (optionsa) --}}
 
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        {{-- Start: Dashboard --}}
         <li class="nav-item">
           <a href="{{ route('dashboard') }}" class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}">
             <i class="nav-icon oi oi-dashboard"></i>
@@ -28,6 +30,8 @@
             </p>
           </a>
         </li>
+        {{-- End: Dashboard --}}
+        {{-- Start: Menu Master --}}
         <li class="nav-header">Menu Master</li>
         @can("admin")
         <li class="nav-item">
@@ -43,39 +47,9 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ route("pemilik.index") }}" class="nav-link {{ Request::is('dashboard/pemilik*') ? 'active' : '' }}">
-            <i class="nav-icon oi oi-list"></i>
-            <p>Pemilik</p>
-          </a>
-        </li>
-        <li class="nav-item">
           <a href="{{ route("biaya.index") }}" class="nav-link {{ Request::is('dashboard/biaya*') ? 'active' : '' }}">
             <i class="nav-icon oi oi-dollar"></i>
             <p>Biaya</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ route("merk.index") }}" class="nav-link {{ Request::is('dashboard/merk*') ? 'active' : '' }}">
-            <i class="nav-icon oi oi-tags"></i>
-            <p>Merk Kendaraan</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ route("tipe.index") }}" class="nav-link {{ Request::is('dashboard/tipe*') ? 'active' : '' }}">
-            <i class="nav-icon oi oi-paperclip"></i>
-            <p>Tipe Kendaraan</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ route("jenis.index") }}" class="nav-link {{ Request::is('dashboard/jenis*') ? 'active' : '' }}">
-            <i class="nav-icon oi oi-paperclip"></i>
-            <p>Jenis Kendaraan</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ route("kendaraan.index") }}" class="nav-link {{ Request::is('dashboard/kendaraan*') ? 'active' : '' }}">
-            <i class="nav-icon oi oi-paperclip"></i>
-            <p>Kendaraan</p>
           </a>
         </li>
         <li class="nav-item">
@@ -84,31 +58,50 @@
             <p>Status Uji</p>
           </a>
         </li>
-        @endcan
-        <li class="nav-header">Menu Transaksi</li>
-        <li class="nav-item has-treeview {{ Request::is('dashboard/kaskeluar*') || Request::is('dashboard/kasmasuk*') ? 'menu-open' : '' }}">
-          <a href="#" class="nav-link {{ Request::is('dashboard/kaskeluar*') || Request::is('dashboard/kasmasuk*') ? 'active' : '' }}">
+        <li class="nav-item has-treeview {{ Request::is('dashboard/menu-kendaraan*') ? 'menu-open' : '' }}">
+          <a href="#" class="nav-link {{ Request::is('dashboard/menu-kendaraan*') ? 'active' : '' }}">
             <i class="nav-icon oi oi-credit-card"></i>
             <p>
-              Transaksi Kas
+              Menu Kendaraan
               <i class="right fas fa-angle-left"></i>
             </p>
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="" class="nav-link {{ Request::is('dashboard/kaskeluar*') ? 'active' : '' }}">
+              <a href="{{ route('pemilik.index') }}" class="nav-link {{ Request::is('dashboard/menu-kendaraan/pemilik*') ? 'active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Kas Keluar</p>
+                <p>Pemilik Kendaraan</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="" class="nav-link {{ Request::is('dashboard/kasmasuk*') ? 'active' : '' }}">
+              <a href="{{ route('merk.index') }}" class="nav-link {{ Request::is('dashboard/menu-kendaraan/merk*') ? 'active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Kas Masuk</p>
+                <p>Merk Kendaraan</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('tipe.index') }}" class="nav-link {{ Request::is('dashboard/menu-kendaraan/tipe*') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Tipe Kendaraan</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('jenis.index') }}" class="nav-link {{ Request::is('dashboard/menu-kendaraan/jenis*') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Jenis Kendaraan</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('kendaraan.index') }}" class="nav-link {{ Request::is('dashboard/menu-kendaraan/kendaraan*') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Kendaraan</p>
               </a>
             </li>
           </ul>
         </li>
+        {{-- End: Menu Kendaraan --}}
+        @endcan
+        <li class="nav-header">Menu Transaksi</li>
         <li class="nav-item">
           <a href="" class="nav-link">
             <i class="nav-icon oi oi-book"></i>
