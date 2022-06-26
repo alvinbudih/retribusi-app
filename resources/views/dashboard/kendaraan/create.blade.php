@@ -11,53 +11,16 @@
           </div>
           <div class="card-body" id="tambah-pemilik">
             <div class="form-group">
-              <label for="pemilikBaru">Tambah Pemilik Baru</label>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="pemilikBaru" id="pemilikBaru" value="1" {{ (old('pemilikBaru') == 1) ? 'checked' : '' }}>
-                <label class="form-check-label">Pemilik Baru</label>
+              <label for="">Tambah Pemilik Baru</label>
+              <div class="custom-control custom-switch">
+                <input class="custom-control-input" type="checkbox" name="pemilikBaru" id="pemilikBaru" value="1" {{ (old('pemilikBaru') == 1) ? 'checked' : '' }}>
+                <label class="custom-control-label" for="pemilikBaru">Pemilik Baru</label>
               </div>
             </div>
-            <div class="form-group">
-              <label for="pemilik_id">Pemilik</label>
-              <select class="form-control form-control-sm @error('pemilik_id') is-invalid @enderror" id="pemilik_id" name="pemilik_id">
-                <option value=""> --Pilih Pemilik--</option>
-                @foreach($pemilik as $pm)
-                  <option value="{{ $pm->id }}" {{ (old('pemilik_id') == $pm->id) ? 'selected' : '' }}>{{ $pm->nama }}</option>
-                @endforeach
-              </select>
-              @error("pemilik_id")
-              <div class="invalid-feedback">
-                {{ $message }}
-              </div>
-              @enderror
+            <div id="form-pemilik">
+
             </div>
-            <div class="form-group">
-              <label for="nama">Nama Lengkap</label>
-              <input type="text" class="form-control form-control-sm @error('nama') is-invalid @enderror" id="nama" placeholder="Nama Lengkap" name="nama" value="{{ old('nama') }}">
-              @error("nama")
-              <div class="invalid-feedback">
-                {{ $message }}
-              </div>
-              @enderror
-            </div>
-            <div class="form-group">
-              <label for="alamat">Alamat</label>
-              <textarea class="form-control form-control-sm @error('alamat') is-invalid @enderror" id="alamat" name="alamat" placeholder="Alamat Lengkap">{{ old("alamat") }}</textarea>
-              @error("alamat")
-              <div class="invalid-feedback">
-                {{ $message }}
-              </div>
-              @enderror
-            </div>
-            <div class="form-group">
-              <label for="no_telp">No. Telepon</label>
-              <input type="number" class="form-control form-control-sm @error('no_telp') is-invalid @enderror" id="no_telp" placeholder="08XXX" name="no_telp" value="{{ old('no_telp') }}">
-              @error("no_telp")
-              <div class="invalid-feedback">
-                {{ $message }}
-              </div>
-              @enderror
-            </div>
+            
           </div>
         </div>
       </div>
@@ -328,34 +291,68 @@
       
   })
 
-  // bikin form tambah pemilik baru aktif apabila checkbox-nya ceklis
   const pemilikBaru = document.getElementById("pemilikBaru")
-  const pemilikId = document.getElementById("pemilik_id")
-  const nama = document.getElementById("nama")
-  const alamat = document.getElementById("alamat")
-  const noTelp = document.getElementById("no_telp")
+  const formPemilik = document.getElementById("form-pemilik")
+  if (pemilikBaru.checked) {
+    formPemilik.innerHTML = tambahPemilik()
+  } else {
+    formPemilik.innerHTML = pemilikLama()
+  }
 
-  nama.setAttribute("disabled", "")
-  alamat.setAttribute("disabled", "")
-  noTelp.setAttribute("disabled", "")
-
-  pemilikId.removeAttribute("disabled")
-  
   pemilikBaru.addEventListener("change", function () {
     if (pemilikBaru.checked) {
-      nama.removeAttribute("disabled")
-      alamat.removeAttribute("disabled")
-      noTelp.removeAttribute("disabled")
-      
-      pemilikId.setAttribute("disabled", "")
+      formPemilik.innerHTML = tambahPemilik()
     } else {
-      nama.setAttribute("disabled", "")
-      alamat.setAttribute("disabled", "")
-      noTelp.setAttribute("disabled", "")
-
-      pemilikId.removeAttribute("disabled")
+      formPemilik.innerHTML = pemilikLama()
     }
   })
+
+  function pemilikLama() {
+    return `<div class="form-group">
+              <label for="pemilik_id">Pemilik</label>
+              <select class="form-control form-control-sm @error('pemilik_id') is-invalid @enderror" id="pemilik_id" name="pemilik_id">
+                <option value=""> --Pilih Pemilik--</option>
+                @foreach($pemilik as $pm)
+                  <option value="{{ $pm->id }}" {{ (old('pemilik_id') == $pm->id) ? 'selected' : '' }}>{{ $pm->nama }}</option>
+                @endforeach
+              </select>
+              @error("pemilik_id")
+              <div class="invalid-feedback">
+                {{ $message }}
+              </div>
+              @enderror
+            </div>`
+  }
+
+  function tambahPemilik() {
+    return `<div class="form-group">
+              <label for="nama">Nama Lengkap</label>
+              <input type="text" class="form-control form-control-sm @error('nama') is-invalid @enderror" id="nama" placeholder="Nama Lengkap" name="nama" value="{{ old('nama') }}">
+              @error("nama")
+              <div class="invalid-feedback">
+                {{ $message }}
+              </div>
+              @enderror
+            </div>
+            <div class="form-group">
+              <label for="alamat">Alamat</label>
+              <textarea class="form-control form-control-sm @error('alamat') is-invalid @enderror" id="alamat" name="alamat" placeholder="Alamat Lengkap">{{ old("alamat") }}</textarea>
+              @error("alamat")
+              <div class="invalid-feedback">
+                {{ $message }}
+              </div>
+              @enderror
+            </div>
+            <div class="form-group">
+              <label for="no_telp">No. Telepon</label>
+              <input type="number" class="form-control form-control-sm @error('no_telp') is-invalid @enderror" id="no_telp" placeholder="08XXX" name="no_telp" value="{{ old('no_telp') }}">
+              @error("no_telp")
+              <div class="invalid-feedback">
+                {{ $message }}
+              </div>
+              @enderror
+            </div>`
+  }
 
 </script>
 @endsection

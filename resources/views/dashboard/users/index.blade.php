@@ -25,7 +25,7 @@
         </a> --}}
       </div>
     </div>
-    <div class="card-body p-0">
+    <div class="card-body">
       <table class="table table-sm table-hover text-nowrap projects">
         <thead>
           <tr>
@@ -122,9 +122,9 @@
           <div class="form-group">
             <label for="roles">Role</label>
             @foreach($roles as $role)
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="roles{{ $role->id }}" id="roles{{ $role->id }}" value="{{ $role->id }}">
-                <label class="form-check-label">{{ $role->role_name }}</label>
+              <div class="custom-control custom-switch">
+                <input class="custom-control-input" type="checkbox" name="roles{{ $role->id }}" id="roles{{ $role->id }}" value="{{ $role->id }}">
+                <label class="custom-control-label" id="roles{{ $role->id }}">{{ $role->role_name }}</label>
               </div>
             @endforeach
           </div>

@@ -67,9 +67,9 @@
                 <div class="form-group">
                   <label>Role</label>
                   @foreach($roles as $role)
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="roles{{ $role->id }}" name="roles{{ $role->id }}" value="{{ $role->id }}" {{ in_array($role->role_name, $userRole) ? 'checked' : '' }}>
-                      <label class="form-check-label" for="roles{{ $role->id }}">{{ $role->role_name }}</label>
+                    <div class="custom-control custom-switch">
+                      <input class="custom-control-input" type="checkbox" id="roles{{ $role->id }}" name="roles{{ $role->id }}" value="{{ $role->id }}" {{ in_array($role->role_name, $userRole) ? 'checked' : '' }}>
+                      <label class="custom-control-label" for="roles{{ $role->id }}">{{ $role->role_name }}</label>
                     </div>
                   @endforeach
                 </div>

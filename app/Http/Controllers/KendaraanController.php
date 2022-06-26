@@ -89,8 +89,6 @@ class KendaraanController extends Controller
             ]);
 
             $validatedPemilik["no_telp"] = $request->no_telp;
-
-            Pemilik::create($validatedPemilik);
         } else {
             $rules["pemilik_id"] = "required";
         }
@@ -106,6 +104,8 @@ class KendaraanController extends Controller
         // $validatedKend["jatuh_tempo"] = date("Y-m-d", strtotime("+6 month", strtotime($validatedKend["awal_daftar"])));
 
         if (isset($request->pemilikBaru)) {
+            Pemilik::create($validatedPemilik);
+
             $validatedKend["pemilik_id"] = Pemilik::max("id");
         }
 

@@ -112,7 +112,13 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{{ route('rekap.pendaftaran') }}" class="nav-link {{ Request::is('dashboard/pendaftaran*') ? 'active' : '' }}">
+              <a href="{{ route('form.pendaftaran') }}" class="nav-link {{ Request::is('dashboard/pendaftaran/form-pendaftaran') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Pendaftaran</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('rekap.pendaftaran') }}" class="nav-link {{ Request::is('dashboard/pendaftaran/rekapan-pendaftaran') ? 'active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Rekapan Pendaftaran</p>
               </a>

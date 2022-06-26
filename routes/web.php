@@ -68,7 +68,10 @@ Route::middleware("auth")->group(function () {
 
     Route::middleware("pelayanan")->group(function () {
         Route::prefix("/dashboard/pendaftaran")->group(function () {
-            Route::get("/rekapan-pendaftaran", [PendaftaranController::class, "rekapanPendaftaran"])->name("rekap.pendaftaran");
+            Route::controller(PendaftaranController::class)->group(function () {
+                Route::get("/rekapan-pendaftaran", "rekapanPendaftaran")->name("rekap.pendaftaran");
+                Route::get("/form-pendaftaran", "formPendaftaran")->name("form.pendaftaran");
+            });
         });
     });
 
