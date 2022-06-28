@@ -71,6 +71,7 @@ Route::middleware("auth")->group(function () {
             Route::controller(PendaftaranController::class)->group(function () {
                 Route::get("/rekapan-pendaftaran", "rekapanPendaftaran")->name("rekap.pendaftaran");
                 Route::get("/form-pendaftaran", "formPendaftaran")->name("form.pendaftaran");
+                Route::post("/pendaftaran-kendaraan", "pendaftaranKendaraan")->name("pendaftaran.kendaraan");
             });
         });
     });

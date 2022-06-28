@@ -2,11 +2,14 @@
 
 @section('content')
   <section class="content">
-    <form action="" method="post">
+    <form action="" method="get">
+      <div id="inputNoUjiCari"></div>
+    </form>
+    <form action="{{ route('pendaftaran.kendaraan') }}" method="post">
       @csrf
       <div class="row">
         <div class="col-sm-6">
-          <div class="card card-info">
+          <div class="card card-primary">
             <div class="card-header">
               <h3 class="card-title">{{ $title }}</h3>
             </div>
@@ -14,62 +17,85 @@
               <div class="form-group row">
                 <label for="status_uji_id" class="col-sm-2 col-form-label">Status Uji</label>
                 <div class="col-sm-10">
-                  <select class="form-control" name="status_uji_id" id="status_uji_id">
+                  <select class="form-control form-control-sm" name="status_uji_id" id="status_uji_id">
                     <option value=""> --Pilih Status-- </option>
                     @foreach($statusUji as $status)
-                      <option value="{{ $status->id }}">{{ $status->status }}</option>
+                      <option value="{{ $status->id }}" {{ (old('status_uji_id') == $status->id) ? 'selected' : '' }}>{{ $status->status }}</option>
                     @endforeach
                   </select>
-                </div>
-              </div>
-              <div id="inputNoUji">
-                <div class="form-group row">
-                  <label for="no_uji" class="col-sm-2 col-form-label">No. Uji</label>
-                  <div class="col-sm-10">
-                    <div class="input-group">
-                      <input type="text" class="form-control">
-                      <span class="input-group-append">
-                        <button type="button" class="btn btn-info btn-flat">Cari</button>
-                      </span>
-                    </div>
-                  </div>
                 </div>
               </div>
               <!-- /input-group -->
             </div>
             <!-- /.card-body -->
           </div>
-  
-          <div class="card card-secondary">
-            <div class="card-header">
-              <h3 class="card-title">Form Tambah Pemilik</h3>
-            </div>
-            <div class="card-body" id="tambah-pemilik">
-              <div class="form-group">
-                <label for="">Tambah Pemilik Baru</label>
-                <div class="custom-control custom-switch">
-                  <input class="custom-control-input" type="checkbox" name="pemilikBaru" id="pemilikBaru" value="1" {{ (old('pemilikBaru') == 1) ? 'checked' : '' }}>
-                  <label class="custom-control-label" for="pemilikBaru">Pemilik Baru</label>
+          @if(!request("noUjiCari"))
+            <div class="card card-warning">
+              <div class="card-header">
+                <h3 class="card-title">Form Tambah Pemilik</h3>
+              </div>
+              <div class="card-body" id="tambah-pemilik">
+                <div class="form-group">
+                  <label for="">Tambah Pemilik Baru</label>
+                  <div class="custom-control custom-switch">
+                    <input class="custom-control-input" type="checkbox" name="pemilikBaru" id="pemilikBaru" value="1" {{ (old('pemilikBaru') == 1) ? 'checked' : '' }}>
+                    <label class="custom-control-label" for="pemilikBaru">Pemilik Baru</label>
+                  </div>
+                </div>
+                <div id="form-pemilik">
+
                 </div>
               </div>
-              <div id="form-pemilik"></div>
             </div>
-          </div>
+          @else
+            <div class="card card-warning">
+              <div class="card-header">
+                <h3 class="card-title">Form Tambah Pemilik</h3>
+              </div>
+              <div class="card-body" id="tambah-pemilik">
+                <div class="form-group">
+                  <label for="nama">Nama Lengkap</label>
+                  <input type="text" class="form-control form-control-sm @error('nama') is-invalid @enderror" id="nama" placeholder="Nama Lengkap" name="nama" value="{{ old('nama', $kendaraan->pemilik->nama) }}">
+                  @error("nama")
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                  @enderror
+                </div>
+                <div class="form-group">
+                  <label for="alamat">Alamat</label>
+                  <textarea class="form-control form-control-sm @error('alamat') is-invalid @enderror" id="alamat" name="alamat" placeholder="Alamat Lengkap">{{ old("alamat", $kendaraan->pemilik->alamat) }}</textarea>
+                  @error("alamat")
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                  @enderror
+                </div>
+                <div class="form-group">
+                  <label for="no_telp">No. Telepon</label>
+                  <input type="number" class="form-control form-control-sm @error('no_telp') is-invalid @enderror" id="no_telp" placeholder="08XXX" name="no_telp" value="{{ old('no_telp', $kendaraan->pemilik->no_telp) }}">
+                  @error("no_telp")
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                  @enderror
+                </div>
+              </div>
+            </div>
+          @endif
         </div>
         
         <div class="col-sm-6">
-          <!-- general form elements -->
-          <div class="card card-primary">
+          <div class="card card-success">
             <div class="card-header">
               <h3 class="card-title">Form Kendaraan</h3>
             </div>
-            <!-- /.card-header -->
             <div class="card-body">
               <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="no_kendaraan">No. Kendaraan</label>
-                    <input type="text" class="form-control form-control-sm @error('no_kendaraan') is-invalid @enderror" id="no_kendaraan" placeholder="No. Kendaraan" name="no_kendaraan" value="{{ old('no_kendaraan', request('no_kendaraan') ? $kendaraan->no_kendaraan : '') }}">
+                    <input type="text" class="form-control form-control-sm @error('no_kendaraan') is-invalid @enderror" id="no_kendaraan" placeholder="No. Kendaraan" name="no_kendaraan" value="{{ old('no_kendaraan', $kendaraan->no_kendaraan) }}">
                     @error("no_kendaraan")
                     <div class="invalid-feedback">
                       {{ $message }}
@@ -80,7 +106,7 @@
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="no_mesin">No. Mesin</label>
-                    <input type="text" class="form-control form-control-sm @error('no_mesin') is-invalid @enderror" id="no_mesin" placeholder="No. Mesin" name="no_mesin" value="{{ old('no_mesin') }}">
+                    <input type="text" class="form-control form-control-sm @error('no_mesin') is-invalid @enderror" id="no_mesin" placeholder="No. Mesin" name="no_mesin" value="{{ old('no_mesin', $kendaraan->no_mesin) }}">
                     @error("no_mesin")
                     <div class="invalid-feedback">
                       {{ $message }}
@@ -93,7 +119,7 @@
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="srut">SRUT</label>
-                    <input type="text" class="form-control form-control-sm @error('srut') is-invalid @enderror" id="srut" placeholder="SRUT" name="srut" value="{{ old('srut') }}">
+                    <input type="text" class="form-control form-control-sm @error('srut') is-invalid @enderror" id="srut" placeholder="SRUT" name="srut" value="{{ old('srut', $kendaraan->srut) }}">
                     @error("srut")
                     <div class="invalid-feedback">
                       {{ $message }}
@@ -104,7 +130,7 @@
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="jbb">JBB</label>
-                    <input type="number" class="form-control form-control-sm @error('jbb') is-invalid @enderror" id="jbb" placeholder="jbb" name="jbb" value="{{ old('jbb') }}">
+                    <input type="number" class="form-control form-control-sm @error('jbb') is-invalid @enderror" id="jbb" placeholder="jbb" name="jbb" value="{{ old('jbb', $kendaraan->jbb) }}">
                     @error("jbb")
                     <div class="invalid-feedback">
                       {{ $message }}
@@ -117,7 +143,7 @@
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="tahun_buat">Tahun Buat</label>
-                    <input type="number" class="form-control form-control-sm @error('tahun_buat') is-invalid @enderror" id="tahun_buat" placeholder="Tahun Buat" name="tahun_buat" value="{{ old('tahun_buat') }}">
+                    <input type="number" class="form-control form-control-sm @error('tahun_buat') is-invalid @enderror" id="tahun_buat" placeholder="Tahun Buat" name="tahun_buat" value="{{ old('tahun_buat', $kendaraan->tahun_buat) }}">
                     @error("tahun_buat")
                     <div class="invalid-feedback">
                       {{ $message }}
@@ -131,7 +157,7 @@
                     <select class="form-control form-control-sm @error('jenis_rumah') is-invalid @enderror" id="jenis_rumah" name="jenis_rumah">
                       <option value=""> --Pilih Jenis Rumah2--</option>
                       @foreach($jenisRumah as $jr)
-                        <option value="{{ $jr }}" {{ (old('jenis_rumah') == $jr) ? 'selected' : '' }}>{{ $jr }}</option>
+                        <option value="{{ $jr }}" {{ (old('jenis_rumah', $kendaraan->jenis_rumah) == $jr) ? 'selected' : '' }}>{{ $jr }}</option>
                       @endforeach
                     </select>
                     @error("jenis_rumah")
@@ -149,7 +175,7 @@
                     <select class="form-control form-control-sm @error('sifat') is-invalid @enderror" id="sifat" name="sifat">
                       <option value=""> --Pilih Sifat--</option>
                       @foreach($sifat as $s)
-                        <option value="{{ $s }}" {{ (old('sifat') == $s) ? 'selected' : '' }}>{{ $s }}</option>
+                        <option value="{{ $s }}" {{ (old('sifat', $kendaraan->sifat) == $s) ? 'selected' : '' }}>{{ $s }}</option>
                       @endforeach
                     </select>
                     @error("sifat")
@@ -165,7 +191,7 @@
                     <select class="form-control form-control-sm @error('bahan_bakar') is-invalid @enderror" id="bahan_bakar" name="bahan_bakar">
                       <option value=""> --Pilih Bahan Bakar--</option>
                       @foreach($bahanBakar as $bb)
-                        <option value="{{ $bb }}" {{ (old('bahan_bakar') == $bb) ? 'selected' : '' }}>{{ $bb }}</option>
+                        <option value="{{ $bb }}" {{ (old('bahan_bakar', $kendaraan->bahan_bakar) == $bb) ? 'selected' : '' }}>{{ $bb }}</option>
                       @endforeach
                     </select>
                     @error("bahan_bakar")
@@ -180,7 +206,7 @@
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="bahan_karoseri">Bahan Karoseri</label>
-                    <input type="text" class="form-control form-control-sm @error('bahan_karoseri') is-invalid @enderror" id="bahan_karoseri" placeholder="Bahan Karoseri" name="bahan_karoseri" value="{{ old('bahan_karoseri') }}">
+                    <input type="text" class="form-control form-control-sm @error('bahan_karoseri') is-invalid @enderror" id="bahan_karoseri" placeholder="Bahan Karoseri" name="bahan_karoseri" value="{{ old('bahan_karoseri', $kendaraan->bahan_karoseri) }}">
                     @error("bahan_karoseri")
                     <div class="invalid-feedback">
                       {{ $message }}
@@ -191,7 +217,7 @@
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="cc">Isi Silinder / CC</label>
-                    <input type="number" class="form-control form-control-sm @error('cc') is-invalid @enderror" id="cc" placeholder="Isi Silinder" name="cc" value="{{ old('cc') }}">
+                    <input type="number" class="form-control form-control-sm @error('cc') is-invalid @enderror" id="cc" placeholder="Isi Silinder" name="cc" value="{{ old('cc', $kendaraan->cc) }}">
                     @error("cc")
                     <div class="invalid-feedback">
                       {{ $message }}
@@ -207,7 +233,7 @@
                     <select class="form-control form-control-sm @error('merk_kendaraan_id') is-invalid @enderror" id="merk_kendaraan_id" name="merk_kendaraan_id">
                       <option value=""> --Pilih Merk Kendaraan--</option>
                       @foreach($merk as $mrk)
-                        <option value="{{ $mrk->id }}" {{ (old('merk_kendaraan_id') == $mrk->id) ? 'selected' : '' }}>{{ $mrk->nama_merk }}</option>
+                        <option value="{{ $mrk->id }}" {{ (old('merk_kendaraan_id', $kendaraan->merk_kendaraan_id) == $mrk->id) ? 'selected' : '' }}>{{ $mrk->nama_merk }}</option>
                       @endforeach
                     </select>
                     @error("merk_kendaraan_id")
@@ -238,7 +264,7 @@
                     <select class="form-control form-control-sm @error('jenis_kendaraan_id') is-invalid @enderror" id="jenis_kendaraan_id" name="jenis_kendaraan_id">
                       <option value=""> --Pilih Jenis Kendaraan--</option>
                       @foreach($jenis as $j)
-                        <option value="{{ $j->id }}" {{ (old('jenis_kendaraan_id') == $j->id) ? 'selected' : '' }}>{{ $j->nama_jenis }}</option>
+                        <option value="{{ $j->id }}" {{ (old('jenis_kendaraan_id', $kendaraan->jenis_kendaraan_id) == $j->id) ? 'selected' : '' }}>{{ $j->nama_jenis }}</option>
                       @endforeach
                     </select>
                     @error("jenis_kendaraan_id")
@@ -251,7 +277,7 @@
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="no_rangka">No. Rangka</label>
-                    <input type="text" class="form-control form-control-sm @error('no_rangka') is-invalid @enderror" id="no_rangka" placeholder="No. Rangka" name="no_rangka" value="{{ old('no_rangka') }}">
+                    <input type="text" class="form-control form-control-sm @error('no_rangka') is-invalid @enderror" id="no_rangka" placeholder="No. Rangka" name="no_rangka" value="{{ old('no_rangka', $kendaraan->no_rangka) }}">
                     @error("no_rangka")
                     <div class="invalid-feedback">
                       {{ $message }}
@@ -263,9 +289,9 @@
               <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <label for="jatuh_tempo">Jatuh Tempo</label>
-                    <input type="date" class="form-control form-control-sm @error('jatuh_tempo') is-invalid @enderror" id="jatuh_tempo" placeholder="Jatuh Tempo" name="jatuh_tempo" value="{{ $dateNow }}">
-                    @error("jatuh_tempo")
+                    <label for="no_uji">No. Uji</label>
+                    <input type="text" class="form-control form-control-sm @error('no_uji') is-invalid @enderror" id="no_uji" placeholder="No. Uji" name="no_uji" value="{{ old('no_uji', $kendaraan->no_uji) }}">
+                    @error("no_uji")
                     <div class="invalid-feedback">
                       {{ $message }}
                     </div>
@@ -279,10 +305,33 @@
           <!-- /.card -->
         </div>
       </div>
+      <div class="row">
+        <div class="col-12 mb-3">
+          <button type="reset" class="btn btn-warning">Reset</button>
+          <button type="submit" class="btn btn-primary float-right">Submit</button>
+        </div>
+      </div>
     </form>
   </section>
   <script>
     const merkId = document.querySelector("#merk_kendaraan_id")
+    const tipeKendaraanId = document.getElementById("tipe_kendaraan_id")
+    fetch("http://retribusi-app.test/api/tipe/" + merkId.value)
+      .then(response => response.json())
+      .then(result => {
+        const tipeKendaraan = result.data
+  
+          let option = `<option value=""> --Pilih Tipe Kendaraan-- </option>`
+          
+          if (tipeKendaraan.length <= 0) {
+            tipeKendaraanId.innerHTML = option
+          } else {
+            tipeKendaraan.forEach(tipe => {
+              option += `<option value="${tipe.id}">${tipe.nama_tipe}</option>`
+            })
+            tipeKendaraanId.innerHTML = option
+          }
+      })
     
     merkId.addEventListener("change", function () {
   
@@ -291,7 +340,6 @@
         .then(result => {
           const tipeKendaraan = result.data
   
-          tipeKendaraanId = document.getElementById("tipe_kendaraan_id")
           let option = `<option value=""> --Pilih Tipe Kendaraan-- </option>`
           
           if (tipeKendaraan.length <= 0) {
@@ -323,26 +371,46 @@
       }
     })
 
-    const inputNoUji = document.getElementById("inputNoUji")
+    const inputNoUjiCari = document.getElementById("inputNoUjiCari")
     const statusUjiId = document.getElementById("status_uji_id")
+    if (statusUjiId.value == 1) {
+      inputNoUjiCari.innerHTML = ""
+    } else {
+      inputNoUjiCari.innerHTML = inputNoUjiCariUI()
+    }
 
     statusUjiId.addEventListener("change", function () {
       if (statusUjiId.value == 1) {
-        inputNoUji.innerHTML = ""
+        inputNoUjiCari.innerHTML = ""
       } else {
-        inputNoUji.innerHTML = inputNoUjiUI()
+        inputNoUjiCari.innerHTML = inputNoUjiCariUI()
       }
     })
 
-    function inputNoUjiUI() {
-      return `<div class="form-group row">
-                <label for="no_uji" class="col-sm-2 col-form-label">No. Uji</label>
-                <div class="col-sm-10">
-                  <div class="input-group">
-                    <input type="text" class="form-control">
-                    <span class="input-group-append">
-                      <button type="button" class="btn btn-info btn-flat">Cari</button>
-                    </span>
+    function inputNoUjiCariUI() {
+      return `<div class="row">
+                <div class="col-sm-12">
+                  <div class="card card-info">
+                    <div class="card-header">
+                      <h3 class="card-title">{{ $title }}</h3>
+                    </div>
+                    <div class="card-body">
+                      
+                        <div class="form-group row">
+                          <label for="noUjiCari" class="col-sm-2 col-form-label">Cari No. Uji</label>
+                          <div class="col-sm-10">
+                            <div class="input-group input-group-sm">
+                              <input type="text" class="form-control form-control-sm" name="noUjiCari" id="noUjiCari" placeholder="Cari No. Uji">
+                              <span class="input-group-append">
+                                <button type="submit" class="btn btn-info btn-flat">Cari</button>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      
+                      <!-- /input-group -->
+                    </div>
+                    <!-- /.card-body -->
                   </div>
                 </div>
               </div>`

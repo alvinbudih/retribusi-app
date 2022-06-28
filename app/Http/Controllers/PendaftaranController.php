@@ -17,6 +17,12 @@ class PendaftaranController extends Controller
         $this->jenisRumah = ["Umum", "Bukan Umum"];
         $this->sifat = ["Terbuka", "Tertutup"];
         $this->bahanBakar = ["Bensin", "Solar", "Non BB"];
+
+        if (Pendaftaran::where("tgl_daftar", date("Y-m-d"))->get()->count() <= 0) {
+            $this->no_antri = date("d") . date("m") . date("y") . "0001";
+        } else {
+            $this->no_antri = Pendaftaran::max("no_antri") + 1;
+        }
     }
 
     public function rekapanPendaftaran()
@@ -50,7 +56,7 @@ class PendaftaranController extends Controller
         ]);
     }
 
-    public function daftarKendaraan()
+    public function pendaftaranKendaraan(Request $request)
     {
         $rulesKendaraan = [
             "no_uji" => "required|max:15",
@@ -68,7 +74,51 @@ class PendaftaranController extends Controller
             "jenis_kendaraan_id" => "required",
             "merk_kendaraan_id" => "required",
             "tipe_kendaraan_id" => "required",
-            "jatuh_tempo" => "required"
         ];
+
+        if ($request->status_uji_id == 1) {
+            $rulesKendaraan["no_uji"] .= "|unique:kendaraan";
+            $rulesKendaraan["no_kendaraan"] .= "|unique:kendaraan";
+            $rulesKendaraan["no_mesin"] .= "|unique:kendaraan";
+            $rulesKendaraan["srut"] .= "|unique:kendaraan";
+
+            if (isset($request->pemilikBaru)) {
+                $validatedPemilik = $request->validate([
+                    "nama" => "required|max:255",
+                    "alamat" => "required"
+                ]);
+            } else {
+                $rulesKendaraan["pemilik_id"] = "required";
+            }
+
+            $validatedKend = $request->validate($rulesKendaraan);
+
+            $validatedKend["no_uji"] = strtoupper($validatedKend["no_uji"]);
+            $validatedKend["no_kendaraan"] = strtoupper($validatedKend["no_kendaraan"]);
+            $validatedKend["no_mesin"] = strtoupper($validatedKend["no_mesin"]);
+            $validatedKend["no_rangka"] = strtoupper($validatedKend["no_rangka"]);
+            $validatedKend["srut"] = strtoupper($validatedKend["srut"]);
+            $validatedKend["awal_daftar"] = date("Y-m-d");
+            $validatedKend["jatuh_tempo"] = date("Y-m-d", strtotime("+6 month", strtotime($validatedKend["awal_daftar"])));
+
+            if (isset($request->pemilikBaru)) {
+                Pemilik::create($validatedPemilik);
+
+                $validatedKend["pemilik_id"] = Pemilik::max("id");
+            }
+
+            Kendaraan::create($validatedKend);
+
+            Pendaftaran::create([
+                "no_antri" => $this->no_antri,
+                "tgl_daftar" => date("Y-m-d"),
+                "kendaraan_id" => Kendaraan::max("id"),
+                "status_uji_id" => $request->status_uji_id,
+                "user_id" => auth()->user()->id
+            ]);
+
+            return back()->with("success", "Data Berhasil Ditambahkan");
+        } else {
+        }
     }
 }

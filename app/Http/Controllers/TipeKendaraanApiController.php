@@ -16,8 +16,6 @@ class TipeKendaraanApiController extends Controller
         if ($id) {
             $tipe = TipeKendaraan::where("merk_kendaraan_id", $id)->get();
         } else {
-            $statusCode = 404;
-            $message = "Bad Request";
             $response = false;
             $tipe = [];
         }
