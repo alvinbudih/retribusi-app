@@ -23,6 +23,7 @@
         <thead>
           <tr>
             <th>#</th>
+            <th>No. Antrian</th>
             <th>Tgl Daftar</th>
             <th>No. Uji</th>
             <th>Pemilik</th>
@@ -41,6 +42,7 @@
             @foreach($recaps as $recap)
               <tr>
                 <td>{{ $loop->iteration }}</td>
+                <td>{{ $recap->no_antri }}</td>
                 <td>{{ $recap->tgl_daftar }}</td>
                 <td>{{ $recap->kendaraan->no_uji }}</td>
                 <td>{{ $recap->kendaraan->pemilik->nama }}</td>

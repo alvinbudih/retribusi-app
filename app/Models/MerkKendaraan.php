@@ -12,11 +12,6 @@ class MerkKendaraan extends Model
     protected $table = "merk_kendaraan";
     protected $guarded = ["id"];
 
-    public function kendaraan()
-    {
-        return $this->hasMany(Kendaraan::class);
-    }
-
     public function tipe_kendaraan()
     {
         return $this->hasMany(TipeKendaraan::class);

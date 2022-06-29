@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\JenisKendaraan;
 use App\Models\Kendaraan;
-use App\Models\MerkKendaraan;
 use App\Models\Pemilik;
+use App\Models\TipeKendaraan;
 use Illuminate\Http\Request;
 
 class KendaraanController extends Controller
@@ -27,12 +27,6 @@ class KendaraanController extends Controller
         return view("dashboard.kendaraan.index", [
             "title" => "Kendaraan",
             "kendaraan" => Kendaraan::all(),
-            "pemilik" => Pemilik::all(),
-            "jenis" => JenisKendaraan::all(),
-            "merk" => MerkKendaraan::all(),
-            "jenisRumah" => $this->jenisRumah,
-            "sifat" => $this->sifat,
-            "bahanBakar" => $this->bahanBakar
         ]);
     }
 
@@ -47,7 +41,7 @@ class KendaraanController extends Controller
             "title" => "Tambah Data",
             "pemilik" => Pemilik::all(),
             "jenis" => JenisKendaraan::all(),
-            "merk" => MerkKendaraan::all(),
+            "tipe" => TipeKendaraan::all(),
             "jenisRumah" => $this->jenisRumah,
             "sifat" => $this->sifat,
             "bahanBakar" => $this->bahanBakar,
@@ -77,9 +71,7 @@ class KendaraanController extends Controller
             "bahan_karoseri" => "required|max:255",
             "cc" => "required|numeric",
             "jenis_kendaraan_id" => "required",
-            "merk_kendaraan_id" => "required",
             "tipe_kendaraan_id" => "required",
-            "jatuh_tempo" => "required"
         ];
 
         if (isset($request->pemilikBaru)) {
@@ -101,7 +93,7 @@ class KendaraanController extends Controller
         $validatedKend["no_rangka"] = strtoupper($validatedKend["no_rangka"]);
         $validatedKend["srut"] = strtoupper($validatedKend["srut"]);
         $validatedKend["awal_daftar"] = date("Y-m-d");
-        // $validatedKend["jatuh_tempo"] = date("Y-m-d", strtotime("+6 month", strtotime($validatedKend["awal_daftar"])));
+        $validatedKend["jatuh_tempo"] = date("Y-m-d", strtotime("+6 month", strtotime($validatedKend["awal_daftar"])));
 
         if (isset($request->pemilikBaru)) {
             Pemilik::create($validatedPemilik);

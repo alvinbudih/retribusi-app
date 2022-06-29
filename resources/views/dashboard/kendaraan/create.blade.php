@@ -181,27 +181,12 @@
               </div>
               <div class="col-sm-6">
                 <div class="form-group">
-                  <label for="merk_kendaraan_id">Merk Kendaraan</label>
-                  <select class="form-control form-control-sm @error('merk_kendaraan_id') is-invalid @enderror" id="merk_kendaraan_id" name="merk_kendaraan_id">
-                    <option value=""> --Pilih Merk Kendaraan--</option>
-                    @foreach($merk as $mrk)
-                      <option value="{{ $mrk->id }}" {{ (old('merk_kendaraan_id') == $mrk->id) ? 'selected' : '' }}>{{ $mrk->nama_merk }}</option>
-                    @endforeach
-                  </select>
-                  @error("merk_kendaraan_id")
-                  <div class="invalid-feedback">
-                    {{ $message }}
-                  </div>
-                  @enderror
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-6">
-                <div class="form-group">
                   <label for="tipe_kendaraan_id">Tipe Kendaraan</label>
                   <select class="form-control form-control-sm @error('tipe_kendaraan_id') is-invalid @enderror" id="tipe_kendaraan_id" name="tipe_kendaraan_id">
                     <option value=""> --Pilih Tipe Kendaraan--</option>
+                    @foreach($tipe as $t)
+                      <option value="{{ $t->id }}" {{ old('tipe_kendaraan_id') == $t->id ? 'selected' : '' }}>{{ $t->nama_tipe }}</option>
+                    @endforeach
                   </select>
                   @error("tipe_kendaraan_id")
                   <div class="invalid-feedback">
@@ -210,6 +195,8 @@
                   @enderror
                 </div>
               </div>
+            </div>
+            <div class="row">
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="jenis_kendaraan_id">Jenis Kendaraan</label>
@@ -226,8 +213,6 @@
                   @enderror
                 </div>
               </div>
-            </div>
-            <div class="row">
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="no_rangka">No. Rangka</label>
@@ -239,6 +224,8 @@
                   @enderror
                 </div>
               </div>
+            </div>
+            <div class="row">
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="jatuh_tempo">Jatuh Tempo</label>
@@ -267,29 +254,29 @@
 </section>
 <script>
 
-  const merkId = document.querySelector("#merk_kendaraan_id")
+  // const merkId = document.querySelector("#merk_kendaraan_id")
   
-  merkId.addEventListener("change", function () {
+  // merkId.addEventListener("change", function () {
 
-    fetch("http://retribusi-app.test/api/tipe/" + merkId.value)
-      .then(response => response.json())
-      .then(result => {
-        const tipeKendaraan = result.data
+  //   fetch("http://retribusi-app.test/api/tipe/" + merkId.value)
+  //     .then(response => response.json())
+  //     .then(result => {
+  //       const tipeKendaraan = result.data
 
-        tipeKendaraanId = document.getElementById("tipe_kendaraan_id")
-        let option = `<option value=""> --Pilih Tipe Kendaraan-- </option>`
+  //       tipeKendaraanId = document.getElementById("tipe_kendaraan_id")
+  //       let option = `<option value=""> --Pilih Tipe Kendaraan-- </option>`
         
-        if (tipeKendaraan.length <= 0) {
-          tipeKendaraanId.innerHTML = option
-        } else {
-          tipeKendaraan.forEach(tipe => {
-            option += `<option value="${tipe.id}">${tipe.nama_tipe}</option>`
-          })
-          tipeKendaraanId.innerHTML = option
-        }
-      })
+  //       if (tipeKendaraan.length <= 0) {
+  //         tipeKendaraanId.innerHTML = option
+  //       } else {
+  //         tipeKendaraan.forEach(tipe => {
+  //           option += `<option value="${tipe.id}">${tipe.nama_tipe}</option>`
+  //         })
+  //         tipeKendaraanId.innerHTML = option
+  //       }
+  //     })
       
-  })
+  // })
 
   const pemilikBaru = document.getElementById("pemilikBaru")
   const formPemilik = document.getElementById("form-pemilik")

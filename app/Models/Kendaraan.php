@@ -17,11 +17,6 @@ class Kendaraan extends Model
         return $this->belongsTo(Pemilik::class);
     }
 
-    public function merk_kendaraan()
-    {
-        return $this->belongsTo(MerkKendaraan::class);
-    }
-
     public function jenis_kendaraan()
     {
         return $this->belongsTo(JenisKendaraan::class);
