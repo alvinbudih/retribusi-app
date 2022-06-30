@@ -16,8 +16,8 @@ class CreateJurnalsTable extends Migration
         Schema::create('jurnal', function (Blueprint $table) {
             $table->id();
             $table->char("no_jurnal");
-            $table->foreignId("akun_id");
             $table->date("tgl_jurnal");
+            $table->text("keterangan");
             $table->double("debit");
             $table->double("kredit");
             $table->timestamps();

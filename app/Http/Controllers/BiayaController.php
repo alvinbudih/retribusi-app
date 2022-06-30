@@ -9,7 +9,7 @@ class BiayaController extends Controller
 {
     public function __construct()
     {
-        $this->categories = ["Regular", "Denda"];
+        $this->categories = ["Biaya", "Denda"];
     }
 
     /**

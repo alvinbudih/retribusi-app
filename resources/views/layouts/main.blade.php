@@ -61,12 +61,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- REQUIRED SCRIPTS -->
 
+  {{-- dataTable jQuery --}}
+  <script src="{{ asset('backend/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ asset('backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+  <script src="{{ asset('backend/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+  <script src="{{ asset('backend/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
   <!-- jQuery -->
   <script src="{{ asset('backend/plugins/jquery/jquery.min.js') }}"></script>
   <!-- Bootstrap 4 -->
   <script src="{{ asset('backend/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
   <!-- AdminLTE App -->
   <script src="{{ asset('backend/dist/js/adminlte.min.js') }}"></script>
+  <script>
+    $(function () {
+      $("#dataTable").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+      });
+    });
+  </script>
 </body>
 
 </html>

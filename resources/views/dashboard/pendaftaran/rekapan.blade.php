@@ -49,13 +49,6 @@
                 <td>{{ $recap->kendaraan->no_kendaraan }}</td>
                 <td>{{ $recap->kendaraan->pemilik->alamat }}</td>
                 <td>{{ $recap->user->name }}</td>
-                {{-- <td>
-                  <a class="btn btn-success btn-sm" href="">
-                    <i class="fas fa-pencil-alt">
-                    </i>
-                    Edit
-                  </a>
-                </td> --}}
               </tr>
             @endforeach
           @endif

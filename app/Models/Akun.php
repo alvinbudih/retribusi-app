@@ -17,11 +17,6 @@ class Akun extends Model
         return $this->hasMany(Pembayaran::class);
     }
 
-    public function detail_pembayaran()
-    {
-        return $this->hasMany(DetailPembayaran::class);
-    }
-
     public function jurnal()
     {
         return $this->hasMany(Jurnal::class);

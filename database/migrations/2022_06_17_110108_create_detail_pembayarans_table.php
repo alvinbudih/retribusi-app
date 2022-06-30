@@ -15,8 +15,10 @@ class CreateDetailPembayaransTable extends Migration
     {
         Schema::create('detail_pembayaran', function (Blueprint $table) {
             $table->foreignId("pembayaran_id");
-            $table->foreignId("akun_id");
             $table->foreignId("biaya_id");
+            $table->double("jumlah_biaya");
+            $table->double("biaya_satuan");
+            $table->double("subtotal");
             $table->timestamps();
         });
     }

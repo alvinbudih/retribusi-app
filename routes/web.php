@@ -6,6 +6,7 @@ use App\Http\Controllers\JenisKendaraanController;
 use App\Http\Controllers\KendaraanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MerkKendaraanController;
+use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PemilikController;
 use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\StatusUjiController;
@@ -66,10 +67,24 @@ Route::middleware("auth")->group(function () {
         });
     });
 
-    Route::middleware("pelayanan")->group(function () {
-        Route::prefix("/dashboard/pendaftaran")->group(function () {
+    Route::prefix("/dashboard/pembayaran")->group(function () {
+        Route::get("/rekapan-pembayaran", [PembayaranController::class, "rekapanPembayaran"]);
+
+        Route::middleware("kasir")->group(function () {
+            Route::controller(PembayaranController::class)->group(function () {
+                Route::get("/tagihan-pembayaran", "tagihanPembayaran")->name("tagihan.pembayaran");
+                Route::get("/form-pembayaran/{pembayaran}", "formPembayaran")->name("form.pembayaran");
+                Route::post("/form-pembayaran/{pembayaran}", "tambahBiaya");
+                Route::put("/tambah-pembayaran/{pembayaran}", "tambahPembayaran")->name("tambah.pembayaran");
+            });
+        });
+    });
+
+    Route::prefix("/dashboard/pendaftaran")->group(function () {
+        Route::get("/rekapan-pendaftaran", [PendaftaranController::class, "rekapanPendaftaran"])->name("rekap.pendaftaran");
+
+        Route::middleware("pelayanan")->group(function () {
             Route::controller(PendaftaranController::class)->group(function () {
-                Route::get("/rekapan-pendaftaran", "rekapanPendaftaran")->name("rekap.pendaftaran");
                 Route::get("/form-pendaftaran", "formPendaftaran")->name("form.pendaftaran");
                 Route::post("/pendaftaran-kendaraan", "pendaftaranKendaraan")->name("pendaftaran.kendaraan");
             });

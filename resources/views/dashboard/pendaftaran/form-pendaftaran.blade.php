@@ -31,7 +31,34 @@
     </div>
     @endif
     <form action="" method="get">
-      <div id="inputNoUjiCari"></div>
+      <div id="inputNoUjiCari">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card card-info">
+              <div class="card-header">
+                <h3 class="card-title">Form Pencarian</h3>
+              </div>
+              <div class="card-body">
+                
+                  <div class="form-group row">
+                    <label for="noUjiCari" class="col-sm-2 col-form-label">Cari No. Uji</label>
+                    <div class="col-sm-10">
+                      <div class="input-group input-group-sm">
+                        <input type="text" class="form-control form-control-sm" name="noUjiCari" id="noUjiCari" placeholder="Cari No. Uji" value="{{ request('noUjiCari') ? request('noUjiCari') : '' }}">
+                        <span class="input-group-append">
+                          <button type="submit" class="btn btn-info btn-flat">Cari</button>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                
+                <!-- /input-group -->
+              </div>
+              <!-- /.card-body -->
+            </div>
+          </div>
+        </div>
+      </div>
     </form>
     <form action="{{ route('pendaftaran.kendaraan') }}" method="post">
       @csrf

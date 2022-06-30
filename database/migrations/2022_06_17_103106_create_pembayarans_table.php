@@ -15,11 +15,13 @@ class CreatePembayaransTable extends Migration
     {
         Schema::create('pembayaran', function (Blueprint $table) {
             $table->id();
-            $table->char("kd_bayar", 7);
+            $table->char("kd_bayar", 11);
             $table->double("jumlah");
+            $table->boolean("telah_bayar")->default(false);
+            $table->date("tgl_bayar");
             $table->foreignId("pendaftaran_id")->unique();
             $table->foreignId("user_id");
-            $table->foreignId("akun_id");
+            $table->foreignId("biaya_id");
             $table->timestamps();
         });
     }

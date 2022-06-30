@@ -10,7 +10,7 @@ class DetailPembayaran extends Model
     use HasFactory;
 
     protected $table = "detail_pembayaran";
-    protected $fillable = ["pembayaran_id", "akun_id", "biaya_id"];
+    protected $fillable = ["pembayaran_id", "akun_id", "biaya_id", "jumlah_biaya", "biaya_satuan", "subtotal"];
 
     public function biaya()
     {
@@ -20,10 +20,5 @@ class DetailPembayaran extends Model
     public function pembayaran()
     {
         return $this->belongsTo(Pembayaran::class);
-    }
-
-    public function akun()
-    {
-        return $this->belongsTo(Akun::class);
     }
 }

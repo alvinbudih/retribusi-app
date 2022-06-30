@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Biaya;
+use App\Models\DetailPembayaran;
 use App\Models\Pemilik;
 use App\Models\Kendaraan;
 use App\Models\Pendaftaran;
 use Illuminate\Http\Request;
 use App\Models\JenisKendaraan;
+use App\Models\Pembayaran;
 use App\Models\StatusUji;
 use App\Models\TipeKendaraan;
 
@@ -23,16 +26,16 @@ class PendaftaranController extends Controller
         } else {
             $this->noAntri = Pendaftaran::max("no_antri") + 1;
         }
-        // dd($this->noAntri);
 
-        // dd(Pendaftaran::isRegisteredToday("KRW 12345"));
+        if (!Pembayaran::where("tgl_bayar", date("Y-m-d"))->get()->count()) {
+            $this->kdBayar = date("Y") . date("m") . date("d") . "001";
+        } else {
+            $this->kdBayar = Pembayaran::max("kd_bayar") + 1;
+        }
     }
 
     public function rekapanPendaftaran()
     {
-        // dd((int)date("d") . date("m") . date("y") . "0001" + 1);
-        // dd(Pendaftaran::where("tgl_daftar", date("Y-m-d"))->get()->count());
-
         return view("dashboard.pendaftaran.rekapan", [
             "title" => "Rekapan Pendaftaran",
             "recaps" => Pendaftaran::where("tgl_daftar", date("Y-m-d"))->get()
@@ -43,7 +46,6 @@ class PendaftaranController extends Controller
     {
         $noUjiCari = request("noUjiCari");
 
-        // dd(Kendaraan::where("no_uji", "KRW 12345")->first()->pemilik);
         $kendaraan = Kendaraan::where("no_uji", $noUjiCari);
         if (request("noUjiCari")) {
             if (!$kendaraan->exists()) {
@@ -124,6 +126,8 @@ class PendaftaranController extends Controller
                 "user_id" => auth()->user()->id
             ]);
 
+            $this->setBiayaUji(100000, 75000, true);
+
             return back()->with("success", "Data Berhasil Ditambahkan");
         } else {
             $this->validate($request, ["status_uji_id" => "required"]);
@@ -171,7 +175,77 @@ class PendaftaranController extends Controller
             $pemilik->update($validatedPemilik);
             $kendaraan->update($validatedKend);
 
+            $this->setBiayaUji(50000, 40000, false);
+
             return redirect()->route("form.pendaftaran")->with("success", "Pendaftaran Berhasil");
+        }
+    }
+
+    private function setBiayaUji(float $biayaKendaraanBesar, float $biayaKendaraanKecil, bool $kendaraanBaru)
+    {
+        $pendaftaran = Pendaftaran::latest()->first();
+        $biayaWajib = Biaya::where("param", true);
+        if (!$kendaraanBaru) {
+            $biayaWajib->where("item", "!=", "Pembubuhan Nomor Uji");
+        }
+
+        Pembayaran::create([
+            "kd_bayar" => $this->kdBayar,
+            "jumlah" => 0,
+            "tgl_bayar" => date("Y-m-d"),
+            "pendaftaran_id" => $pendaftaran->id,
+            "biaya_id" => Biaya::first()->id,
+            "user_id" => auth()->user()->id,
+        ]);
+
+        if ($pendaftaran->kendaraan->jbb >= 5500) {
+            foreach ($biayaWajib->get() as $biaya) {
+                switch (strtolower($biaya->item)) {
+                    case 'biaya uji':
+                        $biayaSatuan = $biayaKendaraanBesar;
+                        break;
+
+                    case 'pembubuhan nomor uji':
+                        $biayaSatuan = 25000;
+                        break;
+
+                    default:
+                        $biayaSatuan = $biaya->jumlah;
+                        break;
+                }
+
+                $detail = new DetailPembayaran;
+                $detail->biaya_id = $biaya->id;
+                $detail->pembayaran_id = Pembayaran::max("id");
+                $detail->jumlah_biaya = 1;
+                $detail->biaya_satuan = $biayaSatuan;
+                $detail->subtotal = $detail->biaya_satuan * $detail->jumlah_biaya;
+                $detail->save();
+            }
+        } else {
+            foreach ($biayaWajib->get() as $biaya) {
+                switch (strtolower($biaya->item)) {
+                    case 'biaya uji':
+                        $biayaSatuan = $biayaKendaraanKecil;
+                        break;
+
+                    case 'pembubuhan nomor uji':
+                        $biayaSatuan = 25000;
+                        break;
+
+                    default:
+                        $biayaSatuan = $biaya->jumlah;
+                        break;
+                }
+
+                $detail = new DetailPembayaran;
+                $detail->biaya_id = $biaya->id;
+                $detail->pembayaran_id = Pembayaran::max("id");
+                $detail->jumlah_biaya = 1;
+                $detail->biaya_satuan = $biayaSatuan;
+                $detail->subtotal = $detail->biaya_satuan * $detail->jumlah_biaya;
+                $detail->save();
+            }
         }
     }
 }

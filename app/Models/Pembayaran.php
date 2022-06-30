@@ -14,7 +14,12 @@ class Pembayaran extends Model
 
     public function pendaftaran()
     {
-        return $this->hasOne(Pendaftaran::class);
+        return $this->belongsTo(Pendaftaran::class);
+    }
+
+    public function detail_pembayaran()
+    {
+        return $this->hasMany(DetailPembayaran::class);
     }
 
     public function user()
