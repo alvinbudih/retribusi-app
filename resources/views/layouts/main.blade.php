@@ -12,6 +12,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <title>Halaman {{ $title }} </title>
 
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{{ asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{ asset('backend/plugins/fontawesome-free/css/all.min.css') }}">
   <!-- Theme style -->
@@ -22,7 +25,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link href="{{ asset('icons/font/css/open-iconic-bootstrap.css') }}" rel="stylesheet">
 </head>
 
-<body class="hold-transition sidebar-mini layout-navbar-fixed layout-footer-fixed text-sm">
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-footer-fixed">
   <div class="wrapper">
 
     <!-- Navbar -->
@@ -61,13 +64,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- REQUIRED SCRIPTS -->
 
+  <!-- jQuery -->
+  <script src="{{ asset('backend/plugins/jquery/jquery.min.js') }}"></script>
   {{-- dataTable jQuery --}}
   <script src="{{ asset('backend/plugins/datatables/jquery.dataTables.min.js') }}"></script>
   <script src="{{ asset('backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
   <script src="{{ asset('backend/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
   <script src="{{ asset('backend/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-  <!-- jQuery -->
-  <script src="{{ asset('backend/plugins/jquery/jquery.min.js') }}"></script>
   <!-- Bootstrap 4 -->
   <script src="{{ asset('backend/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
   <!-- AdminLTE App -->

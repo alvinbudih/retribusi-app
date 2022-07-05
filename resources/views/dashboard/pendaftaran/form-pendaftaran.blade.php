@@ -293,7 +293,7 @@
                     <select class="form-control form-control-sm @error('tipe_kendaraan_id') is-invalid @enderror" id="tipe_kendaraan_id" name="tipe_kendaraan_id">
                       <option value=""> --Pilih Tipe Kendaraan--</option>
                       @foreach($tipe as $t)
-                        <option value="{{ $t->id }}" {{ old('tipe_kendaraan_id') == $t->id ? 'selected' : '' }}>{{ $t->nama_tipe }}</option>
+                        <option value="{{ $t->id }}" {{ (old('tipe_kendaraan_id', (request('noUjiCari') ? $kendaraan->tipe_kendaraan_id : '')) == $t->id) ? 'selected' : '' }}>{{ $t->nama_tipe }}</option>
                       @endforeach
                     </select>
                     @error("tipe_kendaraan_id")

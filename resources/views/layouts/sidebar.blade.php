@@ -41,12 +41,6 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ route("akun.index") }}" class="nav-link {{ Request::is('dashboard/akun*') ? 'active' : '' }}">
-            <i class="nav-icon oi oi-clipboard"></i>
-            <p>Akun</p>
-          </a>
-        </li>
-        <li class="nav-item">
           <a href="{{ route("biaya.index") }}" class="nav-link {{ Request::is('dashboard/biaya*') ? 'active' : '' }}">
             <i class="nav-icon oi oi-dollar"></i>
             <p>Biaya</p>

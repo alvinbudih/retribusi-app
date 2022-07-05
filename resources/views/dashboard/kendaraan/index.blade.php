@@ -25,7 +25,7 @@
         </a>
       </div>
     </div>
-    <div class="card-body p-0">
+    <div class="card-body">
       <table id="dataTable" class="table table-sm table-hover text-nowrap projects">
         <thead>
           <tr>
