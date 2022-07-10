@@ -105,12 +105,14 @@
             </p>
           </a>
           <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="{{ route('form.pendaftaran') }}" class="nav-link {{ Request::is('dashboard/pendaftaran/form-pendaftaran') ? 'active' : '' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Pendaftaran</p>
-              </a>
-            </li>
+            @can("pelayanan")
+              <li class="nav-item">
+                <a href="{{ route('form.pendaftaran') }}" class="nav-link {{ Request::is('dashboard/pendaftaran/form-pendaftaran') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pendaftaran</p>
+                </a>
+              </li>
+            @endcan
             <li class="nav-item">
               <a href="{{ route('rekap.pendaftaran') }}" class="nav-link {{ Request::is('dashboard/pendaftaran/rekapan-pendaftaran') ? 'active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>
@@ -128,12 +130,14 @@
             </p>
           </a>
           <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="{{ route('tagihan.pembayaran') }}" class="nav-link {{ Request::is('dashboard/pembayaran/tagihan*') ? 'active' : '' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Pembayaran</p>
-              </a>
-            </li>
+            @can('kasir')
+              <li class="nav-item">
+                <a href="{{ route('proses.pembayaran') }}" class="nav-link {{ Request::is('dashboard/pembayaran/proses*') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pembayaran</p>
+                </a>
+              </li>
+            @endcan
             <li class="nav-item">
               <a href="" class="nav-link {{ Request::is('dashboard/pembayaran/rekapan*') ? 'active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>
@@ -142,13 +146,28 @@
             </li>
           </ul>
         </li>
-        <li class="nav-item">
-          <a href="" class="nav-link">
+        <li class="nav-item has-treeview {{ Request::is('dashboard/laporan*') ? 'menu-open' : '' }}">
+          <a href="#" class="nav-link {{ Request::is('dashboard/laporan*') ? 'active' : '' }}">
             <i class="nav-icon oi oi-book"></i>
             <p>
-              Buku Besar
+              Menu Laporan
+              <i class="right fas fa-angle-left"></i>
             </p>
           </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ route('get.jurnal') }}" class="nav-link {{ Request::is('dashboard/laporan/jurnal*') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Jurnal</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Rekapan Pembayaran</p>
+              </a>
+            </li>
+          </ul>
         </li>
       </ul>
     </nav>

@@ -15,7 +15,7 @@ class CreateBiayasTable extends Migration
     {
         Schema::create('biaya', function (Blueprint $table) {
             $table->id();
-            $table->char("kode", 3)->unique();
+            $table->char("kode", 11)->unique();
             $table->string("item");
             $table->string("jenis");
             $table->char("kategori", 20);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Biaya;
 use App\Models\DetailPembayaran;
+use App\Models\Jurnal;
 use App\Models\Pembayaran;
 use App\Models\Pendaftaran;
 use Illuminate\Http\Request;
@@ -13,6 +14,12 @@ class PembayaranController extends Controller
     // public function __construct()
     // {
     //     // dd(DetailPembayaran::where("biaya_id", 1)->where("biaya_satuan", 100000)->get());
+    //     // dd((50000 * 0.02) * 2);
+
+    //     // dd(Biaya::whereHas("detail_pembayaran", function ($query) {
+    //     //     return $query->whereNotIn("pembayaran_id", [5])
+    //     //         ->whereNotIn("biaya_id", [2, 5, 6]);
+    //     // })->get());
     // }
 
     public function rekapanPembayaran()
@@ -22,9 +29,9 @@ class PembayaranController extends Controller
         ]);
     }
 
-    public function tagihanPembayaran()
+    public function prosesPembayaran()
     {
-        return view("dashboard.pembayaran.tagihan", [
+        return view("dashboard.pembayaran.proses", [
             "title" => "Menu Pembayaran",
             "bills" => Pembayaran::where("telah_bayar", false)->get()
         ]);
@@ -78,6 +85,26 @@ class PembayaranController extends Controller
             "telah_bayar" => true
         ]);
 
-        return redirect()->route("tagihan.pembayaran")->with("success", "Data Berhasil Ditambahkan");
+        Jurnal::create([
+            "no_jurnal" => $pembayaran->kd_bayar,
+            "tgl_jurnal" => date("Y-m-d"),
+            "no_akun" => "1100-00-010",
+            "keterangan" => "Kas",
+            "debit" => $request->total,
+            "kredit" => 0
+        ]);
+
+        foreach ($pembayaran->detail_pembayaran as $key => $value) {
+            Jurnal::create([
+                "no_jurnal" => $pembayaran->kd_bayar,
+                "tgl_jurnal" => date("Y-m-d"),
+                "no_akun" => $request->no_akun[$key],
+                "keterangan" => $request->keterangan[$key],
+                "debit" => 0,
+                "kredit" => $request->kredit[$key]
+            ]);
+        }
+
+        return redirect()->route("proses.pembayaran")->with("success", "Data Berhasil Ditambahkan");
     }
 }

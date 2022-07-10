@@ -11,9 +11,4 @@ class Jurnal extends Model
 
     protected $table = "jurnal";
     protected $guarded = ["id"];
-
-    public function akun()
-    {
-        return $this->belongsTo(Akun::class);
-    }
 }

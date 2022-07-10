@@ -15,9 +15,10 @@ class CreateJurnalsTable extends Migration
     {
         Schema::create('jurnal', function (Blueprint $table) {
             $table->id();
-            $table->char("no_jurnal");
+            $table->char("no_jurnal", 11);
             $table->date("tgl_jurnal");
-            $table->text("keterangan");
+            $table->char("no_akun", 11);
+            $table->string("keterangan");
             $table->double("debit");
             $table->double("kredit");
             $table->timestamps();

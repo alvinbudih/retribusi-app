@@ -4,6 +4,7 @@ use App\Http\Controllers\AkunController;
 use App\Http\Controllers\BiayaController;
 use App\Http\Controllers\JenisKendaraanController;
 use App\Http\Controllers\KendaraanController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MerkKendaraanController;
 use App\Http\Controllers\PembayaranController;
@@ -72,9 +73,9 @@ Route::middleware("auth")->group(function () {
 
         Route::middleware("kasir")->group(function () {
             Route::controller(PembayaranController::class)->group(function () {
-                Route::get("/tagihan-pembayaran", "tagihanPembayaran")->name("tagihan.pembayaran");
-                Route::get("/form-pembayaran/{pembayaran}", "formPembayaran")->name("form.pembayaran");
-                Route::post("/form-pembayaran/{pembayaran}", "tambahBiaya");
+                Route::get("/proses-pembayaran", "prosesPembayaran")->name("proses.pembayaran");
+                Route::get("/proses/form-pembayaran/{pembayaran}", "formPembayaran")->name("form.pembayaran");
+                Route::post("/proses/form-pembayaran/{pembayaran}", "tambahBiaya")->name("tambah.biaya");
                 Route::put("/tambah-pembayaran/{pembayaran}", "tambahPembayaran")->name("tambah.pembayaran");
             });
         });
@@ -89,6 +90,10 @@ Route::middleware("auth")->group(function () {
                 Route::post("/pendaftaran-kendaraan", "pendaftaranKendaraan")->name("pendaftaran.kendaraan");
             });
         });
+    });
+
+    Route::prefix("/dashboard/laporan")->group(function () {
+        Route::get("/jurnal", [LaporanController::class, "getJurnal"])->name("get.jurnal");
     });
 
     // Route::get("/admin", function () {
