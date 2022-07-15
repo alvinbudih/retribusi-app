@@ -93,7 +93,10 @@ Route::middleware("auth")->group(function () {
     });
 
     Route::prefix("/dashboard/laporan")->group(function () {
-        Route::get("/jurnal", [LaporanController::class, "getJurnal"])->name("get.jurnal");
+        Route::controller(LaporanController::class)->group(function () {
+            Route::get("/jurnal", "getJurnal")->name("get.jurnal");
+            Route::get("/jurnal-pdf", "getJurnalReport")->name("journal.report");
+        });
     });
 
     // Route::get("/admin", function () {

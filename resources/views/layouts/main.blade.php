@@ -12,6 +12,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <title>Halaman {{ $title }} </title>
 
+  <!-- date-range-picker -->
+  <link rel="stylesheet" href="{{ asset('backend/plugins/daterangepicker/daterangepicker.css') }}">
+  <!-- Tempusdominus Bbootstrap 4 -->
+  <link rel="stylesheet" href="{{ asset('backend/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="{{ asset('backend/plugins/select2/css/select2.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('backend/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
   <!-- DataTables -->
   <link rel="stylesheet" href="{{ asset('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
   <link rel="stylesheet" href="{{ asset('backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
@@ -66,6 +73,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- jQuery -->
   <script src="{{ asset('backend/plugins/jquery/jquery.min.js') }}"></script>
+  {{-- Moment.js --}}
+  <script src="{{ asset('backend/plugins/moment/moment.min.js') }}"></script>
+  <!-- date-range-picker -->
+  <script src="{{ asset('backend/plugins/daterangepicker/daterangepicker.js') }}"></script>
+  <!-- Tempusdominus Bootstrap 4 -->
+  <script src="{{ asset('backend/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+  <!-- Select2 -->
+  <script src="{{ asset('backend/plugins/select2/js/select2.full.min.js') }}"></script>
   {{-- dataTable jQuery --}}
   <script src="{{ asset('backend/plugins/datatables/jquery.dataTables.min.js') }}"></script>
   <script src="{{ asset('backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
@@ -76,11 +91,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- AdminLTE App -->
   <script src="{{ asset('backend/dist/js/adminlte.min.js') }}"></script>
   <script>
-    $(function () {
+    $(document).ready(function() {
       $("#dataTable").DataTable({
         "responsive": true,
         "autoWidth": false,
       });
+
+
+      $('.select2').select2();
+
+      //Date range picker
+      $('#reservation').daterangepicker()
     });
   </script>
 </body>

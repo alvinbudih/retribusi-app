@@ -290,10 +290,10 @@
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="tipe_kendaraan_id">Tipe Kendaraan</label>
-                    <select class="form-control form-control-sm @error('tipe_kendaraan_id') is-invalid @enderror" id="tipe_kendaraan_id" name="tipe_kendaraan_id">
+                    <select class="form-control select2 form-control-sm @error('tipe_kendaraan_id') is-invalid @enderror" id="tipe_kendaraan_id" name="tipe_kendaraan_id">
                       <option value=""> --Pilih Tipe Kendaraan--</option>
                       @foreach($tipe as $t)
-                        <option value="{{ $t->id }}" {{ (old('tipe_kendaraan_id', (request('noUjiCari') ? $kendaraan->tipe_kendaraan_id : '')) == $t->id) ? 'selected' : '' }}>{{ $t->nama_tipe }}</option>
+                        <option value="{{ $t->id }}" {{ (old('tipe_kendaraan_id', (request('noUjiCari') ? $kendaraan->tipe_kendaraan_id : '')) == $t->id) ? 'selected' : '' }}>{{ $t->merk_kendaraan->nama_merk . ' ' . $t->nama_tipe }}</option>
                       @endforeach
                     </select>
                     @error("tipe_kendaraan_id")
@@ -425,7 +425,7 @@
     function pemilikLama() {
       return `<div class="form-group">
                 <label for="pemilik_id">Pemilik</label>
-                <select class="form-control form-control-sm @error('pemilik_id') is-invalid @enderror" id="pemilik_id" name="pemilik_id">
+                <select class="form-control select2 form-control-sm @error('pemilik_id') is-invalid @enderror" id="pemilik_id" name="pemilik_id">
                   <option value=""> --Pilih Pemilik--</option>
                   @foreach($pemilik as $pm)
                     <option value="{{ $pm->id }}" {{ (old('pemilik_id') == $pm->id) ? 'selected' : '' }}>{{ $pm->nama }}</option>

@@ -3,21 +3,30 @@
 @section("content")
 <section class="content">
   <!-- Default box -->
+  {{-- <form action="" method="get">
+        <div class="row">
+          <div class="col-sm-10">
+            <input type="text" name="date_range" id="reservation" class="form-control">
+          </div>
+          <div class="col-sm-2">
+            <button type="submit" class="btn btn-primary btn-block">Lihat</button>
+          </div>
+        </div>
+      </form>
+      <hr> --}}
   <div class="card">
     <div class="card-header">
 
       <h3 class="card-title">{{ $title }}</h3>
 
       <div class="card-tools">
+        <a href="{{ route('journal.report') }}" target="_blank" rel="noopener noreferrer" class="btn btn-default">
+          <i class="fas fa-print"></i>
+          Cetak
+        </a>
       </div>
     </div>
     <div class="card-body">
-      {{-- <div class="row">
-        <div class="col">
-          <h1 class="text-center">Hello World!</h1>
-        </div>
-      </div>
-      <hr> --}}
       <div class="row">
         <div class="col">
           <table class="table table-bordered text-nowrap projects" id="dataTable">
