@@ -8,7 +8,6 @@ use App\Models\Kendaraan;
 use App\Models\StatusUji;
 use App\Models\Pembayaran;
 use App\Models\Pendaftaran;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\TipeKendaraan;
 use App\Models\JenisKendaraan;
@@ -33,6 +32,7 @@ class PendaftaranController extends Controller
         } else {
             $this->kdBayar = Pembayaran::max("kd_bayar") + 1;
         }
+        // dd(Biaya::required(false, 5500)->get());
     }
 
     public function rekapanPendaftaran()
@@ -185,28 +185,7 @@ class PendaftaranController extends Controller
     private function setBiayaUji(bool $kendaraanBaru)
     {
         $pendaftaran = Pendaftaran::latest()->first();
-        $biayaWajib = Biaya::where("param", true);
-
-        if ($kendaraanBaru) {
-            $biayaWajib->where("item", "!=", "Biaya Uji Kend. Besar")
-                ->where("item", "!=", "Biaya Uji Kend. Kecil");
-
-            if ($pendaftaran->kendaraan->jbb >= 5500) {
-                $biayaWajib->where("item", "!=", "Biaya Uji Kend. Kecil Baru");
-            } else {
-                $biayaWajib->where("item", "!=", "Biaya Uji Kend. Besar Baru");
-            }
-        } else {
-            $biayaWajib->where("item", "!=", "Pembubuhan Nomor Uji")
-                ->where("item", "!=", "Biaya Uji Kend. Besar Baru")
-                ->where("item", "!=", "Biaya Uji Kend. Kecil Baru");
-
-            if ($pendaftaran->kendaraan->jbb >= 5500) {
-                $biayaWajib->where("item", "!=", "Biaya Uji Kend. Kecil");
-            } else {
-                $biayaWajib->where("item", "!=", "Biaya Uji Kend. Besar");
-            }
-        }
+        $biayaWajib = Biaya::required($kendaraanBaru, $pendaftaran->kendaraan->jbb)->get();
 
         Pembayaran::create([
             "kd_bayar" => $this->kdBayar,
@@ -217,7 +196,7 @@ class PendaftaranController extends Controller
             "user_id" => auth()->user()->id,
         ]);
 
-        foreach ($biayaWajib->get() as $biaya) {
+        foreach ($biayaWajib as $biaya) {
             $detail = new DetailPembayaran;
             $detail->biaya_id = $biaya->id;
             $detail->pembayaran_id = Pembayaran::max("id");

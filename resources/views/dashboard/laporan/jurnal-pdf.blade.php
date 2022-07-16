@@ -24,10 +24,13 @@
   <table class="table table-bordered" width="100%" align="center">
     <thead>
       <tr>
-        <th>#</th>
-        <th>Tanggal</th>
-        <th>No. Jurnal</th>
-        <th>Keterangan</th>
+        <th rowspan="2">#</th>
+        <th rowspan="2">Tanggal</th>
+        <th rowspan="2">No. Jurnal</th>
+        <th rowspan="2">Keterangan</th>
+        <th class="text-center" colspan="2">Jumlah</th>
+      </tr>
+      <tr>
         <th>Debit</th>
         <th>Kredit</th>
       </tr>

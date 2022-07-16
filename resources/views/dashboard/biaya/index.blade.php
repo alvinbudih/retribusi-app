@@ -30,7 +30,6 @@
             <th>Item</th>
             <th>Jenis</th>
             <th>Kategori</th>
-            <th>Param</th>
             <th>Jumlah</th>
             <th>Persen</th>
             <th>Aksi</th>
@@ -44,7 +43,6 @@
             <td>{{ $cost->item }}</td>
             <td>{{ $cost->jenis }}</td>
             <td>{{ $cost->kategori }}</td>
-            <td>{{ ($cost->param) ? "Yes" : "No" }}</td>
             <td>{{ $cost->jumlah }}</td>
             <td>{{ $cost->persen }}</td>
             <td>
@@ -77,7 +75,7 @@
         <div class="modal-body">
           <div class="form-group">
             <label for="kode">Kode</label>
-            <input type="number" class="form-control @error('kode') is-invalid @enderror" id="kode" placeholder="Kode" name="kode" readonly value="{{ $format }}">
+            <input type="number" class="form-control @error('kode') is-invalid @enderror" id="kode" placeholder="Kode" name="kode">
             @error("kode")
             <div class="invalid-feedback">
               {{ $message }}
@@ -95,8 +93,13 @@
           </div>
           <div class="form-group">
             <label for="jenis">Jenis</label>
-            <input type="text" class="form-control @error('jenis') is-invalid @enderror" id="jenis" placeholder="Jenis Biaya" name="jenis" value="{{ old('jenis') }}">
-            @error("jenis")
+            <select class="form-control @error('jenis') is-invalid @enderror" id="jenis" name="jenis">
+              <option value=""> --Pilih Jenis--</option>
+              @foreach($types as $type)
+                <option value="{{ $type }}" {{ old('jenis') == $type ? 'selected' : '' }}>{{ $type }}</option>
+              @endforeach
+            </select>
+            @error("kategori")
             <div class="invalid-feedback">
               {{ $message }}
             </div>
@@ -107,7 +110,7 @@
             <select class="form-control @error('kategori') is-invalid @enderror" id="kategori" name="kategori">
               <option value=""> --Pilih Kategori--</option>
               @foreach($categories as $category)
-                <option value="{{ $category }}" {{ old('kategori') ? 'selected' : '' }}>{{ $category }}</option>
+                <option value="{{ $category }}" {{ old('kategori') == $category ? 'selected' : '' }}>{{ $category }}</option>
               @endforeach
             </select>
             @error("kategori")
@@ -115,13 +118,6 @@
               {{ $message }}
             </div>
             @enderror
-          </div>
-          <div class="form-group">
-            <label for="">Param</label>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="param" name="param" value="1" {{ old('param') ? 'checked' : '' }}>
-              <label class="form-check-label" for="param">Yes</label>
-            </div>
           </div>
           <div class="form-group">
             <label for="jumlah">Jumlah</label>

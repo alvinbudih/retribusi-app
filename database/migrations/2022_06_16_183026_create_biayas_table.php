@@ -19,7 +19,6 @@ class CreateBiayasTable extends Migration
             $table->string("item");
             $table->string("jenis");
             $table->char("kategori", 20);
-            $table->boolean("param");
             $table->double("jumlah");
             $table->double("persen");
             $table->timestamps();

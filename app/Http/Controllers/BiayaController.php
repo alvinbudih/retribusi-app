@@ -10,6 +10,7 @@ class BiayaController extends Controller
     public function __construct()
     {
         $this->categories = ["Biaya", "Denda"];
+        $this->types = ["Reguler", "Lain - Lain", "Khusus"];
     }
 
     /**
@@ -19,13 +20,11 @@ class BiayaController extends Controller
      */
     public function index()
     {
-        $format = sprintf("%'.03d", Biaya::max("id") + 1);
-
         return view("dashboard.biaya.index", [
             "title" => "Biaya",
             "costs" => Biaya::all(),
             "categories" => $this->categories,
-            "format" => $format
+            "types" => $this->types,
         ]);
     }
 
@@ -56,12 +55,6 @@ class BiayaController extends Controller
             "persen" => "required|numeric"
         ]);
 
-        if ($request->param == null) {
-            $validated["param"] = 0;
-        } else {
-            $validated["param"] = $request->param;
-        }
-
         Biaya::create($validated);
 
         return back()->with("success", "Data Berhasil Ditambah");
@@ -89,7 +82,8 @@ class BiayaController extends Controller
         return view("dashboard.biaya.edit", [
             "title" => "Ubah Biaya",
             "biaya" => $biaya,
-            "categories" => $this->categories
+            "categories" => $this->categories,
+            "types" => $this->types
         ]);
     }
 
@@ -116,12 +110,6 @@ class BiayaController extends Controller
         }
 
         $validated = $request->validate($rules);
-
-        if ($request->param == null) {
-            $validated["param"] = 0;
-        } else {
-            $validated["param"] = $request->param;
-        }
 
         Biaya::where("id", $biaya->id)->update($validated);
 

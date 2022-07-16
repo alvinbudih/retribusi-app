@@ -96,6 +96,7 @@ Route::middleware("auth")->group(function () {
         Route::controller(LaporanController::class)->group(function () {
             Route::get("/jurnal", "getJurnal")->name("get.jurnal");
             Route::get("/jurnal-pdf", "getJurnalReport")->name("journal.report");
+            Route::get("/jurnal-xslx", "getJurnalExport")->name("journal.export");
         });
     });
 

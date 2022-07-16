@@ -83,8 +83,8 @@
                           <td>{{ $detail->jumlah_biaya }}</td>
                           <td><input type="hidden" name="no_akun[]" value="{{ $detail->biaya->kode }}">{{ $detail->biaya->kode }}</td>
                           <td><input type="hidden" name="keterangan[]" value="{{ $detail->biaya->item }}">{{ $detail->biaya->item }}</td>
-                          <td>{{ number_format($detail->biaya_satuan) }}</td>
-                          <td><input type="hidden" name="kredit[]" value="{{ $detail->subtotal }}">{{ number_format($detail->subtotal) }}</td>
+                          <td>{{ number_format($detail->biaya_satuan, 2, ",", ".") }}</td>
+                          <td><input type="hidden" name="kredit[]" value="{{ $detail->subtotal }}">Rp. {{ number_format($detail->subtotal, 2, ",", ".") }}</td>
                         </tr>
                       @endforeach
                     </tbody>
@@ -101,9 +101,18 @@
   
                   <div class="table-responsive">
                     <table class="table">
+                      <tr>
                         <th>Total:</th>
-                        <td>{{ number_format($bill->detail_pembayaran->sum("subtotal")) }}</td>
+                        <td>Rp. {{ number_format($bill->detail_pembayaran->sum("subtotal"), 2, ",", ".") }}</td>
                       </tr>
+                      {{-- <tr>
+                        <th>Uang Bayar:</th>
+                        <td><input type="number" name="uang_bayar" id="uang_bayar" class="form-control" value="0"></td>
+                      </tr>
+                      <tr>
+                        <th>Kembalian:</th>
+                        <td><input type="number" name="kembalian" id="kembalian" class="form-control" value="0"></td>
+                      </tr> --}}
                     </table>
                   </div>
                 </div>
