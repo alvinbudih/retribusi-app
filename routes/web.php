@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AkunController;
 use App\Http\Controllers\BiayaController;
+use App\Http\Controllers\DetailPembayaranController;
 use App\Http\Controllers\JenisKendaraanController;
 use App\Http\Controllers\KendaraanController;
 use App\Http\Controllers\LaporanController;
@@ -13,6 +14,8 @@ use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\StatusUjiController;
 use App\Http\Controllers\TipeKendaraanController;
 use App\Http\Controllers\UserController;
+use App\Models\DetailPembayaran;
+use App\Models\Pembayaran;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -75,8 +78,11 @@ Route::middleware("auth")->group(function () {
             Route::controller(PembayaranController::class)->group(function () {
                 Route::get("/proses-pembayaran", "prosesPembayaran")->name("proses.pembayaran");
                 Route::get("/proses/form-pembayaran/{pembayaran}", "formPembayaran")->name("form.pembayaran");
-                Route::post("/proses/form-pembayaran/{pembayaran}", "tambahBiaya")->name("tambah.biaya");
                 Route::put("/tambah-pembayaran/{pembayaran}", "tambahPembayaran")->name("tambah.pembayaran");
+            });
+            Route::controller(DetailPembayaranController::class)->group(function () {
+                Route::post("/proses/form-pembayaran/{pembayaran}", "tambahBiaya")->name("tambah.biaya");
+                Route::delete("/proses/form-pembayaran/{pembayaran}/{detail}", "hapusBiaya")->name("hapus.biaya");
             });
         });
     });
@@ -98,6 +104,10 @@ Route::middleware("auth")->group(function () {
             Route::get("/jurnal-pdf", "getJurnalReport")->name("journal.report");
             Route::get("/jurnal-xslx", "getJurnalExport")->name("journal.export");
         });
+    });
+
+    Route::get("/pembayaran/{pembayaran}/detail_pembayaran/{detail}", function (Pembayaran $pembayaran, DetailPembayaran $detail) {
+        return $detail;
     });
 
     // Route::get("/admin", function () {

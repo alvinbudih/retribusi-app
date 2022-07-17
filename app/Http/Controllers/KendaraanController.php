@@ -72,6 +72,7 @@ class KendaraanController extends Controller
             "cc" => "required|numeric",
             "jenis_kendaraan_id" => "required",
             "tipe_kendaraan_id" => "required",
+            "jatuh_tempo" => "required",
         ];
 
         if (isset($request->pemilikBaru)) {
@@ -93,7 +94,6 @@ class KendaraanController extends Controller
         $validatedKend["no_rangka"] = strtoupper($validatedKend["no_rangka"]);
         $validatedKend["srut"] = strtoupper($validatedKend["srut"]);
         $validatedKend["awal_daftar"] = date("Y-m-d");
-        $validatedKend["jatuh_tempo"] = date("Y-m-d", strtotime("+6 month", strtotime($validatedKend["awal_daftar"])));
 
         if (isset($request->pemilikBaru)) {
             Pemilik::create($validatedPemilik);

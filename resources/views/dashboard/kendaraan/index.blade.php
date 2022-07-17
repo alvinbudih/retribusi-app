@@ -40,30 +40,24 @@
           </tr>
         </thead>
         <tbody>
-          @if(!$kendaraan->count())
+          @foreach($kendaraan as $kend)
             <tr>
-              <td colspan="9" class="text-center"><small>Tidak Ada Item</small></td>
+              <td>{{ $loop->iteration }}</td>
+              <td>{{ $kend->awal_daftar }}</td>
+              <td>{{ $kend->no_uji }}</td>
+              <td>{{ $kend->pemilik->nama }}</td>
+              <td>{{ $kend->no_kendaraan }}</td>
+              <td>{{ $kend->pemilik->alamat }}</td>
+              <td>{{ $kend->jatuh_tempo }}</td>
+              <td>
+                <a class="btn btn-success btn-sm" href="{{ route('kendaraan.edit', [$kend->id]) }}">
+                  <i class="fas fa-pencil-alt">
+                  </i>
+                  Edit
+                </a>
+              </td>
             </tr>
-          @else
-            @foreach($kendaraan as $kend)
-              <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>{{ $kend->awal_daftar }}</td>
-                <td>{{ $kend->no_uji }}</td>
-                <td>{{ $kend->pemilik->nama }}</td>
-                <td>{{ $kend->no_kendaraan }}</td>
-                <td>{{ $kend->pemilik->alamat }}</td>
-                <td>{{ $kend->jatuh_tempo }}</td>
-                <td>
-                  <a class="btn btn-success btn-sm" href="{{ route('kendaraan.edit', [$kend->id]) }}">
-                    <i class="fas fa-pencil-alt">
-                    </i>
-                    Edit
-                  </a>
-                </td>
-              </tr>
-            @endforeach
-          @endif
+          @endforeach
         </tbody>
       </table>
     </div>

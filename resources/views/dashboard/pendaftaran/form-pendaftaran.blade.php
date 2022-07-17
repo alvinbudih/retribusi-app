@@ -92,7 +92,7 @@
           @if(!request("noUjiCari"))
             <div class="card card-warning">
               <div class="card-header">
-                <h3 class="card-title">Form Tambah Pemilik</h3>
+                <h3 class="card-title">Form Pemilik</h3>
               </div>
               <div class="card-body" id="tambah-pemilik">
                 <div class="form-group">
@@ -103,16 +103,58 @@
                   </div>
                 </div>
                 <div id="form-pemilik">
-
+                  <div class="form-group" id="pemilikLama">
+                    <label for="pemilik_id">Pemilik</label>
+                    <select class="form-control select2 form-control-sm @error('pemilik_id') is-invalid @enderror" id="pemilik_id" name="pemilik_id">
+                      <option value=""> --Pilih Pemilik--</option>
+                      @foreach($pemilik as $pm)
+                        <option value="{{ $pm->id }}" {{ (old('pemilik_id') == $pm->id) ? 'selected' : '' }}>{{ $pm->nama }}</option>
+                      @endforeach
+                    </select>
+                    @error("pemilik_id")
+                    <div class="invalid-feedback">
+                      {{ $message }}
+                    </div>
+                    @enderror
+                  </div>
+                  <div id="tambahPemilik">
+                    <div class="form-group">
+                      <label for="nama">Nama Lengkap</label>
+                      <input type="text" class="form-control form-control-sm @error('nama') is-invalid @enderror" id="nama" placeholder="Nama Lengkap" name="nama" value="{{ old('nama') }}">
+                      @error("nama")
+                      <div class="invalid-feedback">
+                        {{ $message }}
+                      </div>
+                      @enderror
+                    </div>
+                    <div class="form-group">
+                      <label for="alamat">Alamat</label>
+                      <textarea class="form-control form-control-sm @error('alamat') is-invalid @enderror" id="alamat" name="alamat" placeholder="Alamat Lengkap">{{ old("alamat") }}</textarea>
+                      @error("alamat")
+                      <div class="invalid-feedback">
+                        {{ $message }}
+                      </div>
+                      @enderror
+                    </div>
+                    <div class="form-group">
+                      <label for="no_telp">No. Telepon</label>
+                      <input type="number" class="form-control form-control-sm @error('no_telp') is-invalid @enderror" id="no_telp" placeholder="08XXX" name="no_telp" value="{{ old('no_telp') }}">
+                      @error("no_telp")
+                      <div class="invalid-feedback">
+                        {{ $message }}
+                      </div>
+                      @enderror
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           @else
             <div class="card card-warning">
               <div class="card-header">
-                <h3 class="card-title">Form Tambah Pemilik</h3>
+                <h3 class="card-title">Form Pemilik</h3>
               </div>
-              <div class="card-body" id="tambah-pemilik">
+              <div class="card-body">
                 <div class="form-group">
                   <label for="nama">Nama Lengkap</label>
                   <input type="text" class="form-control form-control-sm @error('nama') is-invalid @enderror" id="nama" placeholder="Nama Lengkap" name="nama" value="{{ old('nama', $kendaraan->pemilik->nama) }}">
@@ -190,7 +232,7 @@
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="jbb">JBB</label>
-                    <input type="number" class="form-control form-control-sm @error('jbb') is-invalid @enderror" id="jbb" placeholder="jbb" name="jbb" value="{{ old('jbb', (request('noUjiCari') ? $kendaraan->jbb : '')) }}">
+                    <input type="number" class="form-control form-control-sm @error('jbb') is-invalid @enderror" id="jbb" placeholder="JBB" name="jbb" value="{{ old('jbb', (request('noUjiCari') ? $kendaraan->jbb : '')) }}">
                     @error("jbb")
                     <div class="invalid-feedback">
                       {{ $message }}
@@ -344,6 +386,23 @@
                   </div>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="jatuh_tempo">Jatuh Tempo</label>
+                    @if(request("noUjiCari"))
+                      <input type="date" class="form-control form-control-sm @error('jatuh_tempo') is-invalid @enderror" id="jatuh_tempo" placeholder="No. Rangka" name="jatuh_tempo" value="{{ old('jatuh_tempo', (request('noUjiCari') ? $kendaraan->jatuh_tempo : '')) }}">
+                    @else
+                      <input type="date" class="form-control form-control-sm @error('jatuh_tempo') is-invalid @enderror" id="jatuh_tempo" placeholder="No. Rangka" name="jatuh_tempo" value="{{ date('Y-m-d') }}">
+                    @endif
+                    @error("jatuh_tempo")
+                    <div class="invalid-feedback">
+                      {{ $message }}
+                    </div>
+                    @enderror
+                  </div>
+                </div>
+              </div>
             </div>
             <!-- /.card-body -->
           </div>
@@ -352,7 +411,7 @@
       </div>
       <div class="row">
         <div class="col-12 mb-3">
-          <button type="reset" class="btn btn-warning">Reset</button>
+          <a href="{{ route('form.pendaftaran') }}" class="btn btn-warning">Reset</a>
           <button type="submit" class="btn btn-primary float-right">Submit</button>
         </div>
       </div>
@@ -363,17 +422,24 @@
     // bikin form tambah pemilik berubah-ubah apabila checkbox-nya diceklis
     const pemilikBaru = document.getElementById("pemilikBaru")
     const formPemilik = document.getElementById("form-pemilik")
+    const pemilikLama = document.getElementById("pemilikLama")
+    const tambahPemilik = document.getElementById("tambahPemilik")
+    
     if (pemilikBaru.checked) {
-      formPemilik.innerHTML = tambahPemilik()
+      pemilikLama.style.display = "none"
+      tambahPemilik.style.display = "block"
     } else {
-      formPemilik.innerHTML = pemilikLama()
+      tambahPemilik.style.display = "none"
+      pemilikLama.style.display = "block"
     }
 
     pemilikBaru.addEventListener("change", function () {
       if (pemilikBaru.checked) {
-        formPemilik.innerHTML = tambahPemilik()
+        pemilikLama.style.display = "none"
+        tambahPemilik.style.display = "block"
       } else {
-        formPemilik.innerHTML = pemilikLama()
+        tambahPemilik.style.display = "none"
+        pemilikLama.style.display = "block"
       }
     })
 
@@ -422,51 +488,5 @@
               </div>`
     }
 
-    function pemilikLama() {
-      return `<div class="form-group">
-                <label for="pemilik_id">Pemilik</label>
-                <select class="form-control select2 form-control-sm @error('pemilik_id') is-invalid @enderror" id="pemilik_id" name="pemilik_id">
-                  <option value=""> --Pilih Pemilik--</option>
-                  @foreach($pemilik as $pm)
-                    <option value="{{ $pm->id }}" {{ (old('pemilik_id') == $pm->id) ? 'selected' : '' }}>{{ $pm->nama }}</option>
-                  @endforeach
-                </select>
-                @error("pemilik_id")
-                <div class="invalid-feedback">
-                  {{ $message }}
-                </div>
-                @enderror
-              </div>`
-    }
-
-    function tambahPemilik() {
-      return `<div class="form-group">
-                <label for="nama">Nama Lengkap</label>
-                <input type="text" class="form-control form-control-sm @error('nama') is-invalid @enderror" id="nama" placeholder="Nama Lengkap" name="nama" value="{{ old('nama') }}">
-                @error("nama")
-                <div class="invalid-feedback">
-                  {{ $message }}
-                </div>
-                @enderror
-              </div>
-              <div class="form-group">
-                <label for="alamat">Alamat</label>
-                <textarea class="form-control form-control-sm @error('alamat') is-invalid @enderror" id="alamat" name="alamat" placeholder="Alamat Lengkap">{{ old("alamat") }}</textarea>
-                @error("alamat")
-                <div class="invalid-feedback">
-                  {{ $message }}
-                </div>
-                @enderror
-              </div>
-              <div class="form-group">
-                <label for="no_telp">No. Telepon</label>
-                <input type="number" class="form-control form-control-sm @error('no_telp') is-invalid @enderror" id="no_telp" placeholder="08XXX" name="no_telp" value="{{ old('no_telp') }}">
-                @error("no_telp")
-                <div class="invalid-feedback">
-                  {{ $message }}
-                </div>
-                @enderror
-              </div>`
-    }
   </script>
 @endsection

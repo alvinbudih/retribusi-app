@@ -18,9 +18,50 @@
               </div>
             </div>
             <div id="form-pemilik">
-
+              <div class="form-group" id="pemilikLama">
+                <label for="pemilik_id">Pemilik</label>
+                <select class="form-control select2 form-control-sm @error('pemilik_id') is-invalid @enderror" id="pemilik_id" name="pemilik_id">
+                  <option value=""> --Pilih Pemilik--</option>
+                  @foreach($pemilik as $pm)
+                    <option value="{{ $pm->id }}" {{ (old('pemilik_id') == $pm->id) ? 'selected' : '' }}>{{ $pm->nama }}</option>
+                  @endforeach
+                </select>
+                @error("pemilik_id")
+                <div class="invalid-feedback">
+                  {{ $message }}
+                </div>
+                @enderror
+              </div>
+              <div id="tambahPemilik">
+                <div class="form-group">
+                  <label for="nama">Nama Lengkap</label>
+                  <input type="text" class="form-control form-control-sm @error('nama') is-invalid @enderror" id="nama" placeholder="Nama Lengkap" name="nama" value="{{ old('nama') }}">
+                  @error("nama")
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                  @enderror
+                </div>
+                <div class="form-group">
+                  <label for="alamat">Alamat</label>
+                  <textarea class="form-control form-control-sm @error('alamat') is-invalid @enderror" id="alamat" name="alamat" placeholder="Alamat Lengkap">{{ old("alamat") }}</textarea>
+                  @error("alamat")
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                  @enderror
+                </div>
+                <div class="form-group">
+                  <label for="no_telp">No. Telepon</label>
+                  <input type="number" class="form-control form-control-sm @error('no_telp') is-invalid @enderror" id="no_telp" placeholder="08XXX" name="no_telp" value="{{ old('no_telp') }}">
+                  @error("no_telp")
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                  @enderror
+                </div>
+              </div>
             </div>
-            
           </div>
         </div>
       </div>
@@ -84,7 +125,7 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="jbb">JBB</label>
-                  <input type="number" class="form-control form-control-sm @error('jbb') is-invalid @enderror" id="jbb" placeholder="jbb" name="jbb" value="{{ old('jbb') }}">
+                  <input type="number" class="form-control form-control-sm @error('jbb') is-invalid @enderror" id="jbb" placeholder="JBB" name="jbb" value="{{ old('jbb') }}">
                   @error("jbb")
                   <div class="invalid-feedback">
                     {{ $message }}
@@ -280,66 +321,26 @@
 
   const pemilikBaru = document.getElementById("pemilikBaru")
   const formPemilik = document.getElementById("form-pemilik")
+  const pemilikLama = document.getElementById("pemilikLama")
+  const tambahPemilik = document.getElementById("tambahPemilik")
+  
   if (pemilikBaru.checked) {
-    formPemilik.innerHTML = tambahPemilik()
+    pemilikLama.style.display = "none"
+    tambahPemilik.style.display = "block"
   } else {
-    formPemilik.innerHTML = pemilikLama()
+    tambahPemilik.style.display = "none"
+    pemilikLama.style.display = "block"
   }
 
   pemilikBaru.addEventListener("change", function () {
     if (pemilikBaru.checked) {
-      formPemilik.innerHTML = tambahPemilik()
+      pemilikLama.style.display = "none"
+      tambahPemilik.style.display = "block"
     } else {
-      formPemilik.innerHTML = pemilikLama()
+      tambahPemilik.style.display = "none"
+      pemilikLama.style.display = "block"
     }
   })
-
-  function pemilikLama() {
-    return `<div class="form-group">
-              <label for="pemilik_id">Pemilik</label>
-              <select class="form-control select2 form-control-sm @error('pemilik_id') is-invalid @enderror" id="pemilik_id" name="pemilik_id">
-                <option value=""> --Pilih Pemilik--</option>
-                @foreach($pemilik as $pm)
-                  <option value="{{ $pm->id }}" {{ (old('pemilik_id') == $pm->id) ? 'selected' : '' }}>{{ $pm->nama }}</option>
-                @endforeach
-              </select>
-              @error("pemilik_id")
-              <div class="invalid-feedback">
-                {{ $message }}
-              </div>
-              @enderror
-            </div>`
-  }
-
-  function tambahPemilik() {
-    return `<div class="form-group">
-              <label for="nama">Nama Lengkap</label>
-              <input type="text" class="form-control form-control-sm @error('nama') is-invalid @enderror" id="nama" placeholder="Nama Lengkap" name="nama" value="{{ old('nama') }}">
-              @error("nama")
-              <div class="invalid-feedback">
-                {{ $message }}
-              </div>
-              @enderror
-            </div>
-            <div class="form-group">
-              <label for="alamat">Alamat</label>
-              <textarea class="form-control form-control-sm @error('alamat') is-invalid @enderror" id="alamat" name="alamat" placeholder="Alamat Lengkap">{{ old("alamat") }}</textarea>
-              @error("alamat")
-              <div class="invalid-feedback">
-                {{ $message }}
-              </div>
-              @enderror
-            </div>
-            <div class="form-group">
-              <label for="no_telp">No. Telepon</label>
-              <input type="number" class="form-control form-control-sm @error('no_telp') is-invalid @enderror" id="no_telp" placeholder="08XXX" name="no_telp" value="{{ old('no_telp') }}">
-              @error("no_telp")
-              <div class="invalid-feedback">
-                {{ $message }}
-              </div>
-              @enderror
-            </div>`
-  }
 
 </script>
 @endsection

@@ -14,13 +14,13 @@ class LaporanController extends Controller
     {
         return view("dashboard.laporan.jurnal", [
             "title" => "Jurnal",
-            "journals" => Jurnal::all()
+            "journals" => Jurnal::latest()->get()
         ]);
     }
 
     public function getJurnalReport()
     {
-        return Pdf::loadView("dashboard.laporan.jurnal-pdf", ["journals" => Jurnal::all()])->setPaper("A4", "landscape")->stream();
+        return Pdf::loadView("dashboard.laporan.jurnal-pdf", ["journals" => Jurnal::latest()->get()])->setPaper("A4", "landscape")->stream();
     }
 
     public function getJurnalExport()

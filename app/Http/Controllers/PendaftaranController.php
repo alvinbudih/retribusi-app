@@ -32,7 +32,6 @@ class PendaftaranController extends Controller
         } else {
             $this->kdBayar = Pembayaran::max("kd_bayar") + 1;
         }
-        // dd(Biaya::required(false, 5500)->get());
     }
 
     public function rekapanPendaftaran()
@@ -84,9 +83,11 @@ class PendaftaranController extends Controller
             "cc" => "required|numeric",
             "jenis_kendaraan_id" => "required",
             "tipe_kendaraan_id" => "required",
+            "jatuh_tempo" => "required",
         ];
 
         if ($request->status_uji_id == 1) {
+            $rulesKendaraan["no_rangka"] .= "|unique:kendaraan";
             $rulesKendaraan["no_uji"] = "required|max:15|unique:kendaraan";
             $rulesKendaraan["no_kendaraan"] .= "|unique:kendaraan";
             $rulesKendaraan["no_mesin"] .= "|unique:kendaraan";
@@ -109,7 +110,7 @@ class PendaftaranController extends Controller
             $validatedKend["no_rangka"] = strtoupper($validatedKend["no_rangka"]);
             $validatedKend["srut"] = strtoupper($validatedKend["srut"]);
             $validatedKend["awal_daftar"] = date("Y-m-d");
-            $validatedKend["jatuh_tempo"] = date("Y-m-d", strtotime("+6 month", strtotime($validatedKend["awal_daftar"])));
+            // $validatedKend["jatuh_tempo"] = date("Y-m-d", strtotime("+6 month", strtotime($validatedKend["awal_daftar"])));
 
             if (isset($request->pemilikBaru)) {
                 Pemilik::create($validatedPemilik);
@@ -136,6 +137,10 @@ class PendaftaranController extends Controller
             $kendaraan = Kendaraan::where("no_uji", $request->no_uji)->first();
             $pemilik = Pemilik::find($kendaraan->pemilik->id);
 
+            if ($request->no_rangka != $kendaraan->no_rangka) {
+                $rulesKendaraan["no_rangka"] .= "|unique:kendaraan";
+            }
+
             if ($request->no_kendaraan != $kendaraan->no_kendaraan) {
                 $rulesKendaraan["no_kendaraan"] .= "|unique:kendaraan";
             }
@@ -154,7 +159,7 @@ class PendaftaranController extends Controller
             $validatedKend["no_mesin"] = strtoupper($validatedKend["no_mesin"]);
             $validatedKend["no_rangka"] = strtoupper($validatedKend["no_rangka"]);
             $validatedKend["srut"] = strtoupper($validatedKend["srut"]);
-            $validatedKend["jatuh_tempo"] = date("Y-m-d", strtotime("+6 month", strtotime(date("Y-m-d"))));
+            // $validatedKend["jatuh_tempo"] = date("Y-m-d", strtotime("+6 month", strtotime(date("Y-m-d"))));
 
             $validatedPemilik = $request->validate([
                 "nama" => "required|max:255",
@@ -185,7 +190,7 @@ class PendaftaranController extends Controller
     private function setBiayaUji(bool $kendaraanBaru)
     {
         $pendaftaran = Pendaftaran::latest()->first();
-        $biayaWajib = Biaya::required($kendaraanBaru, $pendaftaran->kendaraan->jbb)->get();
+        $biayaWajib = Biaya::required($kendaraanBaru, $pendaftaran->kendaraan->jbb, $pendaftaran->kendaraan->jatuh_tempo)->get();
 
         Pembayaran::create([
             "kd_bayar" => $this->kdBayar,
@@ -201,8 +206,13 @@ class PendaftaranController extends Controller
             $detail->biaya_id = $biaya->id;
             $detail->pembayaran_id = Pembayaran::max("id");
             $detail->jumlah_biaya = 1;
-            $detail->biaya_satuan = $biaya->jumlah;
-            $detail->subtotal = $detail->biaya_satuan * $detail->jumlah_biaya;
+            if ($biaya->persen > 0) {
+                $detail->biaya_satuan = $biaya->jumlah * $biaya->persen;
+                $detail->subtotal = $detail->biaya_satuan * $detail->jumlah_biaya;
+            } else {
+                $detail->biaya_satuan = $biaya->jumlah;
+                $detail->subtotal = $detail->biaya_satuan * $detail->jumlah_biaya;
+            }
             $detail->save();
         }
     }

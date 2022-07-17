@@ -86,12 +86,7 @@ class PemilikController extends Controller
         $rules = [
             "nama" => "required|max:255",
             "alamat" => "required",
-            "no_telp" => "required|max:15"
         ];
-
-        if ($request->no_telp != $pemilik->no_telp) {
-            $rules["no_telp"] .= "|unique:pemilik";
-        }
 
         $validated = $request->validate($rules);
 

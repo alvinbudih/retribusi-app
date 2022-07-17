@@ -10,7 +10,12 @@ class DetailPembayaran extends Model
     use HasFactory;
 
     protected $table = "detail_pembayaran";
-    protected $fillable = ["pembayaran_id", "akun_id", "biaya_id", "jumlah_biaya", "biaya_satuan", "subtotal"];
+    protected $fillable = ["pembayaran_id", "biaya_id", "jumlah_biaya", "biaya_satuan", "subtotal"];
+
+    public function getRouteKeyName()
+    {
+        return "biaya_id";
+    }
 
     public function biaya()
     {
