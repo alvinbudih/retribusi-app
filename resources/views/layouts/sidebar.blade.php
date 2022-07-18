@@ -139,7 +139,7 @@
               </li>
             @endcan
             <li class="nav-item">
-              <a href="" class="nav-link {{ Request::is('dashboard/pembayaran/rekapan*') ? 'active' : '' }}">
+              <a href="{{ route('rekap.pembayaran') }}" class="nav-link {{ Request::is('dashboard/pembayaran/rekapan*') ? 'active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Rekapan Pembayaran</p>
               </a>
@@ -162,9 +162,9 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="" class="nav-link">
+              <a href="{{ route('laporan.biaya') }}" class="nav-link {{ Request::is('dashboard/laporan/lap-biaya*') ? 'active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Rekapan Pembayaran</p>
+                <p>Laporan Biaya</p>
               </a>
             </li>
           </ul>

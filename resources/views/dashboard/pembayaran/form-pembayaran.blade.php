@@ -131,7 +131,7 @@
             <div class="row no-print">
               <div class="col-12">
                 <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
-                <form action="{{ route('tambah.pembayaran', [$bill->id]) }}" method="post">
+                <form action="{{ route('tambah.pembayaran', [$bill->id]) }}" method="post" class="d-inline">
                   @method("PUT")
                   @csrf
                   <input type="hidden" name="total" value="{{ $bill->detail_pembayaran->sum('subtotal') }}">

@@ -1,22 +1,23 @@
 <?php
 
-use App\Http\Controllers\AkunController;
-use App\Http\Controllers\BiayaController;
-use App\Http\Controllers\DetailPembayaranController;
-use App\Http\Controllers\JenisKendaraanController;
-use App\Http\Controllers\KendaraanController;
-use App\Http\Controllers\LaporanController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\MerkKendaraanController;
-use App\Http\Controllers\PembayaranController;
-use App\Http\Controllers\PemilikController;
-use App\Http\Controllers\PendaftaranController;
-use App\Http\Controllers\StatusUjiController;
-use App\Http\Controllers\TipeKendaraanController;
-use App\Http\Controllers\UserController;
-use App\Models\DetailPembayaran;
+use App\Models\Biaya;
 use App\Models\Pembayaran;
+use App\Models\DetailPembayaran;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AkunController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\BiayaController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\PemilikController;
+use App\Http\Controllers\KendaraanController;
+use App\Http\Controllers\StatusUjiController;
+use App\Http\Controllers\PembayaranController;
+use App\Http\Controllers\PendaftaranController;
+use App\Http\Controllers\MerkKendaraanController;
+use App\Http\Controllers\TipeKendaraanController;
+use App\Http\Controllers\JenisKendaraanController;
+use App\Http\Controllers\DetailPembayaranController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,7 +73,7 @@ Route::middleware("auth")->group(function () {
     });
 
     Route::prefix("/dashboard/pembayaran")->group(function () {
-        Route::get("/rekapan-pembayaran", [PembayaranController::class, "rekapanPembayaran"]);
+        Route::get("/rekapan-pembayaran", [PembayaranController::class, "rekapanPembayaran"])->name("rekap.pembayaran");
 
         Route::middleware("kasir")->group(function () {
             Route::controller(PembayaranController::class)->group(function () {
@@ -103,11 +104,40 @@ Route::middleware("auth")->group(function () {
             Route::get("/jurnal", "getJurnal")->name("get.jurnal");
             Route::get("/jurnal-pdf", "getJurnalReport")->name("journal.report");
             Route::get("/jurnal-xslx", "getJurnalExport")->name("journal.export");
+            Route::get("/lap-biaya", "getLapBiaya")->name("laporan.biaya");
         });
     });
 
-    Route::get("/pembayaran/{pembayaran}/detail_pembayaran/{detail}", function (Pembayaran $pembayaran, DetailPembayaran $detail) {
-        return $detail;
+    Route::get("/laporan", function () {
+        $biaya = Biaya::find(1);
+
+        if ($biaya->detail_pembayaran->count()) {
+            $kondisi = $biaya->detail_pembayaran()->has("pembayaran")->first();
+
+            if ($kondisi == null) {
+                return 0;
+            }
+
+            if (!$kondisi->pembayaran->telah_bayar) {
+                return 0;
+            }
+
+            $counted = $biaya->detail_pembayaran()->has("pembayaran")->get()->countBy(function ($detail) {
+                return $detail->pembayaran->telah_bayar;
+            })[1];
+        } else {
+            $counted = 0;
+        }
+
+        return $counted;
+
+        // $collection = collect(['alice@gmail.com', 'bob@yahoo.com', 'carlos@gmail.com']);
+
+        // $counted = $collection->countBy(function ($email) {
+        //     return substr(strrchr($email, "@"), 1);
+        // });
+
+        // return $counted->all();
     });
 
     // Route::get("/admin", function () {

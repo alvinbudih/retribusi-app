@@ -13,6 +13,13 @@ class Biaya extends Model
     protected $table = "biaya";
     protected $guarded = ["id"];
 
+    // public function filterByDate(Builder $query, array $date)
+    // {
+    //     $query->when($date["tglAwal"] and $date["tglAkhir"] ?? false, function (Builder $query, $tglAwal, $tglAkhir) {
+
+    //     });
+    // }
+
     public function scopeRequired(Builder $query, bool $kendaraanBaru, int $jbb, $jatuh_tempo)
     {
         $query->where("jenis", "Reguler");
@@ -39,11 +46,6 @@ class Biaya extends Model
             });
             $query->unless($jatuh_tempo < date("Y-m-d"), fn (Builder $query) => $query->where("kategori", "Biaya"));
         });
-    }
-
-    public function kendaraan()
-    {
-        return $this->hasMany(Kendaraan::class);
     }
 
     public function detail_pembayaran()

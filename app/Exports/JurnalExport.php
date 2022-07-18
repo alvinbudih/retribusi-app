@@ -19,7 +19,7 @@ class JurnalExport implements FromView
 
     public function view(): View
     {
-        return view("dashboard.laporan.jurnal-xlsx", [
+        return view("dashboard.jurnal.lap-jurnal.jurnal-xlsx", [
             "journals" => Jurnal::latest()->get()
         ]);
     }

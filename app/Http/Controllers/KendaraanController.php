@@ -114,7 +114,10 @@ class KendaraanController extends Controller
      */
     public function show(Kendaraan $kendaraan)
     {
-        //
+        return view("dashboard.kendaraan.show", [
+            "title" => "Detail Kendaraan",
+            "kendaraan" => $kendaraan
+        ]);
     }
 
     /**

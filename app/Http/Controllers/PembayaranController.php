@@ -20,13 +20,26 @@ class PembayaranController extends Controller
         //         ->whereNotIn("biaya_id", [2, 5, 6]);
         // })->get());
 
-        // dd(DetailPembayaran::where("biaya_id", 23)->where("pembayaran_id", 1)->get());
+        // $biaya = Biaya::find(1);
+
+        // $biaya->detail_pembayaran->countBy(fn ($detail) => dd($detail->pembayaran->telah_bayar ? true : false));
+        dd(Pembayaran::whereBetween("tgl_bayar", [date("Y-m-d"), date("Y-m-d")]));
     }
 
     public function rekapanPembayaran()
     {
+        $recaps = Pembayaran::where("tgl_bayar", date("Y-m-d"))
+            ->where("telah_bayar", true)
+            ->latest()->get();
+
+        // $myFunc = function ($nama) {
+        //     return "Hello $nama";
+        // };
+
         return view("dashboard.pembayaran.rekapan", [
             "title" => "Rekapan Pembayaran",
+            "recaps" => $recaps,
+            // "myFunc" => fn ($nama) => "Hello $nama"
         ]);
     }
 

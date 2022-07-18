@@ -21,7 +21,6 @@ class CreatePembayaransTable extends Migration
             $table->date("tgl_bayar");
             $table->foreignId("pendaftaran_id")->unique();
             $table->foreignId("user_id");
-            $table->foreignId("biaya_id");
             $table->timestamps();
         });
     }
