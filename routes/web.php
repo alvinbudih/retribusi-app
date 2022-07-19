@@ -1,8 +1,6 @@
 <?php
 
 use App\Models\Biaya;
-use App\Models\Pembayaran;
-use App\Models\DetailPembayaran;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AkunController;
 use App\Http\Controllers\UserController;
@@ -68,7 +66,7 @@ Route::middleware("auth")->group(function () {
             Route::resource("/merk", MerkKendaraanController::class)->except(["show", "destroy"]);
             Route::resource("/tipe", TipeKendaraanController::class)->except(["show", "destroy"]);
             Route::resource("/jenis", JenisKendaraanController::class)->except(["show", "destroy"]);
-            Route::resource("/kendaraan", KendaraanController::class);
+            Route::resource("/kendaraan", KendaraanController::class)->except(["edit", "destroy"]);
         });
     });
 
@@ -109,22 +107,26 @@ Route::middleware("auth")->group(function () {
     });
 
     Route::get("/laporan", function () {
-        $biaya = Biaya::find(1);
+        $biaya = Biaya::find(5);
 
         if ($biaya->detail_pembayaran->count()) {
-            $kondisi = $biaya->detail_pembayaran()->has("pembayaran")->first();
+            $temp = $biaya->detail_pembayaran()->whereHas("pembayaran", function ($query) {
+                $tglAwal = "2022-07-17";
+                return $query->where("telah_bayar", true)
+                    ->whereBetween("tgl_bayar", [$tglAwal, $tglAwal]);
+            });
 
-            if ($kondisi == null) {
+            $kondisi = $temp->get()->count();
+            dd($kondisi);
+
+            if (!$kondisi) {
                 return 0;
             }
 
-            if (!$kondisi->pembayaran->telah_bayar) {
-                return 0;
-            }
-
-            $counted = $biaya->detail_pembayaran()->has("pembayaran")->get()->countBy(function ($detail) {
+            $counted = $temp->get()->countBy(function ($detail) {
+                // dd($detail->pembayaran);
                 return $detail->pembayaran->telah_bayar;
-            })[1];
+            });
         } else {
             $counted = 0;
         }

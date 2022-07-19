@@ -50,10 +50,9 @@
               <td>{{ $kend->pemilik->alamat }}</td>
               <td>{{ $kend->jatuh_tempo }}</td>
               <td>
-                <a class="btn btn-success btn-sm" href="{{ route('kendaraan.edit', [$kend->id]) }}">
-                  <i class="fas fa-pencil-alt">
-                  </i>
-                  Edit
+                <a class="btn btn-info btn-sm" href="{{ route('kendaraan.show', [$kend->id]) }}">
+                  <i class="oi oi-eye"></i>
+                  Detail
                 </a>
               </td>
             </tr>

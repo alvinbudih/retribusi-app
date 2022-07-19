@@ -116,7 +116,14 @@ class KendaraanController extends Controller
     {
         return view("dashboard.kendaraan.show", [
             "title" => "Detail Kendaraan",
-            "kendaraan" => $kendaraan
+            "kendaraan" => $kendaraan,
+            "pemilik" => Pemilik::all(),
+            "jenis" => JenisKendaraan::all(),
+            "tipe" => TipeKendaraan::all(),
+            "jenisRumah" => $this->jenisRumah,
+            "sifat" => $this->sifat,
+            "bahanBakar" => $this->bahanBakar,
+            "dateNow" => date("Y-m-d")
         ]);
     }
 

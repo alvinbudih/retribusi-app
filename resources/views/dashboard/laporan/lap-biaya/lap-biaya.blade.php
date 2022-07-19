@@ -16,8 +16,10 @@
           <tr>
             <th>#</th>
             <th>Keterangan</th>
-            <th>Jumlah</th>
             <th>Biaya</th>
+            <th>X</th>
+            <th>Jumlah</th>
+            <th>=</th>
             <th>Total Biaya</th>
           </tr>
         </thead>
@@ -26,9 +28,11 @@
             <tr>
               <td>{{ $loop->iteration }}</td>
               <td>{{ $cost->item }}</td>
+              <td>{{ number_format($cost->persen > 0 ? $cost->jumlah * $cost->persen : $cost->jumlah, 2, ",", ".") }}</td>
+              <td>X</td>
               <td>{{ $jumlahBiaya($cost, $tglAwal, $tglAkhir) }}</td>
-              <td>0</td>
-              <td>0</td>
+              <td>=</td>
+              <td>{{ number_format($totalBiaya($cost, $tglAwal, $tglAkhir), 2, ",", ".") }}</td>
             </tr>
           @endforeach
         </tbody>

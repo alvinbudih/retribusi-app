@@ -32,38 +32,30 @@ class LaporanController extends Controller
     public function getLapBiaya()
     {
         $jumlahBiaya = function (Biaya $biaya, $tglAwal = null, $tglAkhir = null) {
-            if ($biaya->detail_pembayaran->count()) {
-                // dd($biaya->detail_pembayaran());
-                $temp = $biaya->detail_pembayaran()->whereHas("pembayaran", function ($query) {
-                    $tglAwal = "2022-07-16";
-                    return $query->whereBetween("tgl_bayar", [$tglAwal, $tglAwal]);
-                });
-
-                $kondisi = $temp->first();
-
-                if ($kondisi == null) {
-                    return 0;
-                }
-
-                if (!$kondisi->pembayaran->telah_bayar) {
-                    return 0;
-                }
-
-                $counted = $temp->get()->countBy(function ($detail) {
-                    return $detail->pembayaran->telah_bayar;
-                })[1];
-            } else {
-                $counted = 0;
-            }
-
-            return $counted;
+            return $biaya->detail_pembayaran()->whereHas("pembayaran", function ($query) {
+                $tglAwal = "2022-07-16";
+                $tglAkhir = date("Y-m-d");
+                return $query->where("telah_bayar", true)
+                    ->whereBetween("tgl_bayar", [$tglAwal, $tglAkhir]);
+            })->get()->sum("jumlah_biaya");
         };
+
+        $totalBiaya = function (Biaya $biaya, $tglAwal, $tglAkhir) {
+            return $biaya->detail_pembayaran()->whereHas("pembayaran", function ($query) {
+                $tglAwal = "2022-07-16";
+                $tglAkhir = date("Y-m-d");
+                return $query->where("telah_bayar", true)
+                    ->whereBetween("tgl_bayar", [$tglAwal, $tglAkhir]);
+            })->get()->sum("subtotal");
+        };
+
         $tglAwal = date("Y-m-d");
         $tglAkhir = date("Y-m-d");
 
         return view("dashboard.laporan.lap-biaya.lap-biaya", [
             "title" => "Laporan Biaya",
             "costs" => Biaya::all(),
+            "totalBiaya" => $totalBiaya,
             "jumlahBiaya" => $jumlahBiaya,
             "tglAwal" => $tglAwal,
             "tglAkhir" => $tglAkhir,

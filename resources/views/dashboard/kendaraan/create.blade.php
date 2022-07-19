@@ -4,8 +4,8 @@
   <form action="{{ route('kendaraan.store') }}" method="POST" role="form">
     @csrf
     <div class="row">
-      <div class="col-sm-5">
-        <div class="card card-secondary">
+      <div class="col-sm-6">
+        <div class="card card-warning">
           <div class="card-header">
             <h3 class="card-title">Form Tambah Pemilik</h3>
           </div>
@@ -65,7 +65,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-7">
+      <div class="col-sm-6">
         <!-- general form elements -->
         <div class="card card-primary">
           <div class="card-header">
@@ -294,30 +294,6 @@
   </form>
 </section>
 <script>
-
-  // const merkId = document.querySelector("#merk_kendaraan_id")
-  
-  // merkId.addEventListener("change", function () {
-
-  //   fetch("http://retribusi-app.test/api/tipe/" + merkId.value)
-  //     .then(response => response.json())
-  //     .then(result => {
-  //       const tipeKendaraan = result.data
-
-  //       tipeKendaraanId = document.getElementById("tipe_kendaraan_id")
-  //       let option = `<option value=""> --Pilih Tipe Kendaraan-- </option>`
-        
-  //       if (tipeKendaraan.length <= 0) {
-  //         tipeKendaraanId.innerHTML = option
-  //       } else {
-  //         tipeKendaraan.forEach(tipe => {
-  //           option += `<option value="${tipe.id}">${tipe.nama_tipe}</option>`
-  //         })
-  //         tipeKendaraanId.innerHTML = option
-  //       }
-  //     })
-      
-  // })
 
   const pemilikBaru = document.getElementById("pemilikBaru")
   const formPemilik = document.getElementById("form-pemilik")

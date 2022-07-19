@@ -10,21 +10,20 @@ use Illuminate\Http\Request;
 
 class PembayaranController extends Controller
 {
-    public function __construct()
-    {
-        // dd(DetailPembayaran::where("biaya_id", 1)->where("biaya_satuan", 100000)->get());
-        // dd((50000 * 0.02) * 2);
+    // public function __construct()
+    // {
+    //     // dd(DetailPembayaran::where("biaya_id", 1)->where("biaya_satuan", 100000)->get());
+    //     // dd((50000 * 0.02) * 2);
 
-        // dd(Biaya::whereHas("detail_pembayaran", function ($query) {
-        //     return $query->whereNotIn("pembayaran_id", [5])
-        //         ->whereNotIn("biaya_id", [2, 5, 6]);
-        // })->get());
+    //     // dd(Biaya::whereHas("detail_pembayaran", function ($query) {
+    //     //     return $query->whereNotIn("pembayaran_id", [5])
+    //     //         ->whereNotIn("biaya_id", [2, 5, 6]);
+    //     // })->get());
 
-        // $biaya = Biaya::find(1);
+    //     // $biaya = Biaya::find(1);
 
-        // $biaya->detail_pembayaran->countBy(fn ($detail) => dd($detail->pembayaran->telah_bayar ? true : false));
-        dd(Pembayaran::whereBetween("tgl_bayar", [date("Y-m-d"), date("Y-m-d")]));
-    }
+    //     // $biaya->detail_pembayaran->countBy(fn ($detail) => dd($detail->pembayaran->telah_bayar ? true : false));
+    // }
 
     public function rekapanPembayaran()
     {
