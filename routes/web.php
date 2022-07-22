@@ -76,12 +76,13 @@ Route::middleware("auth")->group(function () {
         Route::middleware("kasir")->group(function () {
             Route::controller(PembayaranController::class)->group(function () {
                 Route::get("/proses-pembayaran", "prosesPembayaran")->name("proses.pembayaran");
-                Route::get("/proses/form-pembayaran/{pembayaran}", "formPembayaran")->name("form.pembayaran");
+                Route::get("/proses-pembayaran/form-pembayaran/{pembayaran}", "formPembayaran")->name("form.pembayaran");
                 Route::put("/tambah-pembayaran/{pembayaran}", "tambahPembayaran")->name("tambah.pembayaran");
+                Route::get("/proses-pembayaran/cetak-invoice/{pembayaran}", "cetakInvoice")->name("cetak.invoice");
             });
             Route::controller(DetailPembayaranController::class)->group(function () {
-                Route::post("/proses/form-pembayaran/{pembayaran}", "tambahBiaya")->name("tambah.biaya");
-                Route::delete("/proses/form-pembayaran/{pembayaran}/{detail}", "hapusBiaya")->name("hapus.biaya");
+                Route::post("/proses-pembayaran/form-pembayaran/{pembayaran}", "tambahBiaya")->name("tambah.biaya");
+                Route::delete("/proses-pembayaran/form-pembayaran/{pembayaran}/{detail}", "hapusBiaya")->name("hapus.biaya");
             });
         });
     });

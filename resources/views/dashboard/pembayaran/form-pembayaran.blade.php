@@ -32,16 +32,16 @@
               <div class="col-sm-4 invoice-col">
                 Dari
                 <address>
-                  <strong>Dinas Perhubungan</strong><br>
+                  <strong>{{ $bill->pendaftaran->kendaraan->pemilik->nama }}</strong><br>
+                  {{ $bill->pendaftaran->kendaraan->pemilik->alamat }} <br>
+                  {{ $bill->pendaftaran->kendaraan->pemilik->no_telp }}
                 </address>
               </div>
               <!-- /.col -->
               <div class="col-sm-4 invoice-col">
                 Kepada
                 <address>
-                  <strong>{{ $bill->pendaftaran->kendaraan->pemilik->nama }}</strong><br>
-                  {{ $bill->pendaftaran->kendaraan->pemilik->alamat }} <br>
-                  {{ $bill->pendaftaran->kendaraan->pemilik->no_telp }}
+                  <strong>Dinas Perhubungan</strong><br>
                 </address>
               </div>
               <!-- /.col -->
@@ -104,7 +104,6 @@
             <div class="row justify-content-end">
               <!-- /.col -->
               <div class="col-6">
-                {{-- <p class="lead">Amount Due {{ date("Y-m-d") }}</p> --}}
 
                 <div class="table-responsive">
                   <table class="table">
@@ -130,7 +129,7 @@
             <!-- this row will not appear when printing -->
             <div class="row no-print">
               <div class="col-12">
-                <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
+                <a href="{{ route('cetak.invoice', [$bill->id]) }}" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
                 <form action="{{ route('tambah.pembayaran', [$bill->id]) }}" method="post" class="d-inline">
                   @method("PUT")
                   @csrf
@@ -166,7 +165,7 @@
               <label for="biaya_id">Item Biaya</label>
               <select class="form-control select2 @error('biaya_id') is-invalid @enderror" id="biaya_id" name="biaya_id">
                 <option value=""> --Pilih Biaya--</option>
-                @foreach($costs->skip(1) as $cost)
+                @foreach($costs as $cost)
                   <option value="{{ $cost->id }}" {{ old('biaya_id') == $cost->id ? 'selected' : '' }}>{{ $cost->item }}</option>
                 @endforeach
               </select>

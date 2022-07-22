@@ -6,6 +6,7 @@ use App\Models\Biaya;
 use App\Models\Jurnal;
 use App\Models\Pembayaran;
 use App\Models\Pendaftaran;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class PembayaranController extends Controller
@@ -89,5 +90,13 @@ class PembayaranController extends Controller
         }
 
         return redirect()->route("proses.pembayaran")->with("success", "Data Berhasil Ditambahkan");
+    }
+
+    public function cetakInvoice(Pembayaran $pembayaran)
+    {
+        return Pdf::loadView("dashboard.pembayaran.invoice", [
+            "title" => "Bukti Pembayaran",
+            "bill" => $pembayaran
+        ])->stream();
     }
 }

@@ -51,5 +51,7 @@ $app->singleton(
 | from the actual running of the application and sending responses.
 |
 */
+// $app->register(\Barryvdh\DomPDF\ServiceProvider::class);
+// $app->configPath('dompdf');
 
 return $app;
