@@ -43,7 +43,7 @@
             <td>{{ $cost->item }}</td>
             <td>{{ $cost->jenis }}</td>
             <td>{{ $cost->kategori }}</td>
-            <td>{{ $cost->jumlah }}</td>
+            <td>{{ number_format($cost->jumlah) }}</td>
             <td>{{ $cost->persen }}</td>
             <td>
               <a class="btn btn-success btn-sm" href="{{ route('biaya.edit', [$cost->id]) }}">
@@ -99,7 +99,7 @@
                 <option value="{{ $type }}" {{ old('jenis') == $type ? 'selected' : '' }}>{{ $type }}</option>
               @endforeach
             </select>
-            @error("kategori")
+            @error("jenis")
             <div class="invalid-feedback">
               {{ $message }}
             </div>

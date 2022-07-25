@@ -18,7 +18,7 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="kode">Kode</label>
-                  <input type="number" class="form-control @error('kode') is-invalid @enderror" id="kode" placeholder="Kode" name="kode" readonly value="{{ $biaya->kode }}">
+                  <input type="text" class="form-control @error('kode') is-invalid @enderror" id="kode" placeholder="Kode" name="kode" value="{{ $biaya->kode }}">
                   @error("kode")
                   <div class="invalid-feedback">
                     {{ $message }}
@@ -42,7 +42,12 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="jenis">Jenis</label>
-                  <input type="text" class="form-control @error('jenis') is-invalid @enderror" id="jenis" placeholder="Jenis Biaya" name="jenis" value="{{ old('jenis', $biaya->jenis) }}">
+                  <select class="form-control @error('jenis') is-invalid @enderror" id="jenis" name="jenis">
+                    <option value=""> --Pilih Jenis--</option>
+                    @foreach($types as $type)
+                      <option value="{{ $type }}" {{ old('jenis', $biaya->jenis) == $type ? 'selected' : '' }}>{{ $type }}</option>
+                    @endforeach
+                  </select>
                   @error("jenis")
                   <div class="invalid-feedback">
                     {{ $message }}
@@ -88,17 +93,6 @@
                     {{ $message }}
                   </div>
                   @enderror
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-4">
-                <div class="form-group">
-                  <label for="">Param</label>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="param" name="param" value="1" {{ (old('param', $biaya->param)) ? 'checked' : '' }}>
-                    <label class="form-check-label" for="param">Yes</label>
-                  </div>
                 </div>
               </div>
             </div>
