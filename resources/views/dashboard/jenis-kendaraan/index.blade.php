@@ -67,7 +67,7 @@
         <div class="modal-body">
           <div class="form-group">
             <label for="nama_jenis">Nama Jenis</label>
-            <input type="text" class="form-control @error('nama_jenis') is-invalid @enderror" id="nama_jenis" placeholder="Nama Jenis" name="nama_jenis" value="{{ old('nama_jenis') }}">
+            <input type="text" class="form-control @error('nama_jenis') is-invalid @enderror" id="nama_jenis" placeholder="Nama Jenis" name="nama_jenis" value="{{ old('nama_jenis') }}" autocomplete="off">
             @error("nama_jenis")
             <div class="invalid-feedback">
               {{ $message }}
@@ -76,7 +76,7 @@
           </div>
           <div class="form-group">
             <label for="konversi_jenis">Konversi Jenis</label>
-            <input type="text" class="form-control @error('konversi_jenis') is-invalid @enderror" id="konversi_jenis" placeholder="Konversi Jenis" name="konversi_jenis" value="{{ old('konversi_jenis') }}">
+            <input type="text" class="form-control @error('konversi_jenis') is-invalid @enderror" id="konversi_jenis" placeholder="Konversi Jenis" name="konversi_jenis" value="{{ old('konversi_jenis') }}" autocomplete="off">
             @error("konversi_jenis")
             <div class="invalid-feedback">
               {{ $message }}

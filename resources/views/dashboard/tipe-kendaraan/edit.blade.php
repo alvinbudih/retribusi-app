@@ -20,7 +20,7 @@
               <div class="col-sm-8">
                 <div class="form-group">
                   <label for="nama_tipe">Nama Tipe</label>
-                  <input type="text" class="form-control @error('nama_tipe') is-invalid @enderror" id="nama_tipe" placeholder="Nama Tipe" name="nama_tipe" value="{{ old('nama_tipe', $tipe->nama_tipe) }}">
+                  <input type="text" class="form-control @error('nama_tipe') is-invalid @enderror" id="nama_tipe" placeholder="Nama Tipe" name="nama_tipe" value="{{ old('nama_tipe', $tipe->nama_tipe) }}" autocomplete="off">
                   @error("nama_tipe")
                   <div class="invalid-feedback">
                     {{ $message }}
@@ -33,7 +33,7 @@
               <div class="col-sm-8">
                 <div class="form-group">
                   <label for="merk_kendaraan_id">Dari Merk</label>
-                  <select class="form-control @error('merk_kendaraan_id') is-invalid @enderror" id="merk_kendaraan_id" name="merk_kendaraan_id">
+                  <select class="form-control select2 @error('merk_kendaraan_id') is-invalid @enderror" id="merk_kendaraan_id" name="merk_kendaraan_id">
                     <option value=""> --Pilih Merk--</option>
                     @foreach($merk as $m)
                       <option value="{{ $m->id }}" {{ old('merk_kendaraan_id', $tipe->merk_kendaraan->nama_merk) ? 'selected' : '' }}>{{ $m->nama_merk }}</option>

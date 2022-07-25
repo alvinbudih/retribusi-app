@@ -26,7 +26,7 @@
       </div>
     </div>
     <div class="card-body">
-      <table class="table table-sm table-hover text-nowrap projects">
+      <table class="table table-sm table-hover text-nowrap projects" id="dataTable">
         <thead>
           <tr>
             <th>#</th>
@@ -85,7 +85,7 @@
         <div class="modal-body">
           <div class="form-group">
             <label for="name">Nama Lengkap</label>
-            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Nama Lengkap" name="name" value="{{ old('name') }}">
+            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Nama Lengkap" name="name" value="{{ old('name') }}" autocomplete="off">
             @error("name")
             <div class="invalid-feedback">
               {{ $message }}
@@ -94,7 +94,7 @@
           </div>
           <div class="form-group">
             <label for="username">Username</label>
-            <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" placeholder="Username" name="username" value="{{ old('username') }}">
+            <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" placeholder="Username" name="username" value="{{ old('username') }}" autocomplete="off">
             @error("username")
             <div class="invalid-feedback">
               {{ $message }}
@@ -103,7 +103,7 @@
           </div>
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="yourname@example.com" name="email" value="{{ old('email') }}">
+            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="yourname@example.com" name="email" value="{{ old('email') }}" autocomplete="off">
             @error("email")
             <div class="invalid-feedback">
               {{ $message }}

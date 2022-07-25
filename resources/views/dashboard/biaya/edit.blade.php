@@ -18,7 +18,7 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="kode">Kode</label>
-                  <input type="text" class="form-control @error('kode') is-invalid @enderror" id="kode" placeholder="Kode" name="kode" value="{{ $biaya->kode }}">
+                  <input type="text" class="form-control @error('kode') is-invalid @enderror" id="kode" placeholder="Kode" name="kode" value="{{ $biaya->kode }}" autocomplete="off">
                   @error("kode")
                   <div class="invalid-feedback">
                     {{ $message }}
@@ -29,7 +29,7 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="item">Item</label>
-                  <input type="text" class="form-control @error('item') is-invalid @enderror" id="item" placeholder="Item" name="item" value="{{ old('item', $biaya->item) }}">
+                  <input type="text" class="form-control @error('item') is-invalid @enderror" id="item" placeholder="Item" name="item" value="{{ old('item', $biaya->item) }}" autocomplete="off">
                   @error("item")
                   <div class="invalid-feedback">
                     {{ $message }}
@@ -76,7 +76,7 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="jumlah">Jumlah</label>
-                  <input type="number" class="form-control @error('jumlah') is-invalid @enderror" id="jumlah" placeholder="Jumlah" name="jumlah" value="{{ old('jumlah', $biaya->jumlah) }}">
+                  <input type="number" class="form-control @error('jumlah') is-invalid @enderror" id="jumlah" placeholder="Jumlah" name="jumlah" value="{{ old('jumlah', $biaya->jumlah) }}" autocomplete="off">
                   @error("jumlah")
                   <div class="invalid-feedback">
                     {{ $message }}
@@ -87,7 +87,7 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="persen">Persen</label>
-                  <input type="number" class="form-control @error('persen') is-invalid @enderror" id="persen" placeholder="Persen" name="persen" value="{{ old('persen', $biaya->persen) }}">
+                  <input type="number" class="form-control @error('persen') is-invalid @enderror" id="persen" placeholder="Persen" name="persen" value="{{ old('persen', $biaya->persen) }}" autocomplete="off">
                   @error("persen")
                   <div class="invalid-feedback">
                     {{ $message }}

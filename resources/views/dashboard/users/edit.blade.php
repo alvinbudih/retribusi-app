@@ -18,7 +18,7 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="name">Nama Lengkap</label>
-                  <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Nama Lengkap" name="name" value="{{ old('name', $user->name) }}">
+                  <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Nama Lengkap" name="name" value="{{ old('name', $user->name) }}" autocomplete="off">
                   @error("name")
                   <div class="invalid-feedback">
                     {{ $message }}
@@ -29,7 +29,7 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="username">Username</label>
-                  <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" placeholder="Username" name="username" value="{{ old('username', $user->username) }}">
+                  <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" placeholder="Username" name="username" value="{{ old('username', $user->username) }}" autocomplete="off">
                   @error("username")
                   <div class="invalid-feedback">
                     {{ $message }}
@@ -42,7 +42,7 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="email">Email</label>
-                  <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Email" name="email" value="{{ old('email', $user->email) }}">
+                  <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Email" name="email" value="{{ old('email', $user->email) }}" autocomplete="off">
                   @error("email")
                   <div class="invalid-feedback">
                     {{ $message }}

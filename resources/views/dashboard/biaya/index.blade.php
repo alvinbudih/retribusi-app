@@ -22,7 +22,7 @@
       </div>
     </div>
     <div class="card-body">
-      <table class="table table-sm table-hover text-nowrap projects">
+      <table class="table table-sm table-hover text-nowrap projects" id="dataTable">
         <thead>
           <tr>
             <th>#</th>
@@ -75,7 +75,7 @@
         <div class="modal-body">
           <div class="form-group">
             <label for="kode">Kode</label>
-            <input type="number" class="form-control @error('kode') is-invalid @enderror" id="kode" placeholder="Kode" name="kode">
+            <input type="number" class="form-control @error('kode') is-invalid @enderror" id="kode" placeholder="Kode" name="kode" autocomplete="off">
             @error("kode")
             <div class="invalid-feedback">
               {{ $message }}
@@ -84,7 +84,7 @@
           </div>
           <div class="form-group">
             <label for="item">Item</label>
-            <input type="text" class="form-control @error('item') is-invalid @enderror" id="item" placeholder="Item" name="item" value="{{ old('item') }}">
+            <input type="text" class="form-control @error('item') is-invalid @enderror" id="item" placeholder="Item" name="item" value="{{ old('item') }}" autocomplete="off">
             @error("item")
             <div class="invalid-feedback">
               {{ $message }}
@@ -93,7 +93,7 @@
           </div>
           <div class="form-group">
             <label for="jenis">Jenis</label>
-            <select class="form-control @error('jenis') is-invalid @enderror" id="jenis" name="jenis">
+            <select class="form-control select2 @error('jenis') is-invalid @enderror" id="jenis" name="jenis">
               <option value=""> --Pilih Jenis--</option>
               @foreach($types as $type)
                 <option value="{{ $type }}" {{ old('jenis') == $type ? 'selected' : '' }}>{{ $type }}</option>
@@ -107,7 +107,7 @@
           </div>
           <div class="form-group">
             <label for="kategori">Kategori</label>
-            <select class="form-control @error('kategori') is-invalid @enderror" id="kategori" name="kategori">
+            <select class="form-control select2 @error('kategori') is-invalid @enderror" id="kategori" name="kategori">
               <option value=""> --Pilih Kategori--</option>
               @foreach($categories as $category)
                 <option value="{{ $category }}" {{ old('kategori') == $category ? 'selected' : '' }}>{{ $category }}</option>
@@ -121,7 +121,7 @@
           </div>
           <div class="form-group">
             <label for="jumlah">Jumlah</label>
-            <input type="number" class="form-control @error('jumlah') is-invalid @enderror" id="jumlah" placeholder="Jumlah" name="jumlah" value="{{ old('jumlah', 0) }}">
+            <input type="number" class="form-control @error('jumlah') is-invalid @enderror" id="jumlah" placeholder="Jumlah" name="jumlah" value="{{ old('jumlah', 0) }}" autocomplete="off">
             @error("jumlah")
             <div class="invalid-feedback">
               {{ $message }}
@@ -130,7 +130,7 @@
           </div>
           <div class="form-group">
             <label for="persen">Persen</label>
-            <input type="number" class="form-control @error('persen') is-invalid @enderror" id="persen" placeholder="Persen" name="persen" value="{{ old('persen', 0) }}">
+            <input type="number" class="form-control @error('persen') is-invalid @enderror" id="persen" placeholder="Persen" name="persen" value="{{ old('persen', 0) }}"  autocomplete="off">
             @error("persen")
             <div class="invalid-feedback">
               {{ $message }}

@@ -20,7 +20,7 @@
               <div class="col-sm-8">
                 <div class="form-group">
                   <label for="nama_jenis">Nama Jenis</label>
-                  <input type="text" class="form-control @error('nama_jenis') is-invalid @enderror" id="nama_jenis" placeholder="Nama Jenis" name="nama_jenis" value="{{ old('nama_jenis', $jenis->nama_jenis) }}">
+                  <input type="text" class="form-control @error('nama_jenis') is-invalid @enderror" id="nama_jenis" placeholder="Nama Jenis" name="nama_jenis" value="{{ old('nama_jenis', $jenis->nama_jenis) }}" autocomplete="off">
                   @error("nama_jenis")
                   <div class="invalid-feedback">
                     {{ $message }}
@@ -33,7 +33,7 @@
               <div class="col-sm-8">
                 <div class="form-group">
                   <label for="konversi_jenis">Konversi</label>
-                  <input type="text" class="form-control @error('konversi_jenis') is-invalid @enderror" id="konversi_jenis" placeholder="Nama Jenis" name="konversi_jenis" value="{{ old('konversi_jenis', $jenis->konversi_jenis) }}">
+                  <input type="text" class="form-control @error('konversi_jenis') is-invalid @enderror" id="konversi_jenis" placeholder="Nama Jenis" name="konversi_jenis" value="{{ old('konversi_jenis', $jenis->konversi_jenis) }}" autocomplete="off">
                   @error("konversi_jenis")
                   <div class="invalid-feedback">
                     {{ $message }}

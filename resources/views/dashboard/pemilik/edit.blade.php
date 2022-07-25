@@ -18,7 +18,7 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="nama">Nama Lengkap</label>
-                  <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Nama Lengkap" name="nama" value="{{ old('nama', $pemilik->nama) }}">
+                  <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Nama Lengkap" name="nama" value="{{ old('nama', $pemilik->nama) }}" autocomplete="off">
                   @error("nama")
                   <div class="invalid-feedback">
                     {{ $message }}
@@ -29,7 +29,7 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="no_telp">No. Telepon</label>
-                  <input type="number" class="form-control @error('no_telp') is-invalid @enderror" id="no_telp" placeholder="08XXXXX" name="no_telp" value="{{ old('no_telp', $pemilik->no_telp) }}">
+                  <input type="number" class="form-control @error('no_telp') is-invalid @enderror" id="no_telp" placeholder="08XXXXX" name="no_telp" value="{{ old('no_telp', $pemilik->no_telp) }}" autocomplete="off">
                   @error("no_telp")
                   <div class="invalid-feedback">
                     {{ $message }}

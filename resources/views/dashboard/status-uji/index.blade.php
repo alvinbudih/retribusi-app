@@ -65,7 +65,7 @@
         <div class="modal-body">
           <div class="form-group">
             <label for="status">Status</label>
-            <input type="text" class="form-control @error('status') is-invalid @enderror" id="status" placeholder="Status" name="status" value="{{ old('status') }}">
+            <input type="text" class="form-control @error('status') is-invalid @enderror" id="status" placeholder="Status" name="status" value="{{ old('status') }}" autocomplete="off">
             @error("status")
             <div class="invalid-feedback">
               {{ $message }}

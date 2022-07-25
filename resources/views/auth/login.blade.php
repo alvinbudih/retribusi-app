@@ -22,6 +22,14 @@
 
 <body class="hold-transition login-page">
   <div class="login-box">
+
+    @if(session()->has("loginError"))
+      <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        {{ session("loginError") }}
+      </div>
+    @endif
+    
     <div class="login-logo">
       <a href="#"><b>Admin</b>LTE</a>
     </div>
@@ -29,14 +37,6 @@
     <div class="card">
       <div class="card-body login-card-body">
         <p class="login-box-msg">Login Form</p>
-
-        @if(session()->has("loginError"))
-        <div class="alert alert-danger alert-dismissible">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-          {{ session("loginError") }}
-        </div>
-        @endif
-
         <form action="{{ route('login.auth') }}" method="post">
           @csrf
           <div class="input-group mb-3">

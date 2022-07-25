@@ -65,7 +65,7 @@
         <div class="modal-body">
           <div class="form-group">
             <label for="nama_merk">Nama Merk</label>
-            <input type="text" class="form-control @error('nama_merk') is-invalid @enderror" id="nama_merk" placeholder="Nama Merk" name="nama_merk" value="{{ old('nama_merk') }}">
+            <input type="text" class="form-control @error('nama_merk') is-invalid @enderror" id="nama_merk" placeholder="Nama Merk" name="nama_merk" value="{{ old('nama_merk') }}" autocomplete="off">
             @error("nama_merk")
             <div class="invalid-feedback">
               {{ $message }}

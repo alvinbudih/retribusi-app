@@ -19,8 +19,8 @@
             <div class="row">
               <div class="col-sm-8">
                 <div class="form-group">
-                  <label for="status">Nama Merk</label>
-                  <input type="text" class="form-control @error('status') is-invalid @enderror" id="status" placeholder="Status" name="status" value="{{ old('status', $statusUji->status) }}">
+                  <label for="status">Status</label>
+                  <input type="text" class="form-control @error('status') is-invalid @enderror" id="status" placeholder="Status" name="status" value="{{ old('status', $statusUji->status) }}" autocomplete="off">
                   @error("status")
                   <div class="invalid-feedback">
                     {{ $message }}
