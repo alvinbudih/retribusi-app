@@ -133,25 +133,5 @@ Route::middleware("auth")->group(function () {
         }
 
         return $counted;
-
-        // $collection = collect(['alice@gmail.com', 'bob@yahoo.com', 'carlos@gmail.com']);
-
-        // $counted = $collection->countBy(function ($email) {
-        //     return substr(strrchr($email, "@"), 1);
-        // });
-
-        // return $counted->all();
     });
-
-    // Route::get("/admin", function () {
-    //     return "this is admin page";
-    // })->middleware("admin");
-
-    // Route::get("/pelayanan", function () {
-    //     return "this is pelayanan page";
-    // })->middleware("pelayanan");
-
-    // Route::get("/kasir", function () {
-    //     return "this is kasir page";
-    // })->middleware("kasir");
 });

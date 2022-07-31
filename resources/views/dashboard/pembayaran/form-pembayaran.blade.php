@@ -29,7 +29,7 @@
             </div>
             <!-- info row -->
             <div class="row invoice-info">
-              <div class="col-sm-6 invoice-col">
+              <div class="col-sm-4 invoice-col">
                 <address>
                   <strong>Nama</strong>       : {{ $bill->pendaftaran->kendaraan->pemilik->nama }} <br>
                   <strong>Alamat</strong>     : {{ $bill->pendaftaran->kendaraan->pemilik->alamat }} <br>
@@ -38,14 +38,10 @@
                 </address>
               </div>
               <!-- /.col -->
-              {{-- <div class="col-sm-4 invoice-col">
-                Kepada
-                <address>
-                  <strong>Dinas Perhubungan</strong><br>
-                </address>
-              </div> --}}
+              <div class="col-sm-4 invoice-col">
+              </div>
               <!-- /.col -->
-              <div class="col-sm-6 invoice-col">
+              <div class="col-sm-4 invoice-col">
                 <b>Kode</b>         : {{ $bill->kd_bayar }}<br>
                 <b>Status Uji</b>   : {{ $bill->pendaftaran->status_uji->status }}<br>
                 <b>Jatuh Tempo</b>  : {{ $bill->pendaftaran->kendaraan->jatuh_tempo }}<br>
@@ -170,9 +166,18 @@
                 @endforeach
               </select>
               @error("biaya_id")
-              <div class="invalid-feedback">
-                {{ $message }}
-              </div>
+                <div class="invalid-feedback">
+                  {{ $message }}
+                </div>
+              @enderror
+            </div>
+            <div class="form-group">
+              <label for="jumlah_biaya">Jumlah Biaya</label>
+              <input type="number" class="form-control @error('jumlah_biaya') is-invalid @enderror" id="jumlah_biaya" name="jumlah_biaya" value="{{ old('jumlah_biaya', 1) }}" autocomplete="off" required>
+              @error("jumlah_biaya")
+                <div class="invalid-feedback">
+                  {{ $message }}
+                </div>
               @enderror
             </div>
           </div>

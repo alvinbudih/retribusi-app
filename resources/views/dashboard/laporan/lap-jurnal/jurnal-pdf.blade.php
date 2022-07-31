@@ -36,17 +36,25 @@
       </tr>
     </thead>
     <tbody>
-      @foreach($journals as $journal)
+      @if(!$journals->count())
         <tr>
-          <td>{{ $loop->iteration }}</td>
-          <td>{{ $journal->tgl_jurnal }}</td>
-          <td>{{ $journal->no_jurnal }}</td>
-          {{-- <td>{{ $journal->no_akun }}</td> --}}
-          <td>{{ $journal->keterangan }}</td>
-          <td>Rp. {{ number_format($journal->debit, 2, ",", ".") }}</td>
-          <td>Rp. {{ number_format($journal->kredit, 2, ",", ".") }}</td>
+          <td class="text-center" colspan="6">
+            Belum Ada Data
+          </td>
         </tr>
-      @endforeach
+      @else
+        @foreach($journals as $journal)
+          <tr>
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ $journal->tgl_jurnal }}</td>
+            <td>{{ $journal->no_jurnal }}</td>
+            {{-- <td>{{ $journal->no_akun }}</td> --}}
+            <td>{{ $journal->keterangan }}</td>
+            <td>Rp. {{ number_format($journal->debit, 2, ",", ".") }}</td>
+            <td>Rp. {{ number_format($journal->kredit, 2, ",", ".") }}</td>
+          </tr>
+        @endforeach
+      @endif
     </tbody>
     <tfoot>
       <tr>

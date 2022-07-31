@@ -13,12 +13,15 @@ class DetailPembayaranController extends Controller
     {
         $detail = DetailPembayaran::where("pembayaran_id", $pembayaran->id);
         $biaya = Biaya::find($request->biaya_id);
-        $request->validate(["biaya_id" => "required"]);
+        $this->validate($request, [
+            "biaya_id" => "required",
+            "jumlah_biaya" => "required|numeric"
+        ]);
 
 
         if ($detail->where("biaya_id", $request->biaya_id)->exists()) {
-            $detail = $detail->where("biaya_id", $request->biaya_id)->first();
-            ++$detail->jumlah_biaya;
+            $detail->where("biaya_id", $request->biaya_id)->first();
+            $detail->jumlah_biaya = $request->jumlah_biaya;
             $detail->subtotal = $detail->biaya_satuan * $detail->jumlah_biaya;
             DetailPembayaran::where("pembayaran_id", $pembayaran->id)
                 ->where("biaya_id", $request->biaya_id)
@@ -31,7 +34,7 @@ class DetailPembayaranController extends Controller
             $detail = new DetailPembayaran;
             $detail->pembayaran_id = $pembayaran->id;
             $detail->biaya_id = $request->biaya_id;
-            $detail->jumlah_biaya = 1;
+            $detail->jumlah_biaya = $request->jumlah_biaya;
             if ($biaya->persen > 0) {
                 $detail->biaya_satuan = $biaya->jumlah * $biaya->persen;
             } else {

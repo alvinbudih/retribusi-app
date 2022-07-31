@@ -134,7 +134,6 @@ class PendaftaranController extends Controller
 
             return back()->with("success", "Data Berhasil Ditambahkan");
         } else {
-
             $kendaraan = Kendaraan::where("no_uji", $request->no_uji)->first();
             $pemilik = Pemilik::find($kendaraan->pemilik->id);
 

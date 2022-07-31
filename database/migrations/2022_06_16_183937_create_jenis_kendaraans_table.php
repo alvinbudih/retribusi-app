@@ -15,7 +15,7 @@ class CreateJenisKendaraansTable extends Migration
     {
         Schema::create('jenis_kendaraan', function (Blueprint $table) {
             $table->id();
-            $table->string("nama_jenis")->unique();
+            $table->string("nama_jenis");
             $table->string("konversi_jenis");
             $table->timestamps();
         });

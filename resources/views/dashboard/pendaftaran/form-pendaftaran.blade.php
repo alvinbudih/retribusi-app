@@ -446,49 +446,18 @@
     const inputNoUjiCari = document.getElementById("inputNoUjiCari")
     const statusUjiId = document.getElementById("status_uji_id")
     if (statusUjiId.value == 1) {
-      inputNoUjiCari.innerHTML = ""
+      inputNoUjiCari.style.display = "none"
     } else {
-      inputNoUjiCari.innerHTML = inputNoUjiCariUI()
+      inputNoUjiCari.style.display = "block"
     }
 
     statusUjiId.addEventListener("change", function () {
       if (statusUjiId.value == 1) {
-        inputNoUjiCari.innerHTML = ""
+        inputNoUjiCari.style.display = "none"
       } else {
-        inputNoUjiCari.innerHTML = inputNoUjiCariUI()
+        inputNoUjiCari.style.display = "block"
       }
     })
-
-    function inputNoUjiCariUI() {
-      return `<form action="" method="get">
-                <div class="row">
-                  <div class="col-sm-12">
-                    <div class="card card-info">
-                      <div class="card-header">
-                        <h3 class="card-title">Form Pencarian</h3>
-                      </div>
-                      <div class="card-body">
-                        
-                          <div class="form-group row">
-                            <label for="noUjiCari" class="col-sm-2 col-form-label">Cari No. Uji</label>
-                            <div class="col-sm-10">
-                              <div class="input-group input-group-sm">
-                                <input type="text" class="form-control form-control-sm" name="noUjiCari" id="noUjiCari" placeholder="Cari No. Uji" value="{{ request('noUjiCari') ? request('noUjiCari') : '' }}" autocomplete="off">
-                                <span class="input-group-append">
-                                  <button type="submit" class="btn btn-info btn-flat">Cari</button>
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        
-                        <!-- /input-group -->
-                      </div>
-                      <!-- /.card-body -->
-                    </div>
-                  </div>
-                </div>
-              </form>`
-    }
 
   </script>
 @endsection

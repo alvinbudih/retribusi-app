@@ -39,7 +39,7 @@ class JenisKendaraanController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            "nama_jenis" => "required|max:255|unique:jenis_kendaraan",
+            "nama_jenis" => "required|max:255",
             "konversi_jenis" => "required|max:255"
         ]);
 
@@ -87,13 +87,9 @@ class JenisKendaraanController extends Controller
             "konversi_jenis" => "required|max:255"
         ];
 
-        if ($request->nama_jenis != $jeni->nama_jenis) {
-            $rules["nama_jenis"] .= "|unique:jenis_kendaraan";
-        }
-
         $validate = $request->validate($rules);
 
-        JenisKendaraan::where("id", $jeni->id)->update($validate);
+        $jeni->update($validate);
 
         return redirect()->route("jenis.index")->with("success", "Data Berhasil Diubah");
     }

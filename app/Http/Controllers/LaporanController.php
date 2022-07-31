@@ -13,15 +13,41 @@ class LaporanController extends Controller
 {
     public function getJurnal()
     {
+        $journals = Jurnal::latest();
+        $tglAwal = date("Y-m-d");
+        $tglAkhir = date("Y-m-d");
+
+        if (request("dateRange")) {
+            $dateRange = explode("-", request("dateRange"));
+            $tglAwal = date("Y-m-d", strtotime($dateRange[0]));
+            $tglAkhir = date("Y-m-d", strtotime($dateRange[1]));
+        }
+
+        $journals->whereBetween("tgl_jurnal", [$tglAwal, $tglAkhir]);
+
         return view("dashboard.laporan.lap-jurnal.jurnal", [
             "title" => "Jurnal",
-            "journals" => Jurnal::latest()->get()
+            "journals" => $journals->get()
         ]);
     }
 
     public function getJurnalReport()
     {
-        return Pdf::loadView("dashboard.laporan.lap-jurnal.jurnal-pdf", ["journals" => Jurnal::latest()->get()])->setPaper("A4", "landscape")->stream();
+        $journals = Jurnal::latest();
+        $tglAwal = date("Y-m-d");
+        $tglAkhir = date("Y-m-d");
+
+        if (request("dateRange")) {
+            $dateRange = explode("-", request("dateRange"));
+            $tglAwal = date("Y-m-d", strtotime($dateRange[0]));
+            $tglAkhir = date("Y-m-d", strtotime($dateRange[1]));
+        }
+
+        $journals->whereBetween("tgl_jurnal", [$tglAwal, $tglAkhir]);
+
+        return Pdf::loadView("dashboard.laporan.lap-jurnal.jurnal-pdf", [
+            "journals" => $journals->get()
+        ])->setPaper("A4", "landscape")->stream();
     }
 
     public function getJurnalExport()
