@@ -72,7 +72,7 @@
               <div class="form-group row">
                 <label for="status_uji_id" class="col-sm-2 col-form-label">Status Uji</label>
                 <div class="col-sm-10">
-                  <select class="form-control form-control-sm select2 @error('status_uji_id') is-invalid @enderror" name="status_uji_id" id="status_uji_id">
+                  <select class="form-control form-control-sm @error('status_uji_id') is-invalid @enderror" name="status_uji_id" id="status_uji_id">
                     <option value=""> --Pilih Status-- </option>
                     @foreach($statusUji as $status)
                       <option value="{{ $status->id }}" {{ (old('status_uji_id') == $status->id) ? 'selected' : '' }}>{{ $status->status }}</option>
@@ -256,7 +256,7 @@
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="jenis_rumah">Jenis Rumah2</label>
-                    <select class="form-control form-control-sm select2 @error('jenis_rumah') is-invalid @enderror" id="jenis_rumah" name="jenis_rumah">
+                    <select class="form-control form-control-sm @error('jenis_rumah') is-invalid @enderror" id="jenis_rumah" name="jenis_rumah">
                       <option value=""> --Pilih Jenis Rumah2--</option>
                       @foreach($jenisRumah as $jr)
                         <option value="{{ $jr }}" {{ (old('jenis_rumah', (request('noUjiCari') ? $kendaraan->jenis_rumah : '')) == $jr) ? 'selected' : '' }}>{{ $jr }}</option>
@@ -274,7 +274,7 @@
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="sifat">Sifat</label>
-                    <select class="form-control form-control-sm select2 @error('sifat') is-invalid @enderror" id="sifat" name="sifat">
+                    <select class="form-control form-control-sm @error('sifat') is-invalid @enderror" id="sifat" name="sifat">
                       <option value=""> --Pilih Sifat--</option>
                       @foreach($sifat as $s)
                         <option value="{{ $s }}" {{ (old('sifat', (request('noUjiCari') ? $kendaraan->sifat : '')) == $s) ? 'selected' : '' }}>{{ $s }}</option>
@@ -290,7 +290,7 @@
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="bahan_bakar">Bahan Bakar</label>
-                    <select class="form-control form-control-sm select2 @error('bahan_bakar') is-invalid @enderror" id="bahan_bakar" name="bahan_bakar">
+                    <select class="form-control form-control-sm @error('bahan_bakar') is-invalid @enderror" id="bahan_bakar" name="bahan_bakar">
                       <option value=""> --Pilih Bahan Bakar--</option>
                       @foreach($bahanBakar as $bb)
                         <option value="{{ $bb }}" {{ (old('bahan_bakar', (request('noUjiCari') ? $kendaraan->bahan_bakar : '')) == $bb) ? 'selected' : '' }}>{{ $bb }}</option>
@@ -460,32 +460,34 @@
     })
 
     function inputNoUjiCariUI() {
-      return `<div class="row">
-                <div class="col-sm-12">
-                  <div class="card card-info">
-                    <div class="card-header">
-                      <h3 class="card-title">Form Pencarian</h3>
-                    </div>
-                    <div class="card-body">
-                      
-                        <div class="form-group row">
-                          <label for="noUjiCari" class="col-sm-2 col-form-label">Cari No. Uji</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-sm">
-                              <input type="text" class="form-control form-control-sm" name="noUjiCari" id="noUjiCari" placeholder="Cari No. Uji" autocomplete="off">
-                              <span class="input-group-append">
-                                <button type="submit" class="btn btn-info btn-flat">Cari</button>
-                              </span>
+      return `<form action="" method="get">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="card card-info">
+                      <div class="card-header">
+                        <h3 class="card-title">Form Pencarian</h3>
+                      </div>
+                      <div class="card-body">
+                        
+                          <div class="form-group row">
+                            <label for="noUjiCari" class="col-sm-2 col-form-label">Cari No. Uji</label>
+                            <div class="col-sm-10">
+                              <div class="input-group input-group-sm">
+                                <input type="text" class="form-control form-control-sm" name="noUjiCari" id="noUjiCari" placeholder="Cari No. Uji" value="{{ request('noUjiCari') ? request('noUjiCari') : '' }}" autocomplete="off">
+                                <span class="input-group-append">
+                                  <button type="submit" class="btn btn-info btn-flat">Cari</button>
+                                </span>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      
-                      <!-- /input-group -->
+                        
+                        <!-- /input-group -->
+                      </div>
+                      <!-- /.card-body -->
                     </div>
-                    <!-- /.card-body -->
                   </div>
                 </div>
-              </div>`
+              </form>`
     }
 
   </script>

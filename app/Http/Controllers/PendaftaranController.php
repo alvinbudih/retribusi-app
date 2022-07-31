@@ -86,6 +86,8 @@ class PendaftaranController extends Controller
             "jatuh_tempo" => "required",
         ];
 
+        $this->validate($request, ["status_uji_id" => "required"]);
+
         if ($request->status_uji_id == 1) {
             $rulesKendaraan["no_rangka"] .= "|unique:kendaraan";
             $rulesKendaraan["no_uji"] = "required|max:15|unique:kendaraan";
@@ -132,7 +134,6 @@ class PendaftaranController extends Controller
 
             return back()->with("success", "Data Berhasil Ditambahkan");
         } else {
-            $this->validate($request, ["status_uji_id" => "required"]);
 
             $kendaraan = Kendaraan::where("no_uji", $request->no_uji)->first();
             $pemilik = Pemilik::find($kendaraan->pemilik->id);
