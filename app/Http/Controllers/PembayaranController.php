@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Biaya;
 use App\Models\Jurnal;
+use App\Models\Kendaraan;
 use App\Models\Pembayaran;
 use App\Models\Pendaftaran;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -64,6 +65,12 @@ class PembayaranController extends Controller
 
     public function tambahPembayaran(Request $request, Pembayaran $pembayaran)
     {
+        $jatuhTempo = date("Y-m-d", strtotime("+6 month", strtotime(date("Y-m-d"))));
+
+        $pembayaran->pendaftaran->kendaraan()->update([
+            "jatuh_tempo" => $jatuhTempo
+        ]);
+
         $pembayaran->update([
             "jumlah" => $request->total,
             "telah_bayar" => true

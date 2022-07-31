@@ -29,26 +29,26 @@
             </div>
             <!-- info row -->
             <div class="row invoice-info">
-              <div class="col-sm-4 invoice-col">
-                Dari
+              <div class="col-sm-6 invoice-col">
                 <address>
-                  <strong>{{ $bill->pendaftaran->kendaraan->pemilik->nama }}</strong><br>
-                  {{ $bill->pendaftaran->kendaraan->pemilik->alamat }} <br>
-                  {{ $bill->pendaftaran->kendaraan->pemilik->no_telp }}
+                  <strong>Nama</strong>       : {{ $bill->pendaftaran->kendaraan->pemilik->nama }} <br>
+                  <strong>Alamat</strong>     : {{ $bill->pendaftaran->kendaraan->pemilik->alamat }} <br>
+                  <strong>JBB</strong>        : {{ $bill->pendaftaran->kendaraan->jbb }} <br>
+                  <strong>Jenis</strong>      : {{ $bill->pendaftaran->kendaraan->jenis_kendaraan->nama_jenis }}
                 </address>
               </div>
               <!-- /.col -->
-              <div class="col-sm-4 invoice-col">
+              {{-- <div class="col-sm-4 invoice-col">
                 Kepada
                 <address>
                   <strong>Dinas Perhubungan</strong><br>
                 </address>
-              </div>
+              </div> --}}
               <!-- /.col -->
-              <div class="col-sm-4 invoice-col">
-                <b>Kode:</b> {{ $bill->kd_bayar }}<br>
-                <br>
-                <b>Jatuh Tempo:</b> {{ $bill->pendaftaran->kendaraan->jatuh_tempo }}<br>
+              <div class="col-sm-6 invoice-col">
+                <b>Kode</b>         : {{ $bill->kd_bayar }}<br>
+                <b>Status Uji</b>   : {{ $bill->pendaftaran->status_uji->status }}<br>
+                <b>Jatuh Tempo</b>  : {{ $bill->pendaftaran->kendaraan->jatuh_tempo }}<br>
               </div>
               <!-- /.col -->
             </div>
