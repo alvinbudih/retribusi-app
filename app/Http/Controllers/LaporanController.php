@@ -52,24 +52,29 @@ class LaporanController extends Controller
 
     public function getJurnalExport()
     {
-        return Excel::download(new JurnalExport, "data-jurnal.xlsx");
+        $tglAwal = date("Y-m-d");
+        $tglAkhir = date("Y-m-d");
+
+        if (request("dateRange")) {
+            $dateRange = explode("-", request("dateRange"));
+            $tglAwal = date("Y-m-d", strtotime($dateRange[0]));
+            $tglAkhir = date("Y-m-d", strtotime($dateRange[1]));
+        }
+
+        return Excel::download(new JurnalExport($tglAwal, $tglAkhir), "data-jurnal.xlsx");
     }
 
     public function getLapBiaya()
     {
         $jumlahBiaya = function (Biaya $biaya, $tglAwal = null, $tglAkhir = null) {
-            return $biaya->detail_pembayaran()->whereHas("pembayaran", function ($query) {
-                $tglAwal = "2022-07-16";
-                $tglAkhir = date("Y-m-d");
+            return $biaya->detail_pembayaran()->whereHas("pembayaran", function ($query) use ($tglAwal, $tglAkhir) {
                 return $query->where("telah_bayar", true)
                     ->whereBetween("tgl_bayar", [$tglAwal, $tglAkhir]);
             })->get()->sum("jumlah_biaya");
         };
 
         $totalBiaya = function (Biaya $biaya, $tglAwal, $tglAkhir) {
-            return $biaya->detail_pembayaran()->whereHas("pembayaran", function ($query) {
-                $tglAwal = "2022-07-16";
-                $tglAkhir = date("Y-m-d");
+            return $biaya->detail_pembayaran()->whereHas("pembayaran", function ($query) use ($tglAwal, $tglAkhir) {
                 return $query->where("telah_bayar", true)
                     ->whereBetween("tgl_bayar", [$tglAwal, $tglAkhir]);
             })->get()->sum("subtotal");
@@ -77,6 +82,12 @@ class LaporanController extends Controller
 
         $tglAwal = date("Y-m-d");
         $tglAkhir = date("Y-m-d");
+
+        if (request("dateRange")) {
+            $dateRange = explode("-", request("dateRange"));
+            $tglAwal = date("Y-m-d", strtotime($dateRange[0]));
+            $tglAkhir = date("Y-m-d", strtotime($dateRange[1]));
+        }
 
         return view("dashboard.laporan.lap-biaya.lap-biaya", [
             "title" => "Laporan Biaya",

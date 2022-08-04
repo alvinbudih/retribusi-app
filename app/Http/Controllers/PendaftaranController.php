@@ -21,16 +21,20 @@ class PendaftaranController extends Controller
         $this->sifat = ["Terbuka", "Tertutup"];
         $this->bahanBakar = ["Bensin", "Solar", "Non BB"];
 
-        if (Pendaftaran::where("tgl_daftar", date("Y-m-d"))->get()->count() <= 0) {
-            $this->noAntri = date("d") . date("m") . date("y") . "0001";
+        if (!Pendaftaran::where("tgl_daftar", date("Y-m-d"))->get()->count()) {
+            $this->noAntri = date("d") . date("m") . date("y") . sprintf("%04d", 1);
         } else {
-            $this->noAntri = Pendaftaran::max("no_antri") + 1;
+            $indexAntri = substr(Pendaftaran::where("tgl_daftar", date("Y-m-d"))->max("no_antri"), 6) + 1;
+            $indexAntri = sprintf("%04d", $indexAntri);
+            $this->noAntri = date("d") . date("m") . date("y") . $indexAntri;
         }
 
         if (!Pembayaran::where("tgl_bayar", date("Y-m-d"))->get()->count()) {
-            $this->kdBayar = date("Y") . date("m") . date("d") . "001";
+            $this->kdBayar = date("Y") . date("m") . date("d") . sprintf("%03d", 1);
         } else {
-            $this->kdBayar = Pembayaran::max("kd_bayar") + 1;
+            $indexKode = substr(Pembayaran::where("tgl_bayar", date("Y-m-d"))->max("kd_bayar"), 8) + 1;
+            $indexKode = sprintf("%03d", $indexKode);
+            $this->kdBayar = date("Y") . date("m") . date("d") . $indexKode;
         }
     }
 

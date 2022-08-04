@@ -18,10 +18,10 @@
             <th>#</th>
             <th>No. Antrian</th>
             <th>Tgl Bayar</th>
+            <th>Kode Pembayaran</th>
             <th>No. Uji</th>
             <th>Pemilik</th>
             <th>No. Kendaraan</th>
-            <th>Alamat</th>
             <th>User</th>
           </tr>
         </thead>
@@ -29,9 +29,9 @@
           @foreach($recaps as $recap)
             <tr>
               <td>{{ $loop->iteration }}</td>
-              <td>{{ $recap->kd_bayar }}</td>
               <td>{{ $recap->pendaftaran->no_antri }}</td>
               <td>{{ $recap->tgl_bayar }}</td>
+              <td>{{ $recap->kd_bayar }}</td>
               <td>{{ $recap->pendaftaran->kendaraan->no_uji }}</td>
               <td>{{ $recap->pendaftaran->kendaraan->pemilik->nama }}</td>
               <td>{{ $recap->pendaftaran->kendaraan->no_kendaraan }}</td>
