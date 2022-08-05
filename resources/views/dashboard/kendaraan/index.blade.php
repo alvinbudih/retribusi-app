@@ -34,6 +34,8 @@
             <th>No. Uji</th>
             <th>Pemilik</th>
             <th>No. Kendaraan</th>
+            <th>No. Rangka</th>
+            <th>No. Mesin</th>
             <th>Alamat</th>
             <th>Jatuh Tempo</th>
             <th>Aksi</th>
@@ -47,6 +49,8 @@
               <td>{{ $kend->no_uji }}</td>
               <td>{{ $kend->pemilik->nama }}</td>
               <td>{{ $kend->no_kendaraan }}</td>
+              <td>{{ $kend->no_rangka }}</td>
+              <td>{{ $kend->no_mesin }}</td>
               <td>{{ $kend->pemilik->alamat }}</td>
               <td>{{ $kend->jatuh_tempo }}</td>
               <td>

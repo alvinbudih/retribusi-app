@@ -18,7 +18,13 @@ class PendaftaranController extends Controller
     public function __construct()
     {
         $this->jenisRumah = ["Umum", "Bukan Umum"];
-        $this->sifat = ["Terbuka", "Tertutup"];
+        $this->sifat = [
+            "M. Angkutan Orang",
+            "M. Angkutan Brg Terbuka",
+            "M. Angkutan Brg Tertutup",
+            "Kereta Tempel",
+            "Kereta Gandengan"
+        ];
         $this->bahanBakar = ["Bensin", "Solar", "Non BB"];
 
         if (!Pendaftaran::where("tgl_daftar", date("Y-m-d"))->get()->count()) {

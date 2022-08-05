@@ -255,9 +255,9 @@
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <label for="jenis_rumah">Jenis Rumah2</label>
+                    <label for="jenis_rumah">Status</label>
                     <select class="form-control form-control-sm @error('jenis_rumah') is-invalid @enderror" id="jenis_rumah" name="jenis_rumah">
-                      <option value=""> --Pilih Jenis Rumah2--</option>
+                      <option value=""> --Pilih Status--</option>
                       @foreach($jenisRumah as $jr)
                         <option value="{{ $jr }}" {{ (old('jenis_rumah', (request('noUjiCari') ? $kendaraan->jenis_rumah : '')) == $jr) ? 'selected' : '' }}>{{ $jr }}</option>
                       @endforeach
@@ -273,9 +273,9 @@
               <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <label for="sifat">Sifat</label>
+                    <label for="sifat">Jenis</label>
                     <select class="form-control form-control-sm @error('sifat') is-invalid @enderror" id="sifat" name="sifat">
-                      <option value=""> --Pilih Sifat--</option>
+                      <option value=""> --Pilih Jenis--</option>
                       @foreach($sifat as $s)
                         <option value="{{ $s }}" {{ (old('sifat', (request('noUjiCari') ? $kendaraan->sifat : '')) == $s) ? 'selected' : '' }}>{{ $s }}</option>
                       @endforeach
@@ -347,9 +347,9 @@
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <label for="jenis_kendaraan_id">Jenis Kendaraan</label>
+                    <label for="jenis_kendaraan_id">Model Kendaraan</label>
                     <select class="form-control form-control-sm select2 @error('jenis_kendaraan_id') is-invalid @enderror" id="jenis_kendaraan_id" name="jenis_kendaraan_id">
-                      <option value=""> --Pilih Jenis Kendaraan--</option>
+                      <option value=""> --Pilih Model Kendaraan--</option>
                       @foreach($jenis as $j)
                         <option value="{{ $j->id }}" {{ (old('jenis_kendaraan_id', (request('noUjiCari') ? $kendaraan->jenis_kendaraan_id : '')) == $j->id) ? 'selected' : '' }}>{{ $j->nama_jenis }}</option>
                       @endforeach
