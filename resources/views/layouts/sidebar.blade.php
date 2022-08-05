@@ -162,9 +162,9 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{ route('laporan.biaya') }}" class="nav-link {{ Request::is('dashboard/laporan/lap-biaya*') ? 'active' : '' }}">
+              <a href="{{ route('get.pendapatan') }}" class="nav-link {{ Request::is('dashboard/laporan/pendapatan*') ? 'active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Laporan Biaya</p>
+                <p>Pendapatan</p>
               </a>
             </li>
           </ul>

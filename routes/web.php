@@ -103,7 +103,9 @@ Route::middleware("auth")->group(function () {
             Route::get("/jurnal", "getJurnal")->name("get.jurnal");
             Route::get("/jurnal-pdf", "getJurnalReport")->name("journal.report");
             Route::get("/jurnal-xslx", "getJurnalExport")->name("journal.export");
-            Route::get("/lap-biaya", "getLapBiaya")->name("laporan.biaya");
+            Route::get("/pendapatan", "getPendapatan")->name("get.pendapatan");
+            Route::get("/pendapatan-pdf", "getPendapatanReport")->name("pendapatan.report");
+            Route::get("/pendapatan-xlsx", "getPendapatanExport")->name("pendapatan.export");
         });
     });
 

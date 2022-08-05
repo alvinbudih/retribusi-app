@@ -38,7 +38,16 @@
     
           <h3 class="card-title">{{ $title }}</h3>
     
-          <div class="card-tools"></div>
+          <div class="card-tools">
+            <a href="{{ request('dateRange') ? route('pendapatan.export') . '?dateRange=' . request('dateRange') : route('pendapatan.export') }}" target="_blank" rel="noopener noreferrer" class="btn btn-success btn-sm">
+              <i class="oi oi-spreadsheet"></i>
+              Export to Excel
+            </a>
+            <a href="{{ request('dateRange') ? route('pendapatan.report') . '?dateRange=' . request('dateRange') : route('pendapatan.report') }}" target="_blank" rel="noopener noreferrer" class="btn btn-default btn-sm">
+              <i class="fas fa-print"></i>
+              Cetak
+            </a>
+          </div>
         </div>
         <div class="card-body p-0">
           <table class="table table-sm table-hover text-nowrap projects">

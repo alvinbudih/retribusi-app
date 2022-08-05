@@ -13,13 +13,6 @@ class Biaya extends Model
     protected $table = "biaya";
     protected $guarded = ["id"];
 
-    // public function scopeFilterByDate(Builder $query, array $date)
-    // {
-    //     $query->when($date["tglAwal"] and $date["tglAkhir"] ?? false, function (Builder $query, $tglAwal, $tglAkhir) {
-
-    //     });
-    // }
-
     public function scopeRequired(Builder $query, bool $kendaraanBaru, int $jbb, $jatuh_tempo)
     {
         $query->where("jenis", "Reguler");
