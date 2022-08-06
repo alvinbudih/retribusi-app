@@ -26,12 +26,12 @@
   </tbody>
   <tfoot>
     <tr>
-      <td colspan="4">Total :</td>
+      <td colspan="5">Total :</td>
       <td>Rp. {{ number_format($journals->sum("debit"), 2, ",", ".") }}</td>
       <td>Rp. {{ number_format($journals->sum("kredit"), 2, ",", ".") }}</td>
     </tr>
     <tr>
-      <td colspan="4">Balance :</td>
+      <td colspan="5">Balance :</td>
       <td colspan="2">Rp. {{ number_format($journals->sum("debit") - $journals->sum("kredit"), 2, ",", ".") }}</td>
     </tr>
   </tfoot>

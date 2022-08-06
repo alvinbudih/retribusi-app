@@ -11,6 +11,7 @@ class Kendaraan extends Model
 
     protected $table = "kendaraan";
     protected $guarded = ["id"];
+    protected $with = ["pemilik", "jenis_kendaraan", "tipe_kendaraan"];
 
     public function pemilik()
     {

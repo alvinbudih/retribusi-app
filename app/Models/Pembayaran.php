@@ -11,6 +11,7 @@ class Pembayaran extends Model
 
     protected $table = "pembayaran";
     protected $guarded = ["id"];
+    protected $with = ["pendaftaran", "user"];
 
     public function pendaftaran()
     {
@@ -25,10 +26,5 @@ class Pembayaran extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function akun()
-    {
-        return $this->belongsTo(Akun::class);
     }
 }

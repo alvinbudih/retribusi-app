@@ -22,7 +22,7 @@
       </div>
     </div>
     <div class="card-body">
-      <table class="table table-sm table-hover text-nowrap projects">
+      <table class="table table-sm table-hover text-nowrap projects" id="dataTable">
         <thead>
           <tr>
             <th>#</th>

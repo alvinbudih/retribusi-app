@@ -11,6 +11,7 @@ class Pendaftaran extends Model
 
     protected $table = "pendaftaran";
     protected $guarded = ["id"];
+    protected $with = ["kendaraan", "status_uji", "user"];
 
     public function scopeIsRegisteredToday($query, $no_uji)
     {
