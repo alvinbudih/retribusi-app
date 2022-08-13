@@ -13,7 +13,13 @@ class KendaraanController extends Controller
     public function __construct()
     {
         $this->jenisRumah = ["Umum", "Bukan Umum"];
-        $this->sifat = ["Terbuka", "Tertutup"];
+        $this->sifat = [
+            "M. Angkutan Penumpang",
+            "M. Angkutan Brg Terbuka",
+            "M. Angkutan Brg Tertutup",
+            "Kereta Tempel",
+            "Kereta Gandengan"
+        ];
         $this->bahanBakar = ["Bensin", "Solar", "Non BB"];
     }
 
@@ -45,7 +51,6 @@ class KendaraanController extends Controller
             "jenisRumah" => $this->jenisRumah,
             "sifat" => $this->sifat,
             "bahanBakar" => $this->bahanBakar,
-            "dateNow" => date("Y-m-d")
         ]);
     }
 
@@ -58,11 +63,11 @@ class KendaraanController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            "no_uji" => "required|max:15|unique:kendaraan",
-            "no_kendaraan" => "required|max:9|unique:kendaraan",
+            "no_uji" => "required|max:20|unique:kendaraan",
+            "no_kendaraan" => "required|max:9",
             "no_mesin" => "required|max:255|unique:kendaraan",
             "no_rangka" => "required|max:255|unique:kendaraan",
-            "srut" => "required|max:255|unique:kendaraan",
+            "srut" => "required|max:255",
             "jbb" => "required|numeric",
             "tahun_buat" => "required|numeric",
             "jenis_rumah" => "required",
@@ -115,15 +120,8 @@ class KendaraanController extends Controller
     public function show(Kendaraan $kendaraan)
     {
         return view("dashboard.kendaraan.show", [
-            "title" => "Detail Kendaraan",
-            "kendaraan" => $kendaraan,
-            "pemilik" => Pemilik::all(),
-            "jenis" => JenisKendaraan::all(),
-            "tipe" => TipeKendaraan::all(),
-            "jenisRumah" => $this->jenisRumah,
-            "sifat" => $this->sifat,
-            "bahanBakar" => $this->bahanBakar,
-            "dateNow" => date("Y-m-d")
+            "title" => "History Kendaraan",
+            "histories" => $kendaraan->pendaftaran()->latest()->get(),
         ]);
     }
 
@@ -135,7 +133,16 @@ class KendaraanController extends Controller
      */
     public function edit(Kendaraan $kendaraan)
     {
-        //
+        return view("dashboard.kendaraan.edit", [
+            "title" => "Edit Data",
+            "kendaraan" => $kendaraan,
+            "pemilik" => Pemilik::all(),
+            "jenis" => JenisKendaraan::all(),
+            "tipe" => TipeKendaraan::all(),
+            "jenisRumah" => $this->jenisRumah,
+            "sifat" => $this->sifat,
+            "bahanBakar" => $this->bahanBakar,
+        ]);
     }
 
     /**
@@ -147,7 +154,48 @@ class KendaraanController extends Controller
      */
     public function update(Request $request, Kendaraan $kendaraan)
     {
-        //
+        $rules = [
+            "no_uji" => "required|max:20|unique:kendaraan",
+            "no_kendaraan" => "required|max:9",
+            "no_mesin" => "required|max:255|unique:kendaraan",
+            "no_rangka" => "required|max:255|unique:kendaraan",
+            "srut" => "required|max:255",
+            "jbb" => "required|numeric",
+            "tahun_buat" => "required|numeric",
+            "jenis_rumah" => "required",
+            "sifat" => "required",
+            "bahan_bakar" => "required",
+            "bahan_karoseri" => "required|max:255",
+            "cc" => "required|numeric",
+            "jenis_kendaraan_id" => "required",
+            "tipe_kendaraan_id" => "required",
+            "jatuh_tempo" => "required",
+            "pemilik_id" => "required",
+        ];
+
+        if ($request->no_uji == $kendaraan->no_uji) {
+            $rules["no_uji"] = "required|max:20";
+        }
+
+        if ($request->no_rangka == $kendaraan->no_rangka) {
+            $rules["no_rangka"] = "required|max:255";
+        }
+
+        if ($request->no_mesin == $kendaraan->no_mesin) {
+            $rules["no_mesin"] = "required|max:255";
+        }
+
+        $validated = $request->validate($rules);
+
+        $validated["no_uji"] = strtoupper($validated["no_uji"]);
+        $validated["no_kendaraan"] = strtoupper($validated["no_kendaraan"]);
+        $validated["no_mesin"] = strtoupper($validated["no_mesin"]);
+        $validated["no_rangka"] = strtoupper($validated["no_rangka"]);
+        $validated["srut"] = strtoupper($validated["srut"]);
+
+        $kendaraan->update($validated);
+
+        return redirect()->route("kendaraan.index")->with("success", "Data Berhasil Diubah");
     }
 
     /**

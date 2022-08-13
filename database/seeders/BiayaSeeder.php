@@ -16,210 +16,201 @@ class BiayaSeeder extends Seeder
     {
         // biaya reguler
         Biaya::create([
-            "kode" => "5100-00-010",
+            "kode" => "4100",
             "item" => "Biaya Uji Kend. Besar",
             "jenis" => "Reguler",
-            "kategori" => "Biaya",
+            "kategori" => "Pendapatan",
             "jumlah" => 50000,
             "persen" => 0
         ]);
 
         Biaya::create([
-            "kode" => "5100-00-020",
+            "kode" => "4101",
             "item" => "Biaya Uji Kend. Kecil",
             "jenis" => "Reguler",
-            "kategori" => "Biaya",
+            "kategori" => "Pendapatan",
             "jumlah" => 40000,
             "persen" => 0
         ]);
 
         Biaya::create([
-            "kode" => "5100-00-030",
+            "kode" => "4102",
             "item" => "Biaya Uji Kend. Besar Baru",
             "jenis" => "Reguler",
-            "kategori" => "Biaya",
+            "kategori" => "Pendapatan",
             "jumlah" => 100000,
             "persen" => 0
         ]);
 
         Biaya::create([
-            "kode" => "5100-00-040",
+            "kode" => "4103",
             "item" => "Biaya Uji Kend. Kecil Baru",
             "jenis" => "Reguler",
-            "kategori" => "Biaya",
+            "kategori" => "Pendapatan",
             "jumlah" => 75000,
             "persen" => 0
         ]);
 
         Biaya::create([
-            "kode" => "5100-00-050",
+            "kode" => "4104",
             "item" => "Sertifikat Uji",
             "jenis" => "Reguler",
-            "kategori" => "Biaya",
+            "kategori" => "Pendapatan",
             "jumlah" => 15000,
             "persen" => 0
         ]);
 
         Biaya::create([
-            "kode" => "5100-00-060",
+            "kode" => "4105",
             "item" => "Stiker Hologram",
             "jenis" => "Reguler",
-            "kategori" => "Biaya",
+            "kategori" => "Pendapatan",
             "jumlah" => 15000,
             "persen" => 0
         ]);
 
         Biaya::create([
-            "kode" => "5100-00-070",
+            "kode" => "4106",
             "item" => "Pembubuhan Nomor Uji",
             "jenis" => "Reguler",
-            "kategori" => "Biaya",
+            "kategori" => "Pendapatan",
             "jumlah" => 25000,
             "persen" => 0
         ]);
 
         Biaya::create([
-            "kode" => "5100-00-080",
+            "kode" => "4107",
             "item" => "Uji Emisi",
             "jenis" => "Reguler",
-            "kategori" => "Biaya",
+            "kategori" => "Pendapatan",
             "jumlah" => 20000,
             "persen" => 0,
         ]);
 
         // biaya lain-lain
         Biaya::create([
-            "kode" => "5200-00-010",
+            "kode" => "4108",
             "item" => "Kartu Uji",
             "jenis" => "Lain - Lain",
-            "kategori" => "Biaya",
+            "kategori" => "Pendapatan",
             "jumlah" => 20000,
             "persen" => 0
         ]);
 
         Biaya::create([
-            "kode" => "5200-00-020",
+            "kode" => "4109",
             "item" => "Buku Uji Emisi",
             "jenis" => "Lain - Lain",
-            "kategori" => "Biaya",
+            "kategori" => "Pendapatan",
             "jumlah" => 20000,
             "persen" => 0
         ]);
 
         Biaya::create([
-            "kode" => "5200-00-030",
+            "kode" => "4110",
             "item" => "Kartu Uji Rusak",
             "jenis" => "Lain - Lain",
-            "kategori" => "Biaya",
+            "kategori" => "Pendapatan",
             "jumlah" => 50000,
             "persen" => 0
         ]);
 
         Biaya::create([
-            "kode" => "5200-00-040",
+            "kode" => "4111",
             "item" => "Kartu Uji Hilang / Tidak Sah",
             "jenis" => "Lain - Lain",
-            "kategori" => "Biaya",
+            "kategori" => "Pendapatan",
             "jumlah" => 100000,
             "persen" => 0
         ]);
 
         Biaya::create([
-            "kode" => "5200-00-050",
+            "kode" => "4112",
             "item" => "Plat, Kawat dan Segel Rusak",
             "jenis" => "Lain - Lain",
-            "kategori" => "Biaya",
+            "kategori" => "Pendapatan",
             "jumlah" => 25000,
             "persen" => 0
         ]);
 
         Biaya::create([
-            "kode" => "5200-00-060",
+            "kode" => "4113",
             "item" => "Plat, Kawat dan Segel Hilang / Tidak Sah",
             "jenis" => "Lain - Lain",
-            "kategori" => "Biaya",
+            "kategori" => "Pendapatan",
             "jumlah" => 25000,
             "persen" => 0
         ]);
 
         Biaya::create([
-            "kode" => "5200-00-070",
+            "kode" => "4114",
             "item" => "Tanda Samping dan/atau Stiker Rusak, Hilang, Tidak Sah",
             "jenis" => "Lain - Lain",
-            "kategori" => "Biaya",
+            "kategori" => "Pendapatan",
             "jumlah" => 25000,
             "persen" => 0
         ]);
 
         Biaya::create([
-            "kode" => "5200-00-080",
+            "kode" => "4115",
             "item" => "1 Paket Kehilangan TBLU",
             "jenis" => "Lain - Lain",
-            "kategori" => "Biaya",
+            "kategori" => "Pendapatan",
             "jumlah" => 150000,
             "persen" => 0
         ]);
 
         Biaya::create([
-            "kode" => "5200-00-090",
+            "kode" => "4116",
             "item" => "Buku Rusak (Buku Uji, Stiker, Uji Emisi)",
             "jenis" => "Lain - Lain",
-            "kategori" => "Biaya",
+            "kategori" => "Pendapatan",
             "jumlah" => 50000,
             "persen" => 0
         ]);
 
         Biaya::create([
-            "kode" => "5200-00-110",
-            "item" => "Buku Rusak (Buku Uji, Stiker, Uji Emisi)",
-            "jenis" => "Lain - Lain",
-            "kategori" => "Biaya",
-            "jumlah" => 50000,
-            "persen" => 0
-        ]);
-
-        Biaya::create([
-            "kode" => "5200-00-120",
+            "kode" => "4117",
             "item" => "Sertifikat Uji Hilang",
             "jenis" => "Lain - Lain",
-            "kategori" => "Biaya",
+            "kategori" => "Pendapatan",
             "jumlah" => 25000,
             "persen" => 0
         ]);
 
         // Denda
         Biaya::create([
-            "kode" => "4100-00-020",
+            "kode" => "4118",
             "item" => "Denda Kend. Besar",
             "jenis" => "Lain - Lain",
-            "kategori" => "Denda",
+            "kategori" => "Pendapatan",
             "jumlah" => 50000,
             "persen" => 0
         ]);
 
         Biaya::create([
-            "kode" => "4100-00-010",
+            "kode" => "4119",
             "item" => "Denda Kend. Kecil",
             "jenis" => "Lain - Lain",
-            "kategori" => "Denda",
+            "kategori" => "Pendapatan",
             "jumlah" => 40000,
             "persen" => 0
         ]);
 
         Biaya::create([
-            "kode" => "4100-00-030",
+            "kode" => "4120",
             "item" => "Denda Retribusi Kend. Besar",
             "jenis" => "Reguler",
-            "kategori" => "Denda",
+            "kategori" => "Pendapatan",
             "jumlah" => 50000,
             "persen" => 0.02
         ]);
 
         Biaya::create([
-            "kode" => "4100-00-040",
+            "kode" => "4121",
             "item" => "Denda Retribusi Kend. Kecil",
             "jenis" => "Reguler",
-            "kategori" => "Denda",
+            "kategori" => "Pendapatan",
             "jumlah" => 40000,
             "persen" => 0.02
         ]);

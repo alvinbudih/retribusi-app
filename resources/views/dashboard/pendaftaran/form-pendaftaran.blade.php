@@ -73,7 +73,7 @@
                 <label for="status_uji_id" class="col-sm-2 col-form-label">Status Uji</label>
                 <div class="col-sm-10">
                   <select class="form-control form-control-sm @error('status_uji_id') is-invalid @enderror" name="status_uji_id" id="status_uji_id">
-                    <option value=""> --Pilih Status-- </option>
+                    <option value="">--Pilih Status-- </option>
                     @foreach($statusUji as $status)
                       <option value="{{ $status->id }}" {{ (old('status_uji_id') == $status->id) ? 'selected' : '' }}>{{ $status->status }}</option>
                     @endforeach
@@ -105,8 +105,8 @@
                 <div id="form-pemilik">
                   <div class="form-group" id="pemilikLama">
                     <label for="pemilik_id">Pemilik</label>
-                    <select class="form-control select2 form-control-sm @error('pemilik_id') is-invalid @enderror" id="pemilik_id" name="pemilik_id">
-                      <option value=""> --Pilih Pemilik--</option>
+                    <select class="form-control select2 form-control-sm @error('pemilik_id') is-invalid @enderror" id="pemilik_id" name="pemilik_id" style="width: 100%;">
+                      <option value="">--Pilih Pemilik--</option>
                       @foreach($pemilik as $pm)
                         <option value="{{ $pm->id }}" {{ (old('pemilik_id') == $pm->id) ? 'selected' : '' }}>{{ $pm->nama }}</option>
                       @endforeach
@@ -196,6 +196,17 @@
               <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group">
+                    <label for="no_uji">No. Uji</label>
+                    <input type="text" class="form-control form-control-sm @error('no_uji') is-invalid @enderror" id="no_uji" placeholder="No. Uji" name="no_uji" value="{{ old('no_uji', (request('noUjiCari') ? $kendaraan->no_uji : '')) }}" {{ request('noUjiCari') ? 'readonly' : '' }} autocomplete="off">
+                    @error("no_uji")
+                    <div class="invalid-feedback">
+                      {{ $message }}
+                    </div>
+                    @enderror
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
                     <label for="no_kendaraan">No. Kendaraan</label>
                     <input type="text" class="form-control form-control-sm @error('no_kendaraan') is-invalid @enderror" id="no_kendaraan" placeholder="No. Kendaraan" name="no_kendaraan" value="{{ old('no_kendaraan', (request('noUjiCari') ? $kendaraan->no_kendaraan : '')) }}" autocomplete="off">
                     @error("no_kendaraan")
@@ -205,6 +216,8 @@
                     @enderror
                   </div>
                 </div>
+              </div>
+              <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="no_mesin">No. Mesin</label>
@@ -216,8 +229,6 @@
                     @enderror
                   </div>
                 </div>
-              </div>
-              <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="srut">SRUT</label>
@@ -229,6 +240,8 @@
                     @enderror
                   </div>
                 </div>
+              </div>
+              <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="jbb">JBB</label>
@@ -240,8 +253,6 @@
                     @enderror
                   </div>
                 </div>
-              </div>
-              <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="tahun_buat">Tahun Buat</label>
@@ -253,11 +264,13 @@
                     @enderror
                   </div>
                 </div>
+              </div>
+              <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="jenis_rumah">Status</label>
                     <select class="form-control form-control-sm @error('jenis_rumah') is-invalid @enderror" id="jenis_rumah" name="jenis_rumah">
-                      <option value=""> --Pilih Status--</option>
+                      <option value="">--Pilih Status--</option>
                       @foreach($jenisRumah as $jr)
                         <option value="{{ $jr }}" {{ (old('jenis_rumah', (request('noUjiCari') ? $kendaraan->jenis_rumah : '')) == $jr) ? 'selected' : '' }}>{{ $jr }}</option>
                       @endforeach
@@ -269,13 +282,11 @@
                     @enderror
                   </div>
                 </div>
-              </div>
-              <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="sifat">Jenis</label>
                     <select class="form-control form-control-sm @error('sifat') is-invalid @enderror" id="sifat" name="sifat">
-                      <option value=""> --Pilih Jenis--</option>
+                      <option value="">--Pilih Jenis--</option>
                       @foreach($sifat as $s)
                         <option value="{{ $s }}" {{ (old('sifat', (request('noUjiCari') ? $kendaraan->sifat : '')) == $s) ? 'selected' : '' }}>{{ $s }}</option>
                       @endforeach
@@ -287,11 +298,13 @@
                     @enderror
                   </div>
                 </div>
+              </div>
+              <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="bahan_bakar">Bahan Bakar</label>
                     <select class="form-control form-control-sm @error('bahan_bakar') is-invalid @enderror" id="bahan_bakar" name="bahan_bakar">
-                      <option value=""> --Pilih Bahan Bakar--</option>
+                      <option value="">--Pilih Bahan Bakar--</option>
                       @foreach($bahanBakar as $bb)
                         <option value="{{ $bb }}" {{ (old('bahan_bakar', (request('noUjiCari') ? $kendaraan->bahan_bakar : '')) == $bb) ? 'selected' : '' }}>{{ $bb }}</option>
                       @endforeach
@@ -303,8 +316,6 @@
                     @enderror
                   </div>
                 </div>
-              </div>
-              <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="bahan_karoseri">Bahan Karoseri</label>
@@ -316,6 +327,8 @@
                     @enderror
                   </div>
                 </div>
+              </div>
+              <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="cc">Isi Silinder / CC</label>
@@ -327,15 +340,13 @@
                     @enderror
                   </div>
                 </div>
-              </div>
-              <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="tipe_kendaraan_id">Tipe Kendaraan</label>
-                    <select class="form-control select2 form-control-sm @error('tipe_kendaraan_id') is-invalid @enderror" id="tipe_kendaraan_id" name="tipe_kendaraan_id">
-                      <option value=""> --Pilih Tipe Kendaraan--</option>
+                    <select class="form-control select2 form-control-sm @error('tipe_kendaraan_id') is-invalid @enderror" id="tipe_kendaraan_id" name="tipe_kendaraan_id" style="width: 100%;">
+                      <option value="">--Pilih Tipe Kendaraan--</option>
                       @foreach($tipe as $t)
-                        <option value="{{ $t->id }}" {{ (old('tipe_kendaraan_id', (request('noUjiCari') ? $kendaraan->tipe_kendaraan_id : '')) == $t->id) ? 'selected' : '' }}>{{ $t->merk_kendaraan->nama_merk . ' ' . $t->nama_tipe }}</option>
+                        <option value="{{ $t->id }}" {{ (old('tipe_kendaraan_id', (request('noUjiCari') ? $kendaraan->tipe_kendaraan_id : '')) == $t->id) ? 'selected' : '' }}>{{ $t->merk_kendaraan->nama_merk . '/' . $t->nama_tipe }}</option>
                       @endforeach
                     </select>
                     @error("tipe_kendaraan_id")
@@ -345,11 +356,13 @@
                     @enderror
                   </div>
                 </div>
+              </div>
+              <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="jenis_kendaraan_id">Model Kendaraan</label>
-                    <select class="form-control form-control-sm select2 @error('jenis_kendaraan_id') is-invalid @enderror" id="jenis_kendaraan_id" name="jenis_kendaraan_id">
-                      <option value=""> --Pilih Model Kendaraan--</option>
+                    <select class="form-control form-control-sm select2 @error('jenis_kendaraan_id') is-invalid @enderror" id="jenis_kendaraan_id" name="jenis_kendaraan_id" style="width: 100%;">
+                      <option value="">--Pilih Model Kendaraan--</option>
                       @foreach($jenis as $j)
                         <option value="{{ $j->id }}" {{ (old('jenis_kendaraan_id', (request('noUjiCari') ? $kendaraan->jenis_kendaraan_id : '')) == $j->id) ? 'selected' : '' }}>{{ $j->nama_jenis }}</option>
                       @endforeach
@@ -361,24 +374,11 @@
                     @enderror
                   </div>
                 </div>
-              </div>
-              <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="no_rangka">No. Rangka</label>
                     <input type="text" class="form-control form-control-sm @error('no_rangka') is-invalid @enderror" id="no_rangka" placeholder="No. Rangka" name="no_rangka" value="{{ old('no_rangka', (request('noUjiCari') ? $kendaraan->no_rangka : '')) }}" autocomplete="off">
                     @error("no_rangka")
-                    <div class="invalid-feedback">
-                      {{ $message }}
-                    </div>
-                    @enderror
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <label for="no_uji">No. Uji</label>
-                    <input type="text" class="form-control form-control-sm @error('no_uji') is-invalid @enderror" id="no_uji" placeholder="No. Uji" name="no_uji" value="{{ old('no_uji', (request('noUjiCari') ? $kendaraan->no_uji : '')) }}" {{ request('noUjiCari') ? 'readonly' : '' }} autocomplete="off">
-                    @error("no_uji")
                     <div class="invalid-feedback">
                       {{ $message }}
                     </div>

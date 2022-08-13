@@ -36,7 +36,7 @@
             <th>No. Kendaraan</th>
             <th>No. Rangka</th>
             <th>No. Mesin</th>
-            <th>Alamat</th>
+            <th>Jenis</th>
             <th>Jatuh Tempo</th>
             <th>Aksi</th>
           </tr>
@@ -51,12 +51,17 @@
               <td>{{ $kend->no_kendaraan }}</td>
               <td>{{ $kend->no_rangka }}</td>
               <td>{{ $kend->no_mesin }}</td>
-              <td>{{ $kend->pemilik->alamat }}</td>
+              <td>{{ $kend->jenis_kendaraan->nama_jenis }}</td>
               <td>{{ $kend->jatuh_tempo }}</td>
               <td>
+                <a class="btn btn-success btn-sm" href="{{ route('kendaraan.edit', [$kend->id]) }}">
+                  <i class="fas fa-pencil-alt">
+                  </i>
+                  Edit
+                </a>
                 <a class="btn btn-info btn-sm" href="{{ route('kendaraan.show', [$kend->id]) }}">
                   <i class="oi oi-eye"></i>
-                  Detail
+                  History
                 </a>
               </td>
             </tr>

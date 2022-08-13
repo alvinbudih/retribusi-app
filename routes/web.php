@@ -66,7 +66,7 @@ Route::middleware("auth")->group(function () {
             Route::resource("/merk", MerkKendaraanController::class)->except(["show", "destroy"]);
             Route::resource("/tipe", TipeKendaraanController::class)->except(["show", "destroy"]);
             Route::resource("/jenis", JenisKendaraanController::class)->except(["show", "destroy"]);
-            Route::resource("/kendaraan", KendaraanController::class)->except(["edit", "destroy"]);
+            Route::resource("/kendaraan", KendaraanController::class)->except(["destroy"]);
         });
     });
 

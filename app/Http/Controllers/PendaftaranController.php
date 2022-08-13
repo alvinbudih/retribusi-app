@@ -19,7 +19,7 @@ class PendaftaranController extends Controller
     {
         $this->jenisRumah = ["Umum", "Bukan Umum"];
         $this->sifat = [
-            "M. Angkutan Orang",
+            "M. Angkutan Penumpang",
             "M. Angkutan Brg Terbuka",
             "M. Angkutan Brg Tertutup",
             "Kereta Tempel",
@@ -80,7 +80,7 @@ class PendaftaranController extends Controller
     public function pendaftaranKendaraan(Request $request)
     {
         $rulesKendaraan = [
-            "no_kendaraan" => "required|max:9",
+            "no_kendaraan" => "required|max:20",
             "no_mesin" => "required|max:255",
             "no_rangka" => "required|max:255",
             "srut" => "required|max:255",

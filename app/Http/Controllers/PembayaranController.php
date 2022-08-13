@@ -76,15 +76,6 @@ class PembayaranController extends Controller
             "telah_bayar" => true
         ]);
 
-        Jurnal::create([
-            "no_jurnal" => $pembayaran->kd_bayar,
-            "tgl_jurnal" => date("Y-m-d"),
-            "no_akun" => "1100-00-010",
-            "keterangan" => "Kas",
-            "debit" => $request->total,
-            "kredit" => 0
-        ]);
-
         foreach ($pembayaran->detail_pembayaran as $detail) {
             Jurnal::create([
                 "no_jurnal" => $pembayaran->kd_bayar,
@@ -95,6 +86,17 @@ class PembayaranController extends Controller
                 "kredit" => $detail->subtotal
             ]);
         }
+
+        sleep(1);
+
+        Jurnal::create([
+            "no_jurnal" => $pembayaran->kd_bayar,
+            "tgl_jurnal" => date("Y-m-d"),
+            "no_akun" => "1110",
+            "keterangan" => "Kas",
+            "debit" => $request->total,
+            "kredit" => 0
+        ]);
 
         return redirect()->route("proses.pembayaran")->with("success", "Data Berhasil Ditambahkan");
     }

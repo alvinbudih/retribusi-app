@@ -47,6 +47,7 @@ class LaporanController extends Controller
         $journals->whereBetween("tgl_jurnal", [$tglAwal, $tglAkhir]);
 
         return Pdf::loadView("dashboard.laporan.lap-jurnal.jurnal-pdf", [
+            "title" => "Laporan Jurnal",
             "journals" => $journals->get()
         ])->setPaper("A4", "landscape")->stream();
     }

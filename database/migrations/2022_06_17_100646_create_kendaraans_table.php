@@ -15,11 +15,11 @@ class CreateKendaraansTable extends Migration
     {
         Schema::create('kendaraan', function (Blueprint $table) {
             $table->id();
-            $table->char("no_uji", 15)->unique();
-            $table->char("no_kendaraan", 9)->unique();
+            $table->char("no_uji", 20)->unique();
+            $table->char("no_kendaraan", 9);
             $table->string("no_mesin")->unique();
             $table->string("no_rangka")->unique();
-            $table->string("srut")->unique();
+            $table->string("srut");
             $table->date("awal_daftar");
             $table->date("jatuh_tempo");
             $table->integer("jbb");
