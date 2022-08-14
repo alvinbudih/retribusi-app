@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\KendaraanExport;
 use App\Models\JenisKendaraan;
 use App\Models\Kendaraan;
 use App\Models\Pemilik;
 use App\Models\TipeKendaraan;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KendaraanController extends Controller
 {
@@ -23,6 +26,19 @@ class KendaraanController extends Controller
         $this->bahanBakar = ["Bensin", "Solar", "Non BB"];
     }
 
+    public function report()
+    {
+        return Pdf::loadView("dashboard.kendaraan.kendaraan-pdf", [
+            "title" => "Laporan Kendaraan",
+            "kendaraan" => Kendaraan::latest()->filter(request(["periode", "jenisKendaraan"]))->get()
+        ])->setPaper("A4", "landcsape")->stream();
+    }
+
+    public function export()
+    {
+        return Excel::download(new KendaraanExport(request(["periode", "jenisKendaraan"])), "data-kendaraan.xlsx");
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -32,7 +48,8 @@ class KendaraanController extends Controller
     {
         return view("dashboard.kendaraan.index", [
             "title" => "Kendaraan",
-            "kendaraan" => Kendaraan::all(),
+            "kendaraan" => Kendaraan::latest()->filter(request(["periode", "jenisKendaraan"]))->get(),
+            "jenis" => JenisKendaraan::all(),
         ]);
     }
 

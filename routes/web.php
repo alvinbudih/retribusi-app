@@ -67,6 +67,8 @@ Route::middleware("auth")->group(function () {
             Route::resource("/tipe", TipeKendaraanController::class)->except(["show", "destroy"]);
             Route::resource("/jenis", JenisKendaraanController::class)->except(["show", "destroy"]);
             Route::resource("/kendaraan", KendaraanController::class)->except(["destroy"]);
+            Route::get("/kendaraan-pdf", [KendaraanController::class, "report"])->name("kendaraan.report");
+            Route::get("/kendaraan-xlsx", [KendaraanController::class, "export"])->name("kendaraan.export");
         });
     });
 
@@ -107,33 +109,5 @@ Route::middleware("auth")->group(function () {
             Route::get("/pendapatan-pdf", "getPendapatanReport")->name("pendapatan.report");
             Route::get("/pendapatan-xlsx", "getPendapatanExport")->name("pendapatan.export");
         });
-    });
-
-    Route::get("/laporan", function () {
-        $biaya = Biaya::find(5);
-
-        if ($biaya->detail_pembayaran->count()) {
-            $temp = $biaya->detail_pembayaran()->whereHas("pembayaran", function ($query) {
-                $tglAwal = "2022-07-17";
-                return $query->where("telah_bayar", true)
-                    ->whereBetween("tgl_bayar", [$tglAwal, $tglAwal]);
-            });
-
-            $kondisi = $temp->get()->count();
-            dd($kondisi);
-
-            if (!$kondisi) {
-                return 0;
-            }
-
-            $counted = $temp->get()->countBy(function ($detail) {
-                // dd($detail->pembayaran);
-                return $detail->pembayaran->telah_bayar;
-            });
-        } else {
-            $counted = 0;
-        }
-
-        return $counted;
     });
 });

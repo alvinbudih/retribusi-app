@@ -2,6 +2,45 @@
 
 @section("content")
 <section class="content">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card card-primary">
+        <div class="card-header">
+          <h3 class="card-title">Form Filter</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form action="" method="GET" role="form">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="reservation">Periode</label>
+                  <input type="text" class="form-control" name="periode" id="reservation" value="{{ request('periode') ? request('periode') : '' }}">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="jenisKendaraan">Jenis Kendaraan</label>
+                  <select class="form-control select2 @error('jenisKendaraan') is-invalid @enderror" id="jenisKendaraan" name="jenisKendaraan" style="width: 100%;">
+                    <option value="">--Pilih Model Kendaraan--</option>
+                    @foreach($jenis as $j)
+                      <option value="{{ $j->id }}" {{ (request('jenisKendaraan') ? request('jenisKendaraan') : '') == $j->id ? 'selected' : '' }}>{{ $j->nama_jenis }}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.card-body -->
+
+          <div class="card-footer">
+            <button type="submit" class="btn btn-primary float-right">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
   <!-- Default box -->
   <div class="card">
     <div class="card-header">
@@ -15,10 +54,14 @@
       <h3 class="card-title">{{ $title }}</h3>
 
       <div class="card-tools">
-        {{-- <button type="button" class="btn btn-primary tombol-tambah" data-toggle="modal" data-target="#modal-default">
-          <i class="fas fa-plus"></i>
-          Tambah Data
-        </button> --}}
+        <a href="{{ request(['periode', 'jenisKendaraan']) ? route('kendaraan.export') . '?periode=' . request('periode') . '&jenisKendaraan=' . request('jenisKendaraan') : route('kendaraan.export') }}" target="_blank" rel="noopener noreferrer" class="btn btn-success">
+          <i class="oi oi-spreadsheet"></i>
+          Export to XLSX
+        </a>
+        <a href="{{ request(['periode', 'jenisKendaraan']) ? route('kendaraan.report') . '?periode=' . request('periode') . '&jenisKendaraan=' . request('jenisKendaraan') : route('kendaraan.report') }}" target="_blank" rel="noopener noreferrer" class="btn btn-default">
+          <i class="fas fa-print"></i>
+          Cetak
+        </a>
         <a href="{{ route('kendaraan.create') }}" class="btn btn-primary">
           <i class="fas fa-plus"></i>
           Tambah Data

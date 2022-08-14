@@ -29,7 +29,7 @@
           @foreach($recaps as $recap)
             <tr>
               <td>{{ $loop->iteration }}</td>
-              <td>{{ $recap->pendaftaran->no_antri }}</td>
+              <td>{{ substr($recap->pendaftaran->no_antri, 7) }}</td>
               <td>{{ $recap->tgl_bayar }}</td>
               <td>{{ $recap->kd_bayar }}</td>
               <td>{{ $recap->pendaftaran->kendaraan->no_uji }}</td>
