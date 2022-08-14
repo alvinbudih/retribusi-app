@@ -20,13 +20,13 @@ class DetailPembayaranController extends Controller
 
 
         if ($detail->where("biaya_id", $request->biaya_id)->exists()) {
-            $detail->where("biaya_id", $request->biaya_id)->first();
+            $detail = $detail->where("biaya_id", $request->biaya_id)->first();
             $detail->jumlah_biaya = $request->jumlah_biaya;
             $detail->subtotal = $detail->biaya_satuan * $detail->jumlah_biaya;
             DetailPembayaran::where("pembayaran_id", $pembayaran->id)
                 ->where("biaya_id", $request->biaya_id)
                 ->update([
-                    "jumlah_biaya" => $detail->jumlah_biaya,
+                    "jumlah_biaya" => $request->jumlah_biaya,
                     "subtotal" => $detail->subtotal
                 ]);
             return back()->with("success", "Data Berhasil Diubah");

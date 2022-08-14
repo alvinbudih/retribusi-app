@@ -96,22 +96,14 @@ class BiayaController extends Controller
      */
     public function update(Request $request, Biaya $biaya)
     {
-        $rules = [
-            "kode" => "required|max:3",
-            "item" => "required|max:255",
+        $validated = $request->validate([
             "jenis" => "required|max:255",
             "kategori" => "required",
             "jumlah" => "numeric|required",
             "persen" => "numeric|required"
-        ];
+        ]);
 
-        if ($request->kode != $biaya->kode) {
-            $rules["kode"] .= "|unique:biaya";
-        }
-
-        $validated = $request->validate($rules);
-
-        Biaya::where("id", $biaya->id)->update($validated);
+        $biaya->update($validated);
 
         return redirect()->route("biaya.index")->with("success", "Data Berhasil Diubah");
     }

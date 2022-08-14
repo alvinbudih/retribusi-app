@@ -18,7 +18,7 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="kode">Kode</label>
-                  <input type="text" class="form-control @error('kode') is-invalid @enderror" id="kode" placeholder="Kode" name="kode" value="{{ $biaya->kode }}" autocomplete="off">
+                  <input type="text" class="form-control @error('kode') is-invalid @enderror" id="kode" placeholder="Kode" name="kode" value="{{ $biaya->kode }}" autocomplete="off" disabled>
                   @error("kode")
                   <div class="invalid-feedback">
                     {{ $message }}
@@ -29,7 +29,7 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="item">Item</label>
-                  <input type="text" class="form-control @error('item') is-invalid @enderror" id="item" placeholder="Item" name="item" value="{{ old('item', $biaya->item) }}" autocomplete="off">
+                  <input type="text" class="form-control @error('item') is-invalid @enderror" id="item" placeholder="Item" name="item" value="{{ old('item', $biaya->item) }}" autocomplete="off" disabled>
                   @error("item")
                   <div class="invalid-feedback">
                     {{ $message }}
@@ -58,12 +58,7 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="kategori">Kategori</label>
-                  <select class="form-control @error('kategori') is-invalid @enderror" id="kategori" name="kategori">
-                    <option value=""> --Pilih Kategori--</option>
-                    @foreach($categories as $category)
-                      <option value="{{ $category }}" {{ old('kategori', $biaya->kategori) ? 'selected' : '' }}>{{ $category }}</option>
-                    @endforeach
-                  </select>
+                  <input type="text" class="form-control @error('kategori') is-invalid @enderror" id="kategori" placeholder="kategori" name="kategori" value="{{ old('kategori', $biaya->kategori) }}" autocomplete="off">
                   @error("kategori")
                   <div class="invalid-feedback">
                     {{ $message }}

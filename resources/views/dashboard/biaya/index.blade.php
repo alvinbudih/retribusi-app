@@ -93,7 +93,7 @@
           </div>
           <div class="form-group">
             <label for="jenis">Jenis</label>
-            <select class="form-control select2 @error('jenis') is-invalid @enderror" id="jenis" name="jenis">
+            <select class="form-control @error('jenis') is-invalid @enderror" id="jenis" name="jenis">
               <option value=""> --Pilih Jenis--</option>
               @foreach($types as $type)
                 <option value="{{ $type }}" {{ old('jenis') == $type ? 'selected' : '' }}>{{ $type }}</option>
@@ -107,12 +107,7 @@
           </div>
           <div class="form-group">
             <label for="kategori">Kategori</label>
-            <select class="form-control select2 @error('kategori') is-invalid @enderror" id="kategori" name="kategori">
-              <option value=""> --Pilih Kategori--</option>
-              @foreach($categories as $category)
-                <option value="{{ $category }}" {{ old('kategori') == $category ? 'selected' : '' }}>{{ $category }}</option>
-              @endforeach
-            </select>
+            <input type="text" class="form-control @error('kategori') is-invalid @enderror" id="kategori" placeholder="Kategori" name="kategori" value="{{ old('kategori') }}" autocomplete="off">
             @error("kategori")
             <div class="invalid-feedback">
               {{ $message }}
