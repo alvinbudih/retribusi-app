@@ -74,11 +74,22 @@ class KendaraanController extends Controller
             "sifat" => "required",
             "bahan_bakar" => "required",
             "bahan_karoseri" => "required|max:255",
-            "cc" => "required|numeric",
+            "cc" => "required",
             "jenis_kendaraan_id" => "required",
-            "tipe_kendaraan_id" => "required",
             "jatuh_tempo" => "required",
         ];
+
+        if ($request->cc != "-") {
+            $rules["cc"] .= "|numeric";
+        }
+
+        if ($request->no_kendaraan != "-") {
+            $rules["no_kendaraan"] .= "|unique:kendaraan";
+        }
+
+        if ($request->srut != "-") {
+            $rules["srut"] .= "|unique:kendaraan";
+        }
 
         if (isset($request->pemilikBaru)) {
             $validatedPemilik = $request->validate([
@@ -168,10 +179,21 @@ class KendaraanController extends Controller
             "bahan_karoseri" => "required|max:255",
             "cc" => "required|numeric",
             "jenis_kendaraan_id" => "required",
-            "tipe_kendaraan_id" => "required",
             "jatuh_tempo" => "required",
             "pemilik_id" => "required",
         ];
+
+        if ($request->cc != "-") {
+            $rules["cc"] .= "|numeric";
+        }
+
+        if ($request->no_kendaraan != "-" and strtoupper($request->no_kendaraan) != $kendaraan->no_kendaraan) {
+            $rules["no_kendaraan"] .= "|unique:kendaraan";
+        }
+
+        if ($request->srut != "-" and strtoupper($request->srut) != $kendaraan->srut) {
+            $rules["srut"] .= "|unique:kendaraan";
+        }
 
         if ($request->no_uji == $kendaraan->no_uji) {
             $rules["no_uji"] = "required|max:20";

@@ -90,20 +90,29 @@ class PendaftaranController extends Controller
             "sifat" => "required",
             "bahan_bakar" => "required",
             "bahan_karoseri" => "required|max:255",
-            "cc" => "required|numeric",
+            "cc" => "required",
             "jenis_kendaraan_id" => "required",
-            "tipe_kendaraan_id" => "required",
             "jatuh_tempo" => "required",
         ];
 
         $this->validate($request, ["status_uji_id" => "required"]);
 
         if ($request->status_uji_id == 1) {
-            $rulesKendaraan["no_rangka"] .= "|unique:kendaraan";
             $rulesKendaraan["no_uji"] = "required|max:15|unique:kendaraan";
-            $rulesKendaraan["no_kendaraan"] .= "|unique:kendaraan";
+            $rulesKendaraan["no_rangka"] .= "|unique:kendaraan";
             $rulesKendaraan["no_mesin"] .= "|unique:kendaraan";
-            $rulesKendaraan["srut"] .= "|unique:kendaraan";
+
+            if ($request->cc != "-") {
+                $rulesKendaraan["cc"] .= "|numeric";
+            }
+
+            if ($request->no_kendaraan != "-") {
+                $rulesKendaraan["no_kendaraan"] .= "|unique:kendaraan";
+            }
+
+            if ($request->srut != "-") {
+                $rulesKendaraan["srut"] .= "|unique:kendaraan";
+            }
 
             if (isset($request->pemilikBaru)) {
                 $validatedPemilik = $request->validate([
@@ -147,20 +156,24 @@ class PendaftaranController extends Controller
             $kendaraan = Kendaraan::where("no_uji", $request->no_uji)->first();
             $pemilik = Pemilik::find($kendaraan->pemilik->id);
 
+            if ($request->cc != "-") {
+                $rulesKendaraan["cc"] .= "|numeric";
+            }
+
+            if ($request->no_kendaraan != "-" and strtoupper($request->no_kendaraan) != $kendaraan->no_kendaraan) {
+                $rulesKendaraan["no_kendaraan"] .= "|unique:kendaraan";
+            }
+
+            if ($request->srut != "-" and strtoupper($request->srut) != $kendaraan->srut) {
+                $rulesKendaraan["srut"] .= "|unique:kendaraan";
+            }
+
             if ($request->no_rangka != $kendaraan->no_rangka) {
                 $rulesKendaraan["no_rangka"] .= "|unique:kendaraan";
             }
 
-            if ($request->no_kendaraan != $kendaraan->no_kendaraan) {
-                $rulesKendaraan["no_kendaraan"] .= "|unique:kendaraan";
-            }
-
             if ($request->no_mesin != $kendaraan->no_mesin) {
                 $rulesKendaraan["no_mesin"] .= "|unique:kendaraan";
-            }
-
-            if ($request->srut != $kendaraan->srut) {
-                $rulesKendaraan["srut"] .= "|unique:kendaraan";
             }
 
             $validatedKend = $request->validate($rulesKendaraan);

@@ -28,9 +28,9 @@ class CreateKendaraansTable extends Migration
             $table->string("sifat");
             $table->string("bahan_bakar");
             $table->string("bahan_karoseri");
-            $table->integer("cc");
+            $table->char("cc", 10);
             $table->foreignId("pemilik_id");
-            $table->foreignId("tipe_kendaraan_id");
+            $table->foreignId("tipe_kendaraan_id")->nullable();
             $table->foreignId("jenis_kendaraan_id");
             $table->timestamps();
         });

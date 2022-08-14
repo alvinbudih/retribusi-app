@@ -21,7 +21,7 @@
             <th>No. Uji</th>
             <th>Pemilik</th>
             <th>No. Kendaraan</th>
-            <th>Alamat</th>
+            <th>Status Uji</th>
             <th>User</th>
             {{-- <th>Aksi</th> --}}
           </tr>
@@ -35,7 +35,7 @@
               <td>{{ $recap->kendaraan->no_uji }}</td>
               <td>{{ $recap->kendaraan->pemilik->nama }}</td>
               <td>{{ $recap->kendaraan->no_kendaraan }}</td>
-              <td>{{ $recap->kendaraan->pemilik->alamat }}</td>
+              <td>{{ $recap->status_uji->status }}</td>
               <td>{{ $recap->user->name }}</td>
             </tr>
           @endforeach

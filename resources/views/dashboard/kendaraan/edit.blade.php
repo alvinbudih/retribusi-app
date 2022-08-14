@@ -175,7 +175,7 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label for="cc">Isi Silinder / CC</label>
-                  <input type="number" class="form-control form-control-sm @error('cc') is-invalid @enderror" id="cc" placeholder="Isi Silinder" name="cc" value="{{ old('cc', $kendaraan->cc) }}" autocomplete="off">
+                  <input type="text" class="form-control form-control-sm @error('cc') is-invalid @enderror" id="cc" placeholder="Isi Silinder" name="cc" value="{{ old('cc', $kendaraan->cc) }}" autocomplete="off">
                   @error("cc")
                   <div class="invalid-feedback">
                     {{ $message }}

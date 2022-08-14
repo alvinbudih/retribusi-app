@@ -11,8 +11,8 @@
           </div>
         </div>
         <!-- /.card-header -->
-        <div class="card-body table-responsive p-0" style="height: 250px;">
-          <table class="table table-head-fixed text-nowrap">
+        <div class="card-body table-responsive">
+          <table class="table table-sm table-head-fixed text-nowrap" id="dataTable">
             <thead>
               <tr>
                 <th>#</th>
