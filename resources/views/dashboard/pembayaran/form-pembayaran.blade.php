@@ -125,7 +125,6 @@
             <!-- this row will not appear when printing -->
             <div class="row no-print">
               <div class="col-12">
-                <a href="{{ route('cetak.invoice', [$bill->id]) }}" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
                 <form action="{{ route('tambah.pembayaran', [$bill->id]) }}" method="post" class="d-inline">
                   @method("PUT")
                   @csrf
@@ -134,9 +133,10 @@
                     Submit Payment
                   </button>
                 </form>
-                <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-                  <i class="fas fa-download"></i> Generate PDF
-                </button>
+                <a href="{{ route('cetak.invoice', [$bill->id]) }}" target="_blank" class="btn btn-default float-right mr-2">
+                  <i class="fas fa-print"></i> 
+                  Print
+                </a>
               </div>
             </div>
           </div>
