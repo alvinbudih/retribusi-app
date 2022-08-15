@@ -181,7 +181,6 @@ class PendaftaranController extends Controller
             $validatedKend["no_mesin"] = strtoupper($validatedKend["no_mesin"]);
             $validatedKend["no_rangka"] = strtoupper($validatedKend["no_rangka"]);
             $validatedKend["srut"] = strtoupper($validatedKend["srut"]);
-            // $validatedKend["jatuh_tempo"] = date("Y-m-d", strtotime("+6 month", strtotime(date("Y-m-d"))));
 
             $validatedPemilik = $request->validate([
                 "nama" => "required|max:255",
@@ -191,6 +190,7 @@ class PendaftaranController extends Controller
             if (Pendaftaran::isRegisteredToday($kendaraan->no_uji)) {
                 return redirect()->route("form.pendaftaran")->with("failed", "Kendaraan Sudah Terdaftar Hari Ini!");
             }
+
             Pendaftaran::create([
                 "no_antri" => $this->noAntri,
                 "tgl_daftar" => date("Y-m-d"),
